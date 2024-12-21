@@ -1,0 +1,35 @@
+version: '3'
+
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 172.18.11.0/24
+          gateway: 172.18.11.1
+
+volumes:
+  config:
+
+services:
+  calibre-web:
+    container_name: calibreweb
+    hostname: calibreweb
+    image: lscr.io/linuxserver/calibre-web:latest
+    ports:
+      - 18112:8083
+    environment:
+      - TZ=Europe/Moscow
+      - PUID=1001
+      - PGID=1000
+      - UMASK=002
+      - DOCKER_MODS=linuxserver/mods:universal-calibre
+    volumes:
+      - config:/config
+      - /srv/docker/injections/calibreweb/xdg-desktop-menu:/usr/bin/xdg-desktop-menu:ro
+      - /srv/docker/injections/calibreweb/xdg-icon-resource:/usr/bin/xdg-icon-resource:ro
+      - /srv/docker/injections/calibreweb/xdg-mime:/usr/bin/xdg-mime:ro
+      - /mnt/vault/Documents/applications/calibreweb:/books
+    networks:
+      net:
+        ipv4_address: 172.18.11.2
+    restart: unless-stopped
