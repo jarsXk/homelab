@@ -1,0 +1,15 @@
+docker network create \
+  --subnet=172.18.0.0/24 \
+  --gateway=172.18.0.1 \
+  portainer_net
+
+docker run -d \
+  --name=portainer \
+  -p 8000:8000 \
+  -p 18002:9000 \
+  -p 48002:9443 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v portainer_data:/data \
+  -v /srv/docker/enviroments:/srv/docker/enviroments:ro \
+  --restart=always \
+  portainer/portainer-ce:alpine

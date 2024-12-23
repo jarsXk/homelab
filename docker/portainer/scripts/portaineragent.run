@@ -1,0 +1,13 @@
+docker network create \
+  --subnet=172.18.0.0/24 \
+  --gateway=172.18.0.1 \
+  portainer_net
+
+docker run -d \
+  -p 18003:9001 \
+  --name portaineragent \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /var/lib/docker/volumes:/var/lib/docker/volumes \
+  -v /srv/docker/enviroments:/srv/docker/enviroments:ro \
+  --restart=always \
+  portainer/agent:alpine
