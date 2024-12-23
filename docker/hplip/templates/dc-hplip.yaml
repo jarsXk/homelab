@@ -1,0 +1,28 @@
+---
+
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 172.18.17.0/24
+          gateway: 172.18.17.1
+
+volumes:
+  config:
+
+services:
+  firefox:
+    image: ghcr.io/openprinting/hplip-printer-app:latest
+    container_name: hplip
+    environment:
+      - PUID=1001
+      - PGID=1000
+      - TZ=Europe/Moscow
+    volumes:
+      - config:/etc/hp
+    ports:
+      - 18172:8000
+    networks:
+      net:
+        ipv4_address: 172.18.17.2
+    restart: unless-stopped
