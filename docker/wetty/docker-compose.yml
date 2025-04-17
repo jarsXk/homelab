@@ -11,11 +11,9 @@ services:
     hostname: wetty
     image: wettyoss/wetty
     environment:
+      - SSHHOST=${SSHHOST}
       - SSHPORT=22
       - BASE=/
-    env_file:
-      - wetty.env
-      # SSHHOST
     ports:
       - 30520:3000
     networks:
