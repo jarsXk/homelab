@@ -6,7 +6,7 @@ networks:
           gateway: 198.19.2.1
 
 services:
-  adguard:
+  adguardhome:
     container_name: adguardhome
     hostname: adguardhome
     image: adguard/adguardhome:latest
