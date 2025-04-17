@@ -1,0 +1,39 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.2.0/24
+          gateway: 198.19.2.1
+
+#volumes:
+#  work:
+#  conf:
+
+services:
+  adguard:
+    container_name: adguardhome
+    hostname: adguardhome
+    image: adguard/adguardhome:latest
+    ports:
+      - ${HOSTIP}:53:53/udp
+      - 30220:80/tcp
+      - 30224:443
+      - 30221:3000/tcp
+      - 853:853
+      - 784:784/udp
+      - 8853:8853/udp
+      - 5443:5443
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - /srv/docker/adguardgome/storage/work:/opt/adguardhome/work
+      - /srv/docker/adguardgome/storage/conf:/opt/adguardhome/conf
+    networks:
+      net:
+        ipv4_address: 198.19.2.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
