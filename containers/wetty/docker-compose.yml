@@ -12,6 +12,7 @@ services:
     image: wettyoss/wetty
     environment:
       - SSHPORT=22
+      - SSHHOST=${SSHHOST}
       - BASE=/
     ports:
       - 30520:3000
