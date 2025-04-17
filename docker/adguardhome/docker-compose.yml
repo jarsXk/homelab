@@ -25,6 +25,9 @@ services:
       - 5443:5443
     environment:
       - TZ=Europe/Moscow
+    env_file:
+      - stack.env
+      # HOSTIP
     volumes:
       - work:/opt/adguardhome/work
       - conf:/opt/adguardhome/conf

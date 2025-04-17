@@ -15,6 +15,7 @@ services:
       - BASE=/
     env_file:
       - stack.env
+      # SSHHOST
     ports:
       - 30520:3000
     networks:
