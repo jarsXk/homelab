@@ -2,13 +2,10 @@ services:
   adguardhome-sync:
     hostname: adguardhome
     container_name: adguardhome-sync
-    image: lscr.io/linuxserver/adguardhome-sync:latest
+    image: ghcr.io/bakito/adguardhome-sync:alpine-latest
     ports:
       - 30230:8080
     environment:
-      - PUID=200
-      - PGID=100
-      - TZ=Europe/Moscow
       - ORIGIN_URL=${ORIGIN_URL}
       - ORIGIN_USERNAME=${ORIGIN_USERNAME}
       - ORIGIN_PASSWORD=${ORIGIN_PASSWORD}
