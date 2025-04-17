@@ -1,0 +1,1 @@
+route ADD 193.33.171.87 MASK 255.255.255.255 0.0.0.0 newstudio.tv

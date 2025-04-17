@@ -1,0 +1,8 @@
+route ADD 74.125.0.0 MASK 255.255.0.0 0.0.0.0 *.youtube.* /16
+route ADD 85.112.112.0 MASK 255.255.240.0 0.0.0.0 *.youtube.* /20
+route ADD 142.250.0.0 MASK 255.254.0.0 0.0.0.0 *.youtube.* /15
+route ADD 172.217.0.0 MASK 255.255.0.0 0.0.0.0 *.youtube.* /16
+route ADD 173.194.0.0 MASK 255.255.0.0 0.0.0.0 *.youtube.* /16
+route ADD 216.58.192.0 MASK 255.255.224.0 0.0.0.0 *.youtube.* /19
+
+

@@ -1,0 +1,4 @@
+Facebook/Instagram 	https://github.com/SecOps-Institute/FacebookIPLists/blob/master/facebook_ipv4_cidr_blocks.lst
+Google/Youtube 		https://www.gstatic.com/ipranges/goog.json
+			https://md5calc.com/google/ip
+			https://stackoverflow.com/questions/9342782/is-there-a-way-to-get-all-ip-addresses-of-youtube-to-block-it-with-windows-firew
