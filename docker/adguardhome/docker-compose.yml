@@ -5,6 +5,10 @@ networks:
         - subnet: 198.19.2.0/24
           gateway: 198.19.2.1
 
+volumes:
+  work:
+  conf:       
+
 services:
   adguardhome:
     container_name: adguardhome
@@ -22,8 +26,8 @@ services:
     environment:
       - TZ=Europe/Moscow
     volumes:
-      - /srv/docker/adguardhome/storage/work:/opt/adguardhome/work
-      - /srv/docker/adguardhome/storage/conf:/opt/adguardhome/conf
+      - work:/opt/adguardhome/work
+      - conf:/opt/adguardhome/conf
     networks:
       net:
         ipv4_address: 198.19.2.2
