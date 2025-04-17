@@ -1,0 +1,330 @@
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": 
+    [
+        {
+            "command": 
+            {
+                "action": "copy",
+                "singleLine": false
+            },
+            "id": "User.copy.644BA8F2"
+        },
+        {
+            "command": "paste",
+            "id": "User.paste"
+        },
+        {
+            "command": 
+            {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
+            },
+            "id": "User.splitPane.A6751878"
+        },
+        {
+            "command": "find",
+            "id": "User.find"
+        }
+    ],
+    "copyFormatting": "none",
+    "copyOnSelect": true,
+    "defaultProfile": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+    "initialCols": 83,
+    "initialRows": 50,
+    "keybindings": 
+    [
+        {
+            "id": "User.copy.644BA8F2",
+            "keys": "ctrl+c"
+        },
+        {
+            "id": "User.paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "id": "User.find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "id": "User.splitPane.A6751878",
+            "keys": "alt+shift+d"
+        }
+    ],
+    "newTabMenu": 
+    [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": 
+    {
+        "defaults": 
+        {
+            "colorScheme": "Campbell",
+            "cursorShape": "filledBox",
+            "font": 
+            {
+                "size": 9,
+                "weight": "normal"
+            },
+            "opacity": 80,
+            "padding": "6",
+            "scrollbarState": "hidden",
+            "useAcrylic": true
+        },
+        "list": 
+        [
+            {
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": true,
+                "name": "Windows PowerShell"
+            },
+            {
+                "colorScheme": "Campbell",
+                "commandline": "C:\\Software\\fastfetch-cmd.cmd",
+                "cursorShape": "filledBox",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "\u041a\u043e\u043c\u0430\u043d\u0434\u043d\u0430\u044f \u0441\u0442\u0440\u043e\u043a\u0430",
+                "startingDirectory": "%USERPROFILE%/Home"
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "graceful",
+                "colorScheme": "Campbell Powershell",
+                "commandline": "C:\\Software\\sshsel-kommunarka.cmd",
+                "cursorShape": "filledBox",
+                "font": 
+                {
+                    "face": "Cascadia Mono"
+                },
+                "guid": "{d435097c-ed5f-46a8-bd31-f7db4e915f13}",
+                "hidden": false,
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
+                "name": "kommunarka",
+                "snapOnInput": true,
+                "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "graceful",
+                "colorScheme": "Campbell Green",
+                "commandline": "C:\\Software\\sshsel-vasilkovo.cmd",
+                "cursorShape": "filledBox",
+                "font": 
+                {
+                    "face": "Cascadia Mono"
+                },
+                "guid": "{a21e3450-1e56-4a69-b9d0-049af91f1f05}",
+                "hidden": false,
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
+                "name": "vasilkovo",
+                "snapOnInput": true,
+                "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "graceful",
+                "colorScheme": "Campbell Purple",
+                "commandline": "ssh lesha@mimas.home.arpa",
+                "cursorShape": "filledBox",
+                "font": 
+                {
+                    "face": "Cascadia Mono"
+                },
+                "guid": "{d1414981-e987-4a7b-a3d8-7b24c99e1c84}",
+                "hidden": false,
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
+                "name": "chanovo (mimas)",
+                "snapOnInput": true,
+                "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "graceful",
+                "colorScheme": "Campbell Teal",
+                "commandline": "ssh lesha@ixion.home.arpa",
+                "cursorShape": "filledBox",
+                "font": 
+                {
+                    "face": "Cascadia Mono"
+                },
+                "guid": "{555017bc-7fa9-4eb0-a79d-777737b4a35b}",
+                "hidden": false,
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
+                "name": "shodnenskaya4 (ixion)",
+                "snapOnInput": true,
+                "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "graceful",
+                "colorScheme": "Campbell Red",
+                "commandline": "ssh lesha@makemake.home.arpa",
+                "cursorShape": "filledBox",
+                "font": 
+                {
+                    "face": "Cascadia Mono"
+                },
+                "guid": "{50de368d-120d-4b2a-8a42-37129a87071e}",
+                "hidden": false,
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
+                "name": "shodnenskaya5 (makemake)",
+                "snapOnInput": true,
+                "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "graceful",
+                "colorScheme": "Campbell Orange",
+                "commandline": "ssh lesha@proxima.external",
+                "cursorShape": "filledBox",
+                "font": 
+                {
+                    "face": "Cascadia Mono"
+                },
+                "guid": "{54a26ce6-9465-4003-86d3-41577e37fdc5}",
+                "hidden": false,
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
+                "name": "proxima",
+                "snapOnInput": true,
+                "startingDirectory": "%USERPROFILE%"
+            }
+        ]
+    },
+    "schemes": 
+    [
+        {
+            "background": "#0D3804",
+            "black": "#0C0C0C",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#3B78FF",
+            "brightCyan": "#61D6D6",
+            "brightGreen": "#16C60C",
+            "brightPurple": "#B4009E",
+            "brightRed": "#E74856",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#F9F1A5",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#13A10E",
+            "name": "Campbell Green",
+            "purple": "#881798",
+            "red": "#C50F1F",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#C19C00"
+        },
+        {
+            "background": "#4F2800",
+            "black": "#0C0C0C",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#3B78FF",
+            "brightCyan": "#61D6D6",
+            "brightGreen": "#16C60C",
+            "brightPurple": "#B4009E",
+            "brightRed": "#E74856",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#F9F1A5",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#13A10E",
+            "name": "Campbell Orange",
+            "purple": "#881798",
+            "red": "#C50F1F",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#C19C00"
+        },
+        {
+            "background": "#25042B",
+            "black": "#0C0C0C",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#3B78FF",
+            "brightCyan": "#61D6D6",
+            "brightGreen": "#16C60C",
+            "brightPurple": "#B4009E",
+            "brightRed": "#E74856",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#F9F1A5",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#13A10E",
+            "name": "Campbell Purple",
+            "purple": "#881798",
+            "red": "#C50F1F",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#C19C00"
+        },
+        {
+            "background": "#360101",
+            "black": "#0C0C0C",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#3B78FF",
+            "brightCyan": "#61D6D6",
+            "brightGreen": "#16C60C",
+            "brightPurple": "#B4009E",
+            "brightRed": "#E74856",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#F9F1A5",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#13A10E",
+            "name": "Campbell Red",
+            "purple": "#881798",
+            "red": "#C50F1F",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#C19C00"
+        },
+        {
+            "background": "#013D3D",
+            "black": "#0C0C0C",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#3B78FF",
+            "brightCyan": "#61D6D6",
+            "brightGreen": "#16C60C",
+            "brightPurple": "#B4009E",
+            "brightRed": "#E74856",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#F9F1A5",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#13A10E",
+            "name": "Campbell Teal",
+            "purple": "#881798",
+            "red": "#C50F1F",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#C19C00"
+        }
+    ],
+    "themes": [],
+    "windowingBehavior": "useAnyExisting"
+}
