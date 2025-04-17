@@ -12,7 +12,7 @@ services:
       - REPLICA1_URL=${REPLICA1_URL}
       - REPLICA1_USERNAME=${REPLICA1_USERNAME}
       - REPLICA1_PASSWORD=${REPLICA1_PASSWORD}
-      - CRON="*/20 * * * *"
+      - CRON="0 */1 * * *"
       - RUN_ON_START=true
       - FEATURES_DNS_ACCESS_LISTS=true
       - FEATURES_DNS_SERVER_CONFIG=true
