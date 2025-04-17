@@ -1,0 +1,12 @@
+[Unit]
+Description=HTTP healthchecker listener
+After=network.target
+
+[Service]
+ExecStart=/opt/healthchecker/healthchecker --listener "0.0.0.0:10001" --script /opt/healthchecker/check.sh
+Type=simple
+Restart=always
+
+[Install]
+WantedBy=default.target
+RequiredBy=network.target

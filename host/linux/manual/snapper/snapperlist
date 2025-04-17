@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ $# -ge 1 ]; then
+        PART1=" -c $1"
+else
+    PART2=" --all-configs"
+fi
+snapper $PART1 list $PART2 --columns config,number,type,date,cleanup,description

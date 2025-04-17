@@ -1,0 +1,2 @@
+# scrub btrfs volumes every month
+0 2 14 * * root /usr/local/sbin/scrub-btrfs.sh
