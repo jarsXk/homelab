@@ -1,0 +1,70 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.15.0/24
+          gateway: 198.19.15.1
+
+volumes:
+  storage:
+  mariadb_config:
+  
+services:
+  photoprism:
+    container_name: photoprism
+    hostname: photoprism
+    image: photoprism/photoprism:latest
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    volumes:
+      - /mnt/local-load/Junk/tmp-foto:/photoprism/originals:ro
+      - storage:/photoprism/storage
+    ports:
+      - 31520:2342
+    networks:
+      net:
+        ipv4_address: 198.19.15.2
+    ## Changes to the config options in stack.env always require a restart to take effect:
+    ## https://docs.photoprism.app/getting-started/config-options/
+    env_file:
+      - /srv/docker/enviroments/photoprism.env
+    working_dir: "/photoprism" # do not change or remove
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
+    depends_on:
+      - mariadb  
+
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: photoprism-mariadb
+    hostname: mariadb
+    security_opt: # see https://github.com/MariaDB/mariadb-docker/issues/434#issuecomment-1136151239
+      - seccomp:unconfined
+      - apparmor:unconfined
+    env_file:
+      - /srv/docker/enviroments/photoprism.env
+    environment:
+      - PUID=200
+      - PGID=1000
+      - TZ=Europe/Moscow
+    #  - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=photoprism
+      - MYSQL_USER=photoprism
+    #  - MYSQL_PASSWORD=
+    volumes:
+      - mariadb_config:/config
+    command: "--innodb-buffer-pool-size=512M --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=120"
+    networks:
+      net:
+        ipv4_address: 198.19.15.3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped

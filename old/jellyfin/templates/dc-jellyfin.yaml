@@ -1,0 +1,80 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.10.0/24
+          gateway: 198.19.10.1
+
+volumes:
+  config:
+  video-movies:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/video/Movies"
+  video-animation:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/video/Animation"
+  video-animationshows:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/video/Animation Shows"
+  video-tvshows:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/video/TV Shows"
+  video-documentary:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/video/Documentary"
+  video-family:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/video-family"
+
+services:
+  jellyfin:
+    container_name: jellyfin
+    image: lscr.io/linuxserver/jellyfin:latest
+    hostname: jellyfin
+    environment:
+      - PUID=200
+      - PGID=2000
+      - TZ=Europe/Moscow
+#      - DOCKER_MODS=ghcr.io/lizardbyte/themerr-jellyfin:latest
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - config:/config
+      - video-movies:/media/video/movies:ro
+      - video-tvshows:/media/video/tvshows:ro
+      - video-animation:/media/video/animation:ro
+      - video-animationshows:/media/video/animationshows:ro
+      - video-documentary:/media/video/documentary:ro
+      - video-family:/media/video/family:ro
+    ports:
+      - 31020:8096
+      - 31024:8920
+#      - 1900:1900/udp
+      - 7359:7359/udp
+    networks:
+      net:
+        ipv4_address: 198.19.10.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped

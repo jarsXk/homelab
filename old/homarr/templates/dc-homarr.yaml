@@ -1,0 +1,33 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.4.0/24
+          gateway: 198.19.4.1
+
+volumes:
+  config:
+  icons:
+  data:
+
+services:  
+  homarr:
+    container_name: homarr
+    hostname: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    ports:
+      - 30420:7575
+    volumes:
+      - config:/app/data/configs
+      - icons:/app/public/icons
+      - data:/data
+      - /srv/docker/homarr/injections/<wallpaper>:/app/public/imgs/<wallpaper>:ro
+    networks:
+      net:
+        ipv4_address: 198.19.4.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped

@@ -1,0 +1,71 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.7.0/24
+          gateway: 198.19.7.1
+
+volumes:
+  config:
+  sync:
+  sync-exchange:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/download/Exchange"
+  documents-lesha:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/documents/users/lesha/sync"
+  photo-lesha:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/photo/users/lesha"
+  video-family:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/video-family"
+  saves:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/saves"    
+
+services:
+  resiliosync:
+    container_name: resiliosync
+    hostname: resiliosync
+    image: lscr.io/linuxserver/resilio-sync:2.8.1
+    environment:
+      - PUID=200
+      - PGID=2000
+      - UMASK=002
+      - TZ=Europe/Moscow
+    volumes:
+      - config:/config
+      - sync:/sync
+      - documents-lesha:/sync/share/documents/users/lesha
+      - saves:/sync/share/saves
+      - video-family:/sync/share/video/family
+      - photo-lesha:/sync/share/photo/users/lesha
+      - sync-exchange:/sync/exchange
+    ports:
+      - 30720:8888
+      - 55555:55555
+    networks:
+      net:
+        ipv4_address: 198.19.7.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped

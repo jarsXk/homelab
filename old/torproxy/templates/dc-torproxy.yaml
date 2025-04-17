@@ -1,0 +1,29 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.18.0/24
+          gateway: 198.19.18.1
+
+volumes:
+  tor:
+
+services:
+  torproxy:
+    container_name: torproxy
+    hostname: torproxy
+    image: zerolabnet/tor-bridges-proxy:latest
+    volumes:
+      - tor:/etc/tor
+    ports:
+      - 31820:9151/tcp
+      - 31821:9150/tcp
+    networks:
+      net:
+        ipv4_address: 198.19.18.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped

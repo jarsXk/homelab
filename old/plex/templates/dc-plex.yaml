@@ -1,0 +1,49 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.9.0/24
+          gateway: 198.19.9.1
+
+volumes:
+  config:
+
+services:
+  plex:    
+    container_name: plex
+    hostname: plex
+    image: lscr.io/linuxserver/plex:latest
+    environment:
+      - PUID=200
+      - PGID=2000
+      - VERSION=docker
+      - PLEX_CLAIM=claim-nCC1dQ6jzMt4_WuoSxKc
+      - ADVERTISE_IP="http://makemake.home.arpa:32400,http://plex.makemake.home.arpa"
+      - ALLOWED_NETWORKS="172.16.0.0/19,192.168.22.0/24,198.19.0.0/16"
+      - TZ=Europe/Moscow
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - config:/config
+      - /mnt/local-media/Video/Family:/media/video/family:ro
+      - /mnt/local-media/Video/Movies:/media/video/movies:ro
+      - /mnt/local-media/Video/TV Shows:/media/video/tvshows:ro
+    ports:
+      - 32400:32400/tcp
+      - 3005:3005/tcp
+      - 8324:8324/tcp
+      - 32469:32469/tcp
+#     - 1900:1900/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+    networks:
+      net:
+        ipv4_address: 198.19.9.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped

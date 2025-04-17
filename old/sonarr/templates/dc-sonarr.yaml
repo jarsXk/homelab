@@ -1,0 +1,37 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.15.0/24
+          gateway: 198.19.15.1
+
+volumes:
+  config:
+  
+services:
+  sonarr:
+    container_name: sonarr    
+    hostname: sonarr
+    image: lscr.io/linuxserver/sonarr:latest
+    ports:
+      - 31520:8989
+    volumes:
+      - config:/config
+      - /mnt/local-media/Video/TV Shows:/video/tvshows
+      - /mnt/local-media/Video/Animation Shows:/video/animationshows
+      - /mnt/local-media/Video/Other:/video/other
+      - /mnt/local-load/Download/Torrent:/downloads
+    environment:
+      - PUID=200
+      - PGID=100
+      - TZ=Europe/Moscow
+      - UMASK=002
+    networks:
+      net:
+        ipv4_address: 198.19.15.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped

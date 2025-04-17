@@ -1,0 +1,27 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.5.0/24
+          gateway: 198.19.5.1
+
+services:
+  wetty:
+    container_name: wetty
+    hostname: wetty
+    image: wettyoss/wetty
+    environment:
+      - SSHHOST=vesta.internal
+      - SSHPORT=22
+      - BASE=/
+    ports:
+      - 30520:3000
+    networks:
+      net:
+        ipv4_address: 198.19.5.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: always

@@ -1,0 +1,114 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.98.0/24
+          gateway: 198.19.98.1
+
+volumes:
+  media:
+  postgres-data:
+  backend-logs:
+  backend-cache:
+
+services:
+  proxy:
+    image: reallibrephotos/librephotos-proxy:latest
+    container_name: librephotos-proxy
+    hostname: proxy
+    volumes:
+      - /mnt/local-load/Junk/tmp-foto:/data:ro
+      - media:/protected_media
+    ports:
+      - 39820:80
+    networks:
+      net:
+        ipv4_address: 198.19.98.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
+    depends_on:
+      - backend
+      - frontend
+
+  db:
+    image: pgautoupgrade/pgautoupgrade:latest
+    container_name: librephotos-db
+    hostname: postgresdb
+    environment:
+      - POSTGRES_USER=librephotos
+      - POSTGRES_PASSWORD=librephotos
+      - POSTGRES_DB=librephotos
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: psql -U librephotos -d librephotos -c "SELECT 1;"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      net:
+        ipv4_address: 198.19.98.3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
+
+  frontend:
+    image: reallibrephotos/librephotos-frontend:latest
+    container_name: librephotos-frontend
+    hostname: frontend
+    networks:
+      net:
+        ipv4_address: 198.19.98.4
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
+
+  backend:
+    image: reallibrephotos/librephotos:latest
+    container_name: librephotos-backend
+    hostname: backend
+    volumes:
+      - /mnt/local-load/Junk/tmp-foto:/data:ro
+      - media:/protected_media
+      - backend-logs:/logs
+      - backend-cache:/root/.cache
+    environment:
+    #  - SECRET_KEY=${shhhhKey:-}
+      - BACKEND_HOST=backend
+    #  - ADMIN_EMAIL=${adminEmail:-}
+    #  - ADMIN_USERNAME=${userName:-}
+    #  - ADMIN_PASSWORD=${userPass:-}
+      - DB_BACKEND=postgresql
+      - DB_NAME=librephotos
+      - DB_USER=librephotos
+      - DB_PASS=librephotos
+      - DB_HOST=postgresdb
+      - DB_PORT=5432
+    #  - MAPBOX_API_KEY=${mapApiKey:-}
+      - WEB_CONCURRENCY=2
+    #  - SKIP_PATTERNS=${skipPatterns:-}
+      - ALLOW_UPLOAD=false
+    #  - CSRF_TRUSTED_ORIGINS=${csrfTrustedOrigins:-}
+      - DEBUG=0
+    networks:
+      net:
+        ipv4_address: 198.19.98.5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy

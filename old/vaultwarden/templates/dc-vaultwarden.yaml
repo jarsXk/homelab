@@ -1,0 +1,51 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.17.0/24
+          gateway: 198.19.17.1
+
+volumes:
+  data:
+
+services:
+  vaultwarden:
+    image: ghcr.io/dani-garcia/vaultwarden:latest-alpine
+    container_name: vaultwarden
+    hostname: vaultwarden
+    ports:
+      - 31720:80
+    env_file:
+      - /srv/docker/enviroments/vaultwarden.env
+    environment:
+      - DOMAIN=https://vaultwarden.sungate.keenetic.pro
+      - LOGIN_RATELIMIT_MAX_BURST=10
+      - LOGIN_RATELIMIT_SECONDS=60
+      - ADMIN_RATELIMIT_MAX_BURST=10
+      - ADMIN_RATELIMIT_SECONDS=60
+      - SENDS_ALLOWED=false
+      - EMERGENCY_ACCESS_ALLOWED=true
+      - WEB_VAULT_ENABLED=true
+#      - SIGNUPS_ALLOWED=false
+      - SIGNUPS_VERIFY=true
+      - SIGNUPS_VERIFY_RESEND_TIME=3600
+      - SIGNUPS_VERIFY_RESEND_LIMIT=5
+      - INVITATIONS_ALLOWED=false
+      - SMTP_HOST=smtp.mail.ru
+      - SMTP_FROM=terraserver@list.ru
+      - SMTP_FROM_NAME=Vaultwarden@Terra
+      - SMTP_SECURITY=force_tls
+      - SMTP_PORT=465
+      - SMTP_USERNAME=terraserver@list.ru
+      - SMTP_AUTH_MECHANISM=“Xoauth2”
+    volumes:
+      - data:/data
+    networks:
+      net:
+        ipv4_address: 198.19.17.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: always

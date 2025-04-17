@@ -1,0 +1,140 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.13.0/24
+          gateway: 198.19.13.1
+
+volumes:
+  radarr_config:
+  sonarr_config:
+  jackett_config:
+  video-movies:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/video/Movies"
+  video-animation:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/video/Animation"
+  video-animationshows:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/video/Animation Shows"
+  video-tvshows:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/video/TV Shows"
+  video-documentary:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/video/Documentary"
+  downloads:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/download/Torrent"
+  
+services:
+  radarr:
+    container_name: mediarr-radarr
+    hostname: radarr
+    image: lscr.io/linuxserver/radarr:latest
+    ports:
+      - 31320:7878
+    volumes:
+      - radarr_config:/config
+      - video-movies:/video/movies
+      - video-animation:/video/animation
+      - downloads:/downloads
+    environment:
+      - PUID=200
+      - PGID=100
+      - TZ=Europe/Moscow
+      - UMASK=002
+    networks:
+      net:
+        ipv4_address: 198.19.13.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
+
+  sonarr:
+    container_name: mediarr-sonarr    
+    hostname: sonarr
+    image: lscr.io/linuxserver/sonarr:latest
+    ports:
+      - 31330:8989
+    volumes:
+      - sonarr_config:/config
+      - video-tvshows:/video/tvshows
+      - video-animationshows:/video/animationshows
+      - video-documentary:/video/documentary
+      - downloads:/downloads
+    environment:
+      - PUID=200
+      - PGID=100
+      - TZ=Europe/Moscow
+      - UMASK=002
+    networks:
+      net:
+        ipv4_address: 198.19.13.3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
+
+  jackett:
+    container_name: mediarr-jackett
+    hostname: jackett
+    image: lscr.io/linuxserver/jackett:latest
+    ports:
+      - 31340:9117
+    volumes:
+      - jackett_config:/config
+      - /srv/docker/injections/mediarr/noname-clubl-rus.yml:/app/Jackett/Definitions/noname-clubl-rus.yml:ro
+    environment:
+      - PUID=200
+      - PGID=100
+      - TZ=Europe/Moscow
+    networks:
+      net:
+        ipv4_address: 198.19.13.4
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
+#    depends_on:
+#      - flaresolverr
+
+#  flaresolverr:
+#    image: ghcr.io/flaresolverr/flaresolverr:latest
+#    container_name: mediarr-flaresolverr
+#    hostname: flaresolverr
+#    networks:
+#      net:
+#        ipv4_address: 198.19.13.5
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-size: "2m"
+#        max-file: "10"
+#    restart: unless-stopped

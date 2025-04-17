@@ -1,0 +1,44 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.12.0/24
+          gateway: 198.19.12.1
+
+volumes:
+  config:
+  books:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/books/CalibreDB"
+
+services:
+  calibre-web:
+    container_name: calibreweb
+    hostname: calibreweb
+    image: lscr.io/linuxserver/calibre-web:latest
+    ports:
+      - 31220:8083
+    environment:
+      - TZ=Europe/Moscow
+      - PUID=200
+      - PGID=100
+      - UMASK=002
+      - DOCKER_MODS=linuxserver/mods:universal-calibre
+    volumes:
+      - config:/config
+      - /srv/docker/injections/calibreweb/xdg-desktop-menu:/usr/bin/xdg-desktop-menu:ro
+      - /srv/docker/injections/calibreweb/xdg-icon-resource:/usr/bin/xdg-icon-resource:ro
+      - /srv/docker/injections/calibreweb/xdg-mime:/usr/bin/xdg-mime:ro
+      - books:/books
+    networks:
+      net:
+        ipv4_address: 198.19.12.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped

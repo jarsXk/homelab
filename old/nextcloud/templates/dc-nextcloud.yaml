@@ -1,0 +1,117 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.11.0/24
+          gateway: 198.19.11.1
+
+volumes:
+  postgres-data:
+  redis_data:
+  config:
+  data:
+  data-admin:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/documents/users/root/nextcloud"
+  data-lesha:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/documents/users/lesha/nextcloud"
+  photo-lesha:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/photo/users/lesha"
+  video-family:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/video-family"
+  documents-lesha:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=terra-nas.internal,rw"
+      device: ":/export/documents/users/lesha/sync"
+  
+services:
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud:30.0.6
+    container_name: nextcloud
+    hostname: nextcloud
+    environment:
+      - PUID=200
+      - PGID=2000
+      - TZ=Europe/Moscow
+      - UMASK=007
+    volumes:
+      - config:/config
+      - data:/data
+      - data-admin:/data/admin
+      - data-lesha:/data/lesha
+      - photo-lesha:/externaldata/photo/users/lesha:ro
+      - video-family:/externaldata/video/family:ro
+      - documents-lesha:/externaldata/documents/users/lesha
+    ports:
+      - 31124:443
+    depends_on:
+      - redis
+      - postgresdb
+    networks:
+      net:
+        ipv4_address: 198.19.11.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
+
+  postgresdb:
+    image: pgautoupgrade/pgautoupgrade:latest
+    container_name: nextcloud-postresdb
+    hostname: postgresdb
+    env_file:
+      - /srv/docker/enviroments/nextcloud.env
+    environment:
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_DB=nextcloud
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: psql -U nextcloud -d nextcloud -c "SELECT 1;"
+      interval: 60s
+      timeout: 5s
+      retries: 3
+    networks:
+      net:
+        ipv4_address: 198.19.11.3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
+
+  redis:
+    image: redis:alpine    
+    container_name: nextcloud-redis
+    hostname: redis
+    volumes:
+      - redis_data:/data
+    networks:
+      net:
+        ipv4_address: 198.19.11.4
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped

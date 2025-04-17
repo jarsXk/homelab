@@ -1,0 +1,1 @@
+https://www.baeldung.com/openssl-self-signed-cert
