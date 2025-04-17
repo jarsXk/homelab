@@ -13,8 +13,8 @@ services:
     environment:
       - SSHPORT=22
       - BASE=/
-#    env_file:
-#      - stack.env
+    env_file:
+      - wetty.env
       # SSHHOST
     ports:
       - 30520:3000
