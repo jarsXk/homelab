@@ -26,8 +26,8 @@ services:
     environment:
       - TZ=Europe/Moscow
     volumes:
-      - /srv/docker/adguardgome/storage/work:/opt/adguardhome/work
-      - /srv/docker/adguardgome/storage/conf:/opt/adguardhome/conf
+      - /srv/docker/adguardhome/storage/work:/opt/adguardhome/work
+      - /srv/docker/adguardhome/storage/conf:/opt/adguardhome/conf
     networks:
       net:
         ipv4_address: 198.19.2.2
@@ -36,4 +36,28 @@ services:
       options:
         max-size: "2m"
         max-file: "10"
+    restart: unless-stopped
+
+  adguardhome-sync:
+    hostname: adguardhome
+    container_name: adguardhome-sync
+    image: lscr.io/linuxserver/adguardhome-sync:latest
+    ports:
+      - 30230:8080
+    environment:
+      - PUID=200
+      - PGID=100
+      - TZ=Europe/Moscow
+      - CONFIGFILE=/config/adguardhome-sync.yaml #optional
+    volumes:
+      - /srv/docker/adguardhome/assets/adguardhome-sync.yaml:/config/adguardhome-sync.yaml
+    networks:
+      net:
+        ipv4_address: 198.19.2.3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    condition: env_var:ISSLAVE=true
     restart: unless-stopped
