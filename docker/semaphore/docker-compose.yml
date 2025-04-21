@@ -18,7 +18,7 @@ services:
     ports:
       - 31520:3000
     environment:
-      - SEMAPHORE_DB_DIALECT=postgress
+      - SEMAPHORE_DB_DIALECT=postgres
       - SEMAPHORE_DB_HOST=progress
       - SEMAPHORE_DB_NAME=semaphore
       - SEMAPHORE_DB_USER=semaphore
