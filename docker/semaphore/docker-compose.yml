@@ -13,7 +13,7 @@ services:
   semaphore:
     container_name: semaphore
     hostname: semaphore
-    image: public.ecr.aws/semaphore/pro/server
+    image: semaphoreui/semaphore
     ports:
       - 31520:3000
     environment:
