@@ -1,3 +1,7 @@
-- name: Induce an exception to see what happens
-  ansible.builtin.ping:
-    data: crash
+- name: Update linux and reboot if neccessary
+  hosts: linux-vasilkovo
+
+  tasks:
+    - name: Induce an exception to see what happens
+      ansible.builtin.ping:
+        data: crash
