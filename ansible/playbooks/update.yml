@@ -1,0 +1,26 @@
+- name: Update linux and reboot if neccessary
+  hosts: linux
+  remote_user: ansible
+  become: yes
+
+  tasks:
+  - name: Update all packages
+    ansible.builtin.apt:
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: Upgrade all packages
+    ansible.builtin.apt:
+      name: "*"
+      state: latest
+
+  - name: Check if reboot is required
+    ansible.builtin.shell:
+      if [ -f /var/run/reboot-required ]; then
+        echo "Reboot required"
+      fi
+    register: reboot_required
+
+  - name: Reboot if required
+    reboot:
+                           

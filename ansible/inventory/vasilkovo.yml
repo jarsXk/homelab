@@ -1,0 +1,40 @@
+vasilkovo:
+  children:
+    server-vasilkovo:
+
+linux-vasilkovo:
+  children:
+    server-vasilkovo:
+    linux-desktop-vasilkovo:                   
+
+# servers
+server-vasilkovo:
+  children:
+    proxmox-vasilkovo:
+    nas-vasilkovo:
+    docker-vasilkovo:
+
+nas-vasilkovo:
+  hosts:
+    io.internal:
+
+docker-vasilkovo:
+  hosts:
+    io.internal:
+      europa-docker.intenal:
+
+proxmox-vasilkovo:
+  hosts:
+    europa.internal:
+
+#desktops
+desktop-vasilkovo:
+  children:
+    windows-desktop-vasilkovo:
+    linux-desktop-vasilkovo:
+                
+windows-desktop-vasilkovo:
+  hosts:
+
+linux-desktop-vasilkovo:
+  hosts:

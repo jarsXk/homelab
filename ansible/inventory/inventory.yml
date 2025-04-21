@@ -1,0 +1,11 @@
+all:
+  children:
+    vasilkovo:
+
+linux:
+  children:
+    linux-vasilkovo:
+
+server:
+  children:
+    server-vasilkovo:
