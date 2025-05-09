@@ -313,15 +313,15 @@ if [ $DOCKER = yes ]; then
 fi
 
 # Reading role & location
-while [ "$PUBLIC" = "" ]; do
-    log_message READ "Setup public host [y/n/c]> " -n
+while [ "$NAS" = "" ]; do
+    log_message READ "Setup NAS host [y/n/c]> " -n
     read -r ANSWER_PUBLIC
     case "$ANSWER_PUBLIC" in
         [Yy]* )
-            PUBLIC=yes
+            NAS=yes
         ;;
         [Nn]* )
-            PUBLIC=no
+            NAS=no
         ;;
         [Cc]* )
             log_message INFO "Canceled setup"
@@ -333,7 +333,7 @@ while [ "$PUBLIC" = "" ]; do
     esac
  done
 
-log_message DEBUG "Selected public host <$PUBLIC>"
+log_message DEBUG "Selected NAS host <$NAS>"
 while [ "$LOCATION" = "" ]; do
     log_message READ "Location"
     log_message READ "  [1] kommunarka"
@@ -375,21 +375,21 @@ log_message INFO "Creating groups"
 #                   name         is_system gid  
 create_group    	family       no        2000
 create_group	    lesha-group  no        2001 
-if [ $PUBLIC = yes ] && [ $LOCATION = kommunarka ]; then
+if [ $NAS = yes ] && [ $LOCATION = kommunarka ]; then
     create_group	lena-group   no        2002
 fi
 if [ $LOCATION = vasilkovo ]; then
     create_group	kostya-group no        2003
 fi
-if [ $PUBLIC = yes ] && [ $LOCATION = vasilkovo ]; then
+if [ $NAS = yes ] && [ $LOCATION = vasilkovo ]; then
     create_group	tanya-group  no        2004
     create_group	dima-group   no        2005
 fi
-if [ $PUBLIC = yes ] && [ $LOCATION = chanovo ]; then
+if [ $NAS = yes ] && [ $LOCATION = chanovo ]; then
     create_group	lena-group   no        2002
     create_group	yulia-group  no        2006
 fi
-if [ $PUBLIC = yes ] && [ $LOCATION = shodnenskaya ]; then
+if [ $NAS = yes ] && [ $LOCATION = shodnenskaya ]; then
     create_group	lena-group   no        2002
     create_group	yulia-group  no        2006
 fi
@@ -398,13 +398,13 @@ fi
 log_message INFO "Creating users"
 DOCKER_GROUPS="docker,family,lesha-group"
 FAMILY_GROUP=""
-if [ $PUBLIC = yes ]; then
+if [ $NAS = yes ]; then
     FAMILY_GROUP=",family"
 fi
 # real users
 #               login        uid  group    sudo shell             create_home is_system extra_groups
 create_user     lesha        2001 users    yes  /bin/bash         yes         no        lesha-group,_ssh,family
-if [ $PUBLIC = yes ] && [ $LOCATION = kommunarka ]; then
+if [ $NAS = yes ] && [ $LOCATION = kommunarka ]; then
     create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh,family
     DOCKER_GROUPS="$DOCKER_GROUPS,lena-group"
 fi
@@ -412,17 +412,17 @@ if [ $LOCATION = vasilkovo ]; then
     create_user kostya       2003 users    yes  /bin/bash         yes         no        kostya-group,_ssh,family
     DOCKER_GROUPS="$DOCKER_GROUPS,kostya-group"
 fi
-if [ $PUBLIC = yes ] && [ $LOCATION = vasilkovo ]; then  
+if [ $NAS = yes ] && [ $LOCATION = vasilkovo ]; then  
     create_user tanya        2004 users    no   /usr/sbin/nologin yes         no        tanya-group,family
     create_user dima         2005 users    no   /bin/bash         yes         no        dima-group,_ssh,family
     DOCKER_GROUPS="$DOCKER_GROUPS,tanya-group,dima-group"
 fi
-if [ $PUBLIC = yes ] && [ $LOCATION = chanovo ]; then
+if [ $NAS = yes ] && [ $LOCATION = chanovo ]; then
     create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh,family
     create_user yulia        2006 users    no   /usr/sbin/nologin yes         no        yulia-group,family
     DOCKER_GROUPS="$DOCKER_GROUPS,lena-group,yulia-group"
 fi
-if [ $PUBLIC = yes ] && [ $LOCATION = shodnenskaya ]; then
+if [ $NAS = yes ] && [ $LOCATION = shodnenskaya ]; then
     create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh,family
     create_user yulia        2006 users    no   /usr/sbin/nologin yes         no        yulia-group,family
     DOCKER_GROUPS="$DOCKER_GROUPS,lena-group,yulia-group"
@@ -432,6 +432,10 @@ fi
 if [ $DOCKER = yes ]; then
     create_user docker       200  users    no   /usr/sbin/nologin no          yes       $DOCKER_GROUPS
 fi
+if [ $NAS = yes ]; then
+    create_user backup       201  users    no   /usr/sbin/nologin no          yes       family
+fi
+
 
 # Adding ssh public key
 log_message READ "Paste SSH public key [key/s/c] > " -n
