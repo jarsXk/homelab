@@ -105,10 +105,6 @@ if %UPG_VASILKOVO%==yes (
     echo.
     echo #################### Upgrade Europa ##########################
     ssh -t lesha@europa.internal "echo %LINUXPASS% | sudo -S armbian-upgrade"
-
-    echo.
-    echo #################### Upgrade Europa docker ###################
-    ssh -t lesha@europa-docker.internal "echo %LINUXPASS% | sudo -S apt update && sudo apt upgrade -y"
 )
 
 if %UPG_CHANOVO%==yes (
