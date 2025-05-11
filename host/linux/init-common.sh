@@ -294,14 +294,9 @@ if [ $DOCKER = yes ]; then
         run_command "mv /etc/docker/daemon.json /etc/docker/daemon.json.bak" "Error installing docker"
     fi
     run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /etc/docker/daemon.json https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/docker/daemon.json" "Error installing docker"
-    run_command "mkdir -p /srv/docker/injections" "Error installing docker"
-    run_command "mkdir -p /srv/docker/volumes" "Error installing docker"
-    run_command "mv /var/lib/docker/volumes/* /srv/docker/volumes/" "Error installing docker"
-    run_command "echo /srv/docker/volumes /var/lib/docker/volumes none defaults,bind 0 0" "Error installing docker" "/etc/fstab"
     if [ $LINUX_DISTRO = debian ] || [ $LINUX_DISTRO = ubuntu ]; then
         run_command "systemctl daemon-reload" "Error installing docker"
     fi  
-    run_command "mount -a" "Error installing docker"
     if [ $LINUX_DISTRO = debian ] || [ $LINUX_DISTRO = ubuntu ]; then
         run_command "systemctl restart docker" "Error installing docker"
     elif [ $LINUX_DISTRO = alpine ]; then
@@ -485,7 +480,15 @@ elif [ $LINUX_DISTRO = alpine ]; then
     MOTD_PATH=/etc/profile.d/
     CUSTOM_MOTD=70-custom-motd.sh
 fi
-run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O $MOTD_PATH$CUSTOM_MOTD https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/70-custom-motd.sh" "Error setting motd"
+if [ $NAS = yes ]; then
+    run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /root/nas-ascii.txt https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/motd/nas-ascii.txt" "Error setting motd"
+    run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O $MOTD_PATH$CUSTOM_MOTD https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/motd/70-custom-motd.nas.sh" "Error setting motd"
+elif [ $DOCKER = yes ]; then
+    run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /root/docker-ascii.txt https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/motd/docker-ascii.txt" "Error setting motd"
+    run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O $MOTD_PATH$CUSTOM_MOTD https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/motd/70-custom-motd.docker.sh" "Error setting motd"
+else
+    run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O $MOTD_PATH$CUSTOM_MOTD https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/70-custom-motd.sh" "Error setting motd"
+fi
 run_command "chmod ug+x $MOTD_PATH$CUSTOM_MOTD" "Error setting motd"
 
 # Configuring micro
