@@ -414,13 +414,13 @@ run_command "chown -R lesha:users /home/lesha/.config/micro" "Error configuring 
 if [ -f /root/.bash_aliases ]; then
   run_command "cp /root/.bash_aliases /root/.bash_aliases.bak" "Error configuring aliases"
 fi
-run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /root/.bash_aliases https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash//root/.bash_aliases" "Error configuring aliases"
-run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /root/.bash_export https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash//root/.bash_export" "Error configuring aliases"
+run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /root/.bash_aliases https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash/.bash_aliases" "Error configuring aliases"
+run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /root/.bash_export https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash/.bash_export" "Error configuring aliases"
 if [ -f /home/lesha/.bash_aliases ]; then
   run_command "cp /home/lesha/.bash_aliases /home/lesha/.bash_aliases.bak" "Error configuring aliases"
 fi
-run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /home/lesha/.bash_aliases https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash//root/.bash_aliases" "Error configuring aliases"
-run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /home/lesha/.bash_export https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash//root/.bash_export" "Error configuring aliases"
+run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /home/lesha/.bash_aliases https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash/.bash_aliases" "Error configuring aliases"
+run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /home/lesha/.bash_export https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash/.bash_export" "Error configuring aliases"
 run_command "chown -R lesha:users /home/lesha/.bash_aliases" "Error configuring aliases"
 run_command "chown -R lesha:users /home/lesha/.bash_export" "Error configuring aliases"
 
