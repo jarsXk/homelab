@@ -411,23 +411,18 @@ run_command "cp /root/.config/micro/settings.json /home/lesha/.config/micro/sett
 run_command "chown -R lesha:users /home/lesha/.config/micro" "Error configuring micro"
 
 # Configuring aliases
-if [ ! -f /root/.bashrc ]; then
-  run_command "touch /root/.bashrc" "Error configuring aliases"
+if [ -f /root/.bash_aliases ]; then
+  run_command "cp /root/.bash_aliases /root/.bash_aliases.bak" "Error configuring aliases"
 fi
-run_command "echo /root/.bashrc" "Error configuring aliases" "export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'"
-run_command "echo /root/.bashrc" "Error configuring aliases" "alias ll='ls -l'"
-run_command "echo /root/.bashrc" "Error configuring aliases" "alias la='ls -lA'"
-run_command "echo /root/.bashrc" "Error configuring aliases" "alias du1='du -hd1'"
-run_command "echo /root/.bashrc" "Error configuring aliases" "export PATH=$PATH:/snap/bin"
-if [ ! -f /home/lesha/.bashrc ]; then
-  run_command "touch /home/lesha/.bashrc" "Error configuring aliases"
-  run_command "chown -R lesha:users /home/lesha/.bashrc" "Error configuring aliases"
+run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /root/.bash_aliases https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash//root/.bash_aliases" "Error configuring aliases"
+run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /root/.bash_export https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash//root/.bash_export" "Error configuring aliases"
+if [ -f /home/lesha/.bash_aliases ]; then
+  run_command "cp /home/lesha/.bash_aliases /home/lesha/.bash_aliases.bak" "Error configuring aliases"
 fi
-run_command "echo /home/lesha/.bashrc" "Error configuring aliases" "export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'"
-run_command "echo /home/lesha/.bashrc" "Error configuring aliases" "alias ll='ls -l'"
-run_command "echo /home/lesha/.bashrc" "Error configuring aliases" "alias la='ls -lA'"
-run_command "echo /home/lesha/.bashrc" "Error configuring aliases" "alias du1='du -hd1'"
-run_command "echo /home/lesha/.bashrc" "Error configuring aliases" "export PATH=$PATH:/snap/bin"
+run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /home/lesha/.bash_aliases https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash//root/.bash_aliases" "Error configuring aliases"
+run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /home/lesha/.bash_export https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash//root/.bash_export" "Error configuring aliases"
+run_command "chown -R lesha:users /home/lesha/.bash_aliases" "Error configuring aliases"
+run_command "chown -R lesha:users /home/lesha/.bash_export" "Error configuring aliases"
 
 # Configuring MC
 log_message INFO "Configuring MC"
@@ -444,11 +439,14 @@ run_command "cp /root/.config/mc/panels.ini /home/lesha/.config/mc/panels.ini" "
 run_command "chown -R lesha:users /home/lesha/.config/mc" "Error configuring MC"
 
 # Install usbmount
+CUR_FOLDER=$(pwd)
 run_command "wget -O /root/mine.zip https://github.com/clach04/automount-usb/archive/refs/heads/mine.zip" "Error installing usbmount"
 run_command "unzip /root/mine.zip" "Error installing usbmount"
+run_command "cd /root/automount-usb-mine" "Error installing usbmount"
 run_command "bash /root/automount-usb-mine/CONFIGURE.sh" "Error installing usbmount"
+run_command "cd $CUR_FOLDER" "Error installing usbmount"
 run_command "rm /etc/systemd/system/usb-mount@.service" "Error installing usbmount"
-run_command "wget --header "Accept: application/vnd.github.v3.raw" -O /etc/systemd/system/usb-mount@.service https://api.github.com/repos/jarsXk/homelab/contents/host/linux/manual/usbmount/usb-mount@.service" "Error installing usbmount"
+run_command "wget --header "Accept: application/vnd.github.v3.raw" -O /etc/systemd/system/usb-mount@.service https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/usbmount/usb-mount@.service" "Error installing usbmount"
 run_command "mv /usr/local/bin/usb-mount.sh /usr/local/sbin/" "Error installing usbmount"
 run_command "mv /root/automount-usb-mine /usr/local/sbin/usbmount" "Error installing usbmount"
 run_command "cp /etc/systemd/system/usb-mount@.service /usr/local/sbin/usbmount/" "Error installing usbmount"
@@ -462,5 +460,5 @@ run_command "rm -rf /var/lib/apt/lists/*" "Error cleaning"
 run_command "apt-get update" "Error cleaning"
 
 log_message INFO "Initial setup finished"
-run_command "fastfetch --pipe false" "Error"
+run_command "/etc/update-motd.d/70-custom-motd" "Error"
 exit 0
