@@ -54,11 +54,9 @@ create_group() {
       GROUP_GID="-g $3"
     fi  
     run_command "groupadd $GROUP_GID $SYSTEM_GROUP $1" "Error adding group $1"
-  fi
   else
     if [ $# -gt 2 ]; then
       run_command "groupmod -g $3 $1" "Error modifying group $1"
-    fi
     fi
   fi
   log_message INFO "Group <$1 ($(cat /etc/group | grep "$1"))>"
@@ -107,7 +105,7 @@ create_user() {
   fi
 
   log_message READ "Set password for user <$1>"
-  passwd $1
+  run_command "passwd $1" "Error adding user $1"
   log_message INFO "User <$1 ($(cat /etc/passwd | grep "$1"))>"
 }
 
@@ -158,7 +156,7 @@ run_command "apt -y purge $PACKAGE_LIST" "Error uninstalling"
 run_command "apt -y autoremove --purge" "Error uninstalling"
 
 # Installing packages
-PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl zstd snapd sudo util-linux"
+PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl zstd unzip snapd sudo util-linux"
 log_message INFO "Installing packages <$PACKAGE_LIST> and <fastfetch>"
 run_command "apt-get -y install $PACKAGE_LIST" "Error installing"
 if [ $(dpkg --print-architecture) = amd64 ]; then
@@ -214,14 +212,12 @@ if [ $DOCKER = yes ]; then
   create_group docker yes 200
   run_command "snap install docker" "Error installing docker"
   run_command "mkdir -p /var/snap/docker/current/docker" "Error installing docker"
-  if [ ! -f /var/snap/docker/current/config/daemon.json ]; then
-    log_message INFO "Error installing docker"
-    exit 1
-  else
+  if [ -f /var/snap/docker/current/config/daemon.json ]; then
     run_command "mv /var/snap/docker/current/config/daemon.json /var/snap/docker/current/config/daemon.json.bak" "Error installing docker" 
   fi
   run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /var/snap/docker/current/config/daemon.json https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/docker/daemon.json" "Error installing docker"
   run_command "snap restart docker" "Error installing docker"
+  sleep 2s
   run_command "/snap/bin/docker version" "Error installing docker"
 fi
 
@@ -349,7 +345,7 @@ if [ $NAS = yes ]; then
   create_user backup       201  users    no   /usr/sbin/nologin no          yes       family
 fi
 
-# Deleting droup "lesha"
+# Deleting group "lesha"
 run_command "groupdel lesha" "Error deleting group lesha"
 
 # Adding ssh public key
@@ -446,6 +442,17 @@ if [ -f /home/lesha/.config/mc/panels.ini ]; then
 fi
 run_command "cp /root/.config/mc/panels.ini /home/lesha/.config/mc/panels.ini" "Error configuring MC"
 run_command "chown -R lesha:users /home/lesha/.config/mc" "Error configuring MC"
+
+# Install usbmount
+run_command "wget -O /root/mine.zip https://github.com/clach04/automount-usb/archive/refs/heads/mine.zip" "Error installing usbmount"
+run_command "unzip /root/mine.zip" "Error installing usbmount"
+run_command "bash /root/automount-usb-mine/CONFIGURE.sh" "Error installing usbmount"
+run_command "rm /etc/systemd/system/usb-mount@.service" "Error installing usbmount"
+run_command "wget --header "Accept: application/vnd.github.v3.raw" -O /etc/systemd/system/usb-mount@.service https://api.github.com/repos/jarsXk/homelab/contents/host/linux/manual/usbmount/usb-mount@.service" "Error installing usbmount"
+run_command "mv /usr/local/bin/usb-mount.sh /usr/local/sbin/" "Error installing usbmount"
+run_command "mv /root/automount-usb-mine /usr/local/sbin/usbmount" "Error installing usbmount"
+run_command "cp /etc/systemd/system/usb-mount@.service /usr/local/sbin/usbmount/" "Error installing usbmount"
+run_command "rm /root/mine.zip" "Error installing usbmount"
 
 # Cleaning
 log_message INFO "Cleaning"
