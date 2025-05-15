@@ -12,7 +12,7 @@ BACKUP_DIR="/mnt/terra-backup/system"
 FILE_PREFIX="$(hostname)-backup"
 KEEP_DAYS=100
 THREADS=2
-EXCL_SUBVOLUMES="@ @rootfs @var-log @var-tmp @var-lib-pve-local"
+EXCL_SUBVOLUMES="@ @rootfs @var-tmp @var-lib-docker @.snapshots"
 FOLDER_LIST="/root /home"
 
 log_message() {
