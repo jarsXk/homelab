@@ -209,7 +209,7 @@ done
 log_message DEBUG "Selected install Docker <$DOCKER>"
 if [ $DOCKER = yes ]; then
   log_message INFO "Installing Docker"
-  create_group docker yes 200
+  create_group docker yes 199
   run_command "snap install docker" "Error installing docker"
   run_command "mkdir -p /var/snap/docker/current/docker" "Error installing docker"
   if [ -f /var/snap/docker/current/config/daemon.json ]; then
