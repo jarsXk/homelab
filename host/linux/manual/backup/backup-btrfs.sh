@@ -243,7 +243,7 @@ if [ $IS_BTRFS = yes ]; then
 fi
 
 # backup extra folders
-if [ ! -n "$FOLDER_LIST" ]; then
+if [ -n "$FOLDER_LIST" ]; then
     log_message INFO "*FOLDER* backup starting" 
     log_message DEBUG "Folders list <$FOLDER_LIST>"  
     # saving subvolume info
