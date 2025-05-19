@@ -243,20 +243,8 @@ if [ $IS_BTRFS = yes ]; then
 fi
 
 # backup extra folders
-pveversion &> /dev/null
-if [ $? -eq 0 ]; then
-    IS_PVE=yes
-else
-    IS_PVE=no
-fi
-if [ $IS_PVE = yes ] || [ ! -n "$FOLDER_LIST" ]; then
-    log_message INFO "*FOLDER* backup starting"
-
-    if [ $IS_PVE = yes ] && [ -n "$FOLDER_LIST" ]; then
-        FOLDER_LIST="$FOLDER_LIST /etc/pve"
-    elif [ $IS_PVE = yes ] && [ ! -n "$FOLDER_LIST" ]; then
-        FOLDER_LIST="/etc/pve"
-    fi  
+if [ ! -n "$FOLDER_LIST" ]; then
+    log_message INFO "*FOLDER* backup starting" 
     log_message DEBUG "Folders list <$FOLDER_LIST>"  
     # saving subvolume info
     for FOLDER in $FOLDER_LIST; do 

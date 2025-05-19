@@ -1,2 +1,0 @@
-# backup system every month
-15 2 * * 5 root /usr/local/sbin/backup-docker.sh
