@@ -337,12 +337,9 @@ if [ $NAS = yes ] && [ $LOCATION = shodnenskaya ]; then
   DOCKER_GROUPS="$DOCKER_GROUPS,lena-group,yulia-group"
 fi
 # technical users
-#               login        uid  group    sudo shell             create_home is_system extra_groups
+#             login        uid  group    sudo shell             create_home is_system extra_groups
 if [ $DOCKER = yes ]; then
   create_user docker       200  users    no   /usr/sbin/nologin no          yes       $DOCKER_GROUPS
-fi
-if [ $NAS = yes ]; then
-  create_user backup       201  users    no   /usr/sbin/nologin no          yes       family
 fi
 
 # Deleting group "lesha"
