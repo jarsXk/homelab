@@ -1,11 +1,11 @@
-Port 53 already in use fix
+Preinstall
 ---
 ```
 sudo mkdir /etc/systemd/resolved.conf.d
-sudo nano /etc/systemd/resolved.conf.d/adguardhome.conf
+sudo nano /etc/systemd/resolved.conf.d/98-adguardhome.conf
 sudo mv /etc/resolv.conf /etc/resolv.conf.backup
 sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
-systemctl reload-or-restart systemd-resolved
+sudo systemctl reload-or-restart systemd-resolved
 ```
 
 adguardhome.conf:

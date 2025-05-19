@@ -339,7 +339,10 @@ fi
 # technical users
 #             login        uid  group    sudo shell             create_home is_system extra_groups
 if [ $DOCKER = yes ]; then
-  create_user docker       200  users    no   /usr/sbin/nologin no          yes       $DOCKER_GROUPS
+  create_user docker       1999 users    no   /usr/sbin/nologin no          yes       $DOCKER_GROUPS
+fi
+if [ $NAS = yes ]; then
+  create_user apprentice   1998 users    no   /usr/sbin/nologin no          yes
 fi
 
 # Deleting group "lesha"

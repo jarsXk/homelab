@@ -9,8 +9,7 @@ docker run -d \
   -p 30130:9001 \
   --name portaineragent \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  -v /var/lib/docker/volumes:/var/lib/docker/volumes \
-  -v /srv/docker/enviroments:/srv/docker/enviroments:ro \
+  -v /var/snap/docker/common/var-lib-docker/volumes:/var/lib/docker/volumes \
   --restart=always \
   --network portainer_net \
   --ip 198.19.1.3 \
@@ -23,7 +22,6 @@ docker run -d \
   -p 30120:9000 \
   -p 30124:9443 \
   -v portainer_data:/data \
-  -v /srv/docker/enviroments:/srv/docker/enviroments:ro \
   --network portainer_net \
   --ip 198.19.1.2 \
   --restart=always \
