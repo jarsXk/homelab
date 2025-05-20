@@ -8,7 +8,7 @@ IGNORE_ERRORS=no
 LOG_NAME="/var/log/backup-btrfs.log"
 MOUNT_DIR="/mnt/tmp-root"
 #BACKUP_DIR="/home/lesha/tmp-backup"
-BACKUP_DIR="/mnt/io-backup/system"
+BACKUP_DIR="/mnt/io-backup/Europa/system"
 MOUNT_SERVICE="srv-remotemount-io_backup.mount"
 FILE_PREFIX="$(hostname)-backup"
 KEEP_DAYS=100
@@ -89,8 +89,6 @@ log_message INFO "Clearing apt"
 run_command "apt-get clean" "Error cleaning apt"
 
 log_message INFO "Creating/checking backup dir"
--d
--n
 if [ ! -d $BACKUP_DIR ]; then
   if [ -n $MOUNT_SERVICE ]; then
     BACKUP_MOUNTED=$(systemctl is-active $MOUNT_SERVICE >/dev/null 2>&1 && echo YES || echo NO)
