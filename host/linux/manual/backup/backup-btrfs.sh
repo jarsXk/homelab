@@ -8,7 +8,8 @@ IGNORE_ERRORS=no
 LOG_NAME="/var/log/backup-btrfs.log"
 MOUNT_DIR="/mnt/tmp-root"
 #BACKUP_DIR="/home/lesha/tmp-backup"
-BACKUP_DIR="/mnt/terra-backup/system"
+BACKUP_DIR="/mnt/io-backup/system"
+MOUNT_SERVICE="srv-remotemount-io_backup.mount"
 FILE_PREFIX="$(hostname)-backup"
 KEEP_DAYS=100
 THREADS=2
@@ -88,7 +89,29 @@ log_message INFO "Clearing apt"
 run_command "apt-get clean" "Error cleaning apt"
 
 log_message INFO "Creating/checking backup dir"
-run_command "mkdir -p $BACKUP_DIR" "Error creating backup dir"
+-d
+-n
+if [ ! -d $BACKUP_DIR ]; then
+  if [ -n $MOUNT_SERVICE ]; then
+    BACKUP_MOUNTED=$(systemctl is-active $MOUNT_SERVICE >/dev/null 2>&1 && echo YES || echo NO)
+    log_message DEBUG "Backup mounted (1): $BACKUP_MOUNTED"
+    if [ $BACKUP_MOUNTED = YES ]; then
+      run_command "mkdir -p $BACKUP_DIR" "Error creating backup dir"
+    else
+      run_command "sudo systemctl start $MOUNT_SERVICE" "Error creating backup dir"
+      BACKUP_MOUNTED=$(systemctl is-active $MOUNT_SERVICE >/dev/null 2>&1 && echo YES || echo NO)
+      log_message DEBUG "Backup mounted (2): $BACKUP_MOUNTED"
+      if [ $BACKUP_MOUNTED = YES ]; then
+        run_command "mkdir -p $BACKUP_DIR" "Error creating backup dir"
+      else
+        log_message ERROR "Could not mount backup dir"
+        exit 1
+      fi
+    fi
+  else
+    run_command "mkdir -p $BACKUP_DIR" "Error creating backup dir"
+  fi
+fi
 
 # get device file for /
 DEVICE_FILE=$(awk '$5 == "/" { print $10 }' /proc/self/mountinfo)
