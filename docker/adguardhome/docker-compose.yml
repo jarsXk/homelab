@@ -15,7 +15,7 @@ services:
     hostname: adguardhome
     image: adguard/adguardhome:latest
     ports:
-      - 53:53/udp
+      - ${HOSTIP}:53:53/udp
       - 30220:80/tcp
       - 30224:443
       - 30221:3000/tcp
