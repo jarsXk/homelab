@@ -16,13 +16,17 @@ services:
     image: adguard/adguardhome:latest
     ports:
       - ${HOSTIP}:53:53
+      - ${HOSTIP}:53:53/udp
       - 30220:80/tcp
       - 30224:443
+      - 30224:443/udp
       - 30221:3000/tcp
       - 853:853
+      - 853:853/udp
       - 784:784/udp
       - 8853:8853/udp
       - 5443:5443
+      - 5443:5443/udp
     environment:
       - TZ=Europe/Moscow
     volumes:
