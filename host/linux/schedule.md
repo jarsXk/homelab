@@ -1,13 +1,13 @@
 
-|     | 0:00           | 2:00          |     |
-| --- | -------------- | ------------- | --- |
-| Mon | brtfs snapshot |               |     |
-| Tue | brtfs snapshot |               |     |
-| Wed | brtfs snapshot |               |     |
-| Thu | brtfs snapshot |               |     |
-| Fri | brtfs snapshot |               |     |
-| Sat | brtfs snapshot |               |     |
-| Sun | brtfs snapshot |               |     |
-|     |                |               |     |
-| 14  |                | btrfs scrub   |     |
-| 15  |                | system backup |     |
+|     | 0:00                | 2:00             |     |
+| --- | ------------------- | ---------------- | --- |
+| Mon | 0:01 brtfs snapshot |                  |     |
+| Tue | 0:01 brtfs snapshot |                  |     |
+| Wed | 0:01 brtfs snapshot |                  |     |
+| Thu | 0:01 brtfs snapshot |                  |     |
+| Fri | 0:01 brtfs snapshot |                  |     |
+| Sat | 0:01 brtfs snapshot |                  |     |
+| Sun | 0:01 brtfs snapshot |                  |     |
+|     |                     |                  |     |
+| 14  |                     | 0:15 btrfs scrub |     |
+| 15  |                     | system backup    |     |

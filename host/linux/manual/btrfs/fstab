@@ -1,0 +1,19 @@
+# >>> CUSTOM DATA MOUNTS
+/srv/dev-disk-by-uuid-2ccbfe2b-4a77-480d-8374-090a32a3b817/storage/download 			/srv/data/local-download 									none 	defaults,bind   0 0
+/srv/dev-disk-by-uuid-2ccbfe2b-4a77-480d-8374-090a32a3b817/storage/junk 				/srv/data/local-junk 										none 	defaults,bind   0 0
+/srv/dev-disk-by-uuid-2ccbfe2b-4a77-480d-8374-090a32a3b817/storage/share 				/srv/data/local-share 										none 	defaults,bind   0 0
+/srv/dev-disk-by-uuid-7edebedd-a908-432e-96b6-b6fb24f8d736/storage/books 				/srv/data/local-books 										none 	defaults,bind   0 0
+/srv/dev-disk-by-uuid-7edebedd-a908-432e-96b6-b6fb24f8d736/storage/music 				/srv/data/local-music 										none 	defaults,bind   0 0
+/srv/dev-disk-by-uuid-7edebedd-a908-432e-96b6-b6fb24f8d736/storage/software 			/srv/data/local-software 									none 	defaults,bind   0 0
+/srv/dev-disk-by-uuid-7edebedd-a908-432e-96b6-b6fb24f8d736/storage/video 				/srv/data/local-video/public								none 	defaults,bind   0 0
+/srv/dev-disk-by-uuid-a54e1ac5-60de-4860-9ff2-e4bf414b9390/storage/documents 			/srv/data/local-documents 									none 	defaults,bind   0 0
+/srv/dev-disk-by-uuid-a54e1ac5-60de-4860-9ff2-e4bf414b9390/storage/photo 				/srv/data/local-photo 										none 	defaults,bind   0 0
+/srv/dev-disk-by-uuid-a54e1ac5-60de-4860-9ff2-e4bf414b9390/storage/saves 				/srv/data/local-saves 										none 	defaults,bind   0 0
+/srv/dev-disk-by-uuid-a54e1ac5-60de-4860-9ff2-e4bf414b9390/storage/video/groups/family 	/srv/data/local-video/family 								none 	defaults,bind   0 0
+/srv/dev-disk-by-uuid-c85d7ff9-7bda-4bb0-b52d-8e642b4eec31/storage/backup 				/srv/data/local-backup 										none 	defaults,bind   0 0
+# <<< CUSTOM DATA MOUNTS
+# >>> CUSTOM DOCKER MOUNTS
+/srv/docker/volumes 					/var/snap/docker/common/var-lib-docker/volumes 	none 	defaults,bind   															0 0
+/srv/docker/assets 						/var/snap/docker/common/assets 	             	none 	defaults,bind   															0 0
+/srv/data				 				/var/snap/docker/common/data				 	none 	defaults,bind 																0 0
+# <<< CUSTOM DOCKER MOUNTS

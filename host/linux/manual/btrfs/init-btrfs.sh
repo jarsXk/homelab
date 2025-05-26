@@ -33,5 +33,3 @@ mkdir -p ./@srv-docker/volumes
 mkdir -p ./@rootfs/var/snap/docker/common/assets
 mkdir -p ./@srv-docker/assets
 mkdir -p ./@rootfs/var/snap/docker/common/data
-
-

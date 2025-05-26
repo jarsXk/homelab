@@ -1,4 +1,4 @@
-## btrfs host
+## btrfs linux host
 ```
 apt install fsarchiver parted
 wget \
@@ -12,19 +12,4 @@ wget \
   -O /etc/cron.d/backup-btrfs \
   https://api.github.com/repos/jarsXk/homelab/contents/host/linux/manual/backup/backup-btrfs
 
-```
-## docker
-```
-apt install zstd
-wget \
-  --header 'Accept: application/vnd.github.v3.raw' \
-  -O /usr/local/sbin/backup-docker.sh \
-  https://api.github.com/repos/jarsXk/homelab/contents/host/linux/manual/backup/backup-docker.sh
-chmod ug+x /usr/local/sbin/backup-docker.sh
-micro /usr/local/sbin/backup-docker.sh
-mkdir -p /mnt/terra-backup
-wget \
-  --header 'Accept: application/vnd.github.v3.raw' \
-  -O /etc/cron.d/backup-docker \
-  https://api.github.com/repos/jarsXk/homelab/contents/host/linux/manual/backup/backup-docker
 ```
