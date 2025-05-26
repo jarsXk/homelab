@@ -15,12 +15,16 @@ services:
     hostname: vaultwarden
     ports:
       - 31720:80
-    env_file:
-      - /srv/docker/enviroments/vaultwarden.env
     environment:
-      - DOMAIN=https://vaultwarden.sungate.keenetic.pro
+      - DOMAIN=${DOMAIN_URL}
+      - CRON=*/20 * * * *
+      - RUN_ON_START=true
+      - ORIGIN_URL=${ORIGIN_URL}
+      - ORIGIN_USERNAME=${ORIGIN_USERNAME}
+      - ORIGIN_PASSWORD=${ORIGIN_PASSWORD}
       - LOGIN_RATELIMIT_MAX_BURST=10
       - LOGIN_RATELIMIT_SECONDS=60
+      - ADMIN_TOKEN=${ADMIN_TOKEN}
       - ADMIN_RATELIMIT_MAX_BURST=10
       - ADMIN_RATELIMIT_SECONDS=60
       - SENDS_ALLOWED=false
@@ -31,12 +35,13 @@ services:
       - SIGNUPS_VERIFY_RESEND_TIME=3600
       - SIGNUPS_VERIFY_RESEND_LIMIT=5
       - INVITATIONS_ALLOWED=false
-      - SMTP_HOST=smtp.mail.ru
-      - SMTP_FROM=terraserver@list.ru
-      - SMTP_FROM_NAME=Vaultwarden@Terra
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_FROM=${SMTP_USERNAME}
+      - SMTP_FROM_NAME=${SMTP_FROM_NAME}
       - SMTP_SECURITY=force_tls
       - SMTP_PORT=465
-      - SMTP_USERNAME=terraserver@list.ru
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
       - SMTP_AUTH_MECHANISM=“Xoauth2”
     volumes:
       - data:/data
