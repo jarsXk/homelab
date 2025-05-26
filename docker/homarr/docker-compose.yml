@@ -21,7 +21,7 @@ services:
       - config:/app/data/configs
       - icons:/app/public/icons
       - data:/data
-      - /var/snap/docker/common/var-lib-docker/assets/homarr/wallpaper.jpeg:/app/public/imgs/wallpaper.jpeg:ro
+      - /var/snap/docker/common/assets/homarr/wallpaper.jpeg:/app/public/imgs/wallpaper.jpeg:ro
     networks:
       net:
         ipv4_address: 198.19.4.2
