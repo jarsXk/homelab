@@ -16,7 +16,7 @@ services:
     ports:
       - 31720:80
     environment:
-      - DOMAIN=${DOMAIN_URL}
+      - DOMAIN=${DOMAIN}
       - CRON=*/20 * * * *
       - RUN_ON_START=true
       - ORIGIN_URL=${ORIGIN_URL}
