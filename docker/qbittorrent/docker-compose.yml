@@ -7,12 +7,6 @@ networks:
 
 volumes:
   config:
-  download:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=terra-nas.internal,rw"
-      device: ":/export/download/Torrent"
 
 services:
   qbittorrent:
@@ -20,15 +14,14 @@ services:
     hostname: qbittorrent
     image: lscr.io/linuxserver/qbittorrent:latest
     environment:
-      - PUID=200
-      - PGID=100
+      - PUID=1999
+      - PGID=199
       - TZ=Europe/Moscow
       - UMASK=002
       - WEBUI_PORT=80
     volumes:
       - config:/config
-      - download:/downloads/unsorted
-
+      - /var/snap/docker/common/data/local-download/torrent:/downloads/unsorted
     ports:
       - 30620:80
       - 6881:6881
