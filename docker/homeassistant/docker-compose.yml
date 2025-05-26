@@ -9,7 +9,7 @@ services:
     network_mode: host
     environment:
       - PUID=1999
-      - PGID=199
+      - PGID=100
       - TZ=Europe/Moscow
     volumes:
       - config:/config

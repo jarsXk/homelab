@@ -15,7 +15,7 @@ services:
     image: lscr.io/linuxserver/qbittorrent:latest
     environment:
       - PUID=1999
-      - PGID=199
+      - PGID=100
       - TZ=Europe/Moscow
       - UMASK=002
       - WEBUI_PORT=80
