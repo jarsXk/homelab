@@ -22,12 +22,12 @@ services:
       - /dev/dri:/dev/dri
     volumes:
       - config:/config
-      - /var/snap/docker/common/data/local-video/public/movies:/media/video/movies:ro
-      - /var/snap/docker/common/data/local-video/public/tvshows:/media/video/tvshows:ro
-      - /var/snap/docker/common/data/local-video/public/animation:/media/video/animation:ro
-      - /var/snap/docker/common/data/local-video/public/animationshows:/media/video/animationshows:ro
-      - /var/snap/docker/common/data/local-video/public/documentary:/media/video/documentary:ro
-      - /var/snap/docker/common/data/local-video/family/family:/media/video/family:ro
+      - ${DATA_MOVIES}:/media/video/movies:ro
+      - ${DATA_TVSHOWS}:/media/video/tvshows:ro
+      - ${DATA_ANIMATION}:/media/video/animation:ro
+      - ${DATA_ANIMATIONSHOWS}:/media/video/animationshows:ro
+      - ${DATA_DOCUMENTARY}:/media/video/documentary:ro
+      - ${DATA_FAMILY}:/media/video/family:ro
     ports:
       - 31020:8096
       - 31024:8920
