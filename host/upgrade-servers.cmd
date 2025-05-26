@@ -69,20 +69,9 @@ if %ASK_PROXIMAPASS%==yes set /P "PROXIMAPASS=Proxima password: "
 
 if %UPG_KOMMUNARKA%==yes (
     echo.
-    echo #################### Upgrade Terra prime  ####################
-    ssh -t lesha@terra.internal "echo %LINUXPASS% | sudo -S apt update && sudo apt upgrade -y"
-
-    echo.
-    echo #################### Upgrade Terra nas #######################
-    ssh -t lesha@terra-nas.internal "echo %LINUXPASS% | sudo -S apt update && sudo apt upgrade -y"
-
-    echo.
-    echo #################### Upgrade Terra docker ####################
-    ssh -t lesha@terra-docker.internal "echo %LINUXPASS% | sudo -S apt update && sudo apt upgrade -y"
-
-    echo.
-    echo #################### Upgrade Terra old #######################
-    ssh -t lesha@terra-old.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
+    echo #################### Upgrade Terra ###########################
+    ssh -t lesha@terra.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
+    ssh -t lesha@terra.internal "echo %LINUXPASS% | sudo -S snap refresh" 
 
     echo.
     echo #################### Upgrade Vesta prime #####################
@@ -104,7 +93,8 @@ if %UPG_VASILKOVO%==yes (
 
     echo.
     echo #################### Upgrade Europa ##########################
-    ssh -t lesha@europa.internal "echo %LINUXPASS% | sudo -S armbian-upgrade"
+    ssh -t lesha@europa.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
+    ssh -t lesha@europa.internal "echo %LINUXPASS% | sudo -S snap refresh" 
 )
 
 if %UPG_CHANOVO%==yes (
