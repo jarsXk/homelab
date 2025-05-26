@@ -1,0 +1,44 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.10.0/24
+          gateway: 198.19.10.1
+
+volumes:
+  config:
+
+services:
+  jellyfin:
+    container_name: jellyfin
+    image: lscr.io/linuxserver/jellyfin:latest
+    hostname: jellyfin
+    environment:
+      - PUID=1999
+      - PGID=2000
+      - TZ=Europe/Moscow
+#      - DOCKER_MODS=ghcr.io/lizardbyte/themerr-jellyfin:latest
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - config:/config
+      - /var/snap/docker/common/data/local-video/public/movies:/media/video/movies:ro
+      - /var/snap/docker/common/data/local-video/public/tvshows:/media/video/tvshows:ro
+      - /var/snap/docker/common/data/local-video/public/animation:/media/video/animation:ro
+      - /var/snap/docker/common/data/local-video/public/animationshows:/media/video/animationshows:ro
+      - /var/snap/docker/common/data/local-video/public/documentary:/media/video/documentary:ro
+      - /var/snap/docker/common/data/local-video/family/family:/media/video/family:ro
+    ports:
+      - 31020:8096
+      - 31024:8920
+#      - 1900:1900/udp
+      - 7359:7359/udp
+    networks:
+      net:
+        ipv4_address: 198.19.10.2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
