@@ -8,8 +8,8 @@ services:
     image: lscr.io/linuxserver/homeassistant:latest
     network_mode: host
     environment:
-      - PUID=199
-      - PGID=1999
+      - PUID=1999
+      - PGID=199
       - TZ=Europe/Moscow
     volumes:
       - config:/config
