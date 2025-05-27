@@ -203,7 +203,7 @@ fi
 
 # perform root backup 
 log_message INFO "Starting FSArchiver backup"
-run_command "fsarchiver savefs -o $BACKUP_DIR/$FILE_PREFIX-$CURDATE.fsa $DEVICE_FILE $BOOT_PART -A -Z3 -j$THREADS" "FSArchiver backup failed"
+run_command "fsarchiver savefs -o $BACKUP_DIR/$FILE_PREFIX-$CURDATE.fsa $BOOT_PART $DEVICE_FILE -A -Z3 -j$THREADS" "FSArchiver backup failed"
 run_command "fsarchiver archinfo $BACKUP_DIR/$FILE_PREFIX-$CURDATE.fsa" "FSArchiver backup failed"
 
 # backup root subvolumes

@@ -7,8 +7,6 @@ networks:
 
 volumes:
   config:
-#  proxy_config:
-#  lostfilm_config:
   
 services:
   jackett:
@@ -19,9 +17,9 @@ services:
       - 31320:9117
     volumes:
       - config:/config
-      - /srv/docker/injections/jackett/noname-clubl-rus.yml:/app/Jackett/Definitions/noname-clubl-rus.yml:ro
+      - /var/snap/docker/common/assets/jackett/noname-clubl-rus.yml:/app/Jackett/Definitions/noname-clubl-rus.yml:ro
     environment:
-      - PUID=200
+      - PUID=1999
       - PGID=100
       - TZ=Europe/Moscow
     networks:

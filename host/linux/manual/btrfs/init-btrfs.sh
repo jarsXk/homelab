@@ -8,7 +8,7 @@ btrfs subvolume create @var-tmp
 btrfs subvolume create @snapshots
 mkdir -p ./@rootfs/.snapshots
 
-#data
+# data
 mkdir -p ./@rootfs/srv/data
 mkdir -p ./@rootfs/srv/data/local-download
 mkdir -p ./@rootfs/srv/data/local-junk
@@ -23,7 +23,7 @@ mkdir -p ./@rootfs/srv/data/local-photo
 mkdir -p ./@rootfs/srv/data/local-saves
 mkdir -p ./@rootfs/srv/data/local-backup
 
-#docker
+# docker
 mkdir -p ./@rootfs/var/snap/docker/common/var-lib-docker
 btrfs subvolume create @var-lib-docker
 mkdir -p ./@rootfs/srv/docker
@@ -33,3 +33,11 @@ mkdir -p ./@srv-docker/volumes
 mkdir -p ./@rootfs/var/snap/docker/common/assets
 mkdir -p ./@srv-docker/assets
 mkdir -p ./@rootfs/var/snap/docker/common/data
+
+# vm
+btrfs subvolume create @srv-vm
+mkdir -p ./@rootfs/srv/vm
+btrfs subvolume create @var-lib-machines
+mkdir -p ./@rootfs/var/lib/machines
+btrfs subvolume create @var-lib-portables
+mkdir -p ./@rootfs/var-lib-portables
