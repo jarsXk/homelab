@@ -38,6 +38,7 @@ services:
       test: ["CMD", "wget", "--spider", "--timeout=10", "http://localhost:3000"]
       interval: 30s
       timeout: 10s
+      start-period: 10s
       retries: 3
     logging:
       driver: "json-file"
@@ -60,6 +61,7 @@ services:
       test: psql -U semaphore -d semaphore -c "SELECT 1;"
       interval: 30s
       timeout: 10s
+      start-period: 10s
       retries: 3
     networks:
       net:

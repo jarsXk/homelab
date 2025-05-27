@@ -37,6 +37,7 @@ services:
         test: ["CMD", "wget", "--spider", "--timeout=10", "http://198.19.13.2:7878"]
         interval: 30s
         timeout: 10s
+        start-period: 10s
         retries: 3
     logging:
       driver: "json-file"
@@ -72,6 +73,7 @@ services:
         test: ["CMD", "wget", "--spider", "--timeout=10", "http://198.19.13.3:8989"]
         interval: 30s
         timeout: 10s
+        start-period: 10s
         retries: 3
     logging:
       driver: "json-file"
@@ -100,6 +102,7 @@ services:
       test: ["CMD", "curl", "-f", "http://198.19.13.4:9117"]
       interval: 30s
       timeout: 10s
+      start-period: 10s
       retries: 3
     logging:
       driver: "json-file"
