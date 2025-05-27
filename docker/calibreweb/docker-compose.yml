@@ -31,11 +31,11 @@ services:
       net:
         ipv4_address: 198.19.12.2
     healthcheck:
-        test: ["CMD", "wget", "--spider", "--timeout=10", "http://198.19.12.2:8083"]
-        interval: 30s
-        timeout: 10s
-        start_period: 1m
-        retries: 3
+      test: ["CMD", "curl", "-f", "http://198.19.12.2:8083"]
+      interval: 30s
+      timeout: 10s
+      start_period: 90s
+      retries: 3
     logging:
       driver: "json-file"
       options:
