@@ -7,12 +7,6 @@ networks:
 
 volumes:
   config:
-  books:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=terra-nas.internal,rw"
-      device: ":/export/books/CalibreDB"
 
 services:
   calibre-web:
@@ -23,19 +17,25 @@ services:
       - 31220:8083
     environment:
       - TZ=Europe/Moscow
-      - PUID=200
+      - PUID=1999
       - PGID=100
       - UMASK=002
       - DOCKER_MODS=linuxserver/mods:universal-calibre
     volumes:
       - config:/config
-      - /srv/docker/injections/calibreweb/xdg-desktop-menu:/usr/bin/xdg-desktop-menu:ro
-      - /srv/docker/injections/calibreweb/xdg-icon-resource:/usr/bin/xdg-icon-resource:ro
-      - /srv/docker/injections/calibreweb/xdg-mime:/usr/bin/xdg-mime:ro
-      - books:/books
+      - /var/snap/docker/common/assets/calibreweb/xdg-desktop-menu:/usr/bin/xdg-desktop-menu:ro
+      - /var/snap/docker/common/assets/calibreweb/xdg-icon-resource:/usr/bin/xdg-icon-resource:ro
+      - /var/snap/docker/common/assets/calibreweb/xdg-mime:/usr/bin/xdg-mime:ro
+      - ${DATA_BOOKS}:/books
     networks:
       net:
         ipv4_address: 198.19.12.2
+    healthcheck:
+        test: ["CMD", "wget", "--spider", "--timeout=10", "http://198.19.12.2:8083"]
+        interval: 30s
+        timeout: 10s
+        start_period: 1m
+        retries: 3
     logging:
       driver: "json-file"
       options:
