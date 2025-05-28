@@ -56,8 +56,6 @@ services:
     image: pgautoupgrade/pgautoupgrade:latest
     container_name: nextcloud-postresdb
     hostname: postgresdb
-    env_file:
-      - /srv/docker/enviroments/nextcloud.env
     environment:
       - POSTGRES_USER=nextcloud
       - POSTGRES_DB=nextcloud
