@@ -87,12 +87,6 @@ services:
     networks:
       net:
         ipv4_address: 198.19.11.4
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "--timeout=10", "198.19.11.4:6379"]
-      interval: 30s
-      timeout: 10s
-      start_period: 10s
-      retries: 3
     logging:
       driver: "json-file"
       options:
