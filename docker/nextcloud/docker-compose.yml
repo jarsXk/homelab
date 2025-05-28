@@ -17,7 +17,7 @@ services:
     container_name: nextcloud
     hostname: nextcloud
     environment:
-      - PUID=200
+      - PUID=1999
       - PGID=2000
       - TZ=Europe/Moscow
       - UMASK=007
@@ -40,7 +40,7 @@ services:
       net:
         ipv4_address: 198.19.11.2
     healthcheck:
-      test: ["CMD", "curl", "-f", "https://198.19.11.2:443"]
+      test: ["CMD", "wget", "--spider", "--timeout=10", "https://198.19.11.2:443"]
       interval: 30s
       timeout: 10s
       start_period: 10s
@@ -87,6 +87,12 @@ services:
     networks:
       net:
         ipv4_address: 198.19.11.4
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "--timeout=10", "198.19.11.4:6379"]
+      interval: 30s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
     logging:
       driver: "json-file"
       options:
