@@ -33,14 +33,14 @@ services:
       - 31124:443
     depends_on:
       redis:
-        condition: service_started
+        condition: service_healthy
       postgresdb:
         condition: service_healthy
     networks:
       net:
         ipv4_address: 198.19.11.2
     healthcheck:
-      test: ["CMD", "wget", "--spider", "--timeout=10", "https://198.19.11.2:443"]
+      test: ["CMD", "wget", "--spider", "--timeout=10", "http://198.19.11.2"]
       interval: 30s
       timeout: 10s
       start_period: 10s
@@ -87,6 +87,12 @@ services:
     networks:
       net:
         ipv4_address: 198.19.11.4
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 30s
+      timeout: 10s
+      start_period: 10s
+      retries: 3  
     logging:
       driver: "json-file"
       options:
