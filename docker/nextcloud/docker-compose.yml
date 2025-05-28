@@ -10,36 +10,6 @@ volumes:
   redis_data:
   config:
   data:
-  data-admin:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=terra-nas.internal,rw"
-      device: ":/export/documents/users/root/nextcloud"
-  data-lesha:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=terra-nas.internal,rw"
-      device: ":/export/documents/users/lesha/nextcloud"
-  photo-lesha:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=terra-nas.internal,rw"
-      device: ":/export/photo/users/lesha"
-  video-family:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=terra-nas.internal,rw"
-      device: ":/export/video-family"
-  documents-lesha:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=terra-nas.internal,rw"
-      device: ":/export/documents/users/lesha/sync"
   
 services:
   nextcloud:
@@ -54,19 +24,26 @@ services:
     volumes:
       - config:/config
       - data:/data
-      - data-admin:/data/admin
-      - data-lesha:/data/lesha
-      - photo-lesha:/externaldata/photo/users/lesha:ro
-      - video-family:/externaldata/video/family:ro
-      - documents-lesha:/externaldata/documents/users/lesha
+      - ${DATA_FILES_ADMIN}:/data/admin
+      - ${DATA_FILES_LESHA}:/data/lesha
+      - ${DATA_PHOTO_LESHA}:/externaldata/photo/users/lesha:ro
+      - ${DATA_VIDEO_FAMILY}:/externaldata/video/family:ro
+      - ${DATA_DOCUMENTS_LESHA}:/externaldata/documents/users/lesha
     ports:
       - 31124:443
     depends_on:
-      - redis
-      - postgresdb
+      redis:
+      postgresdb:
+        condition: service_healthy
     networks:
       net:
         ipv4_address: 198.19.11.2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://198.19.11.2:443"]
+      interval: 30s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
     logging:
       driver: "json-file"
       options:
@@ -83,12 +60,14 @@ services:
     environment:
       - POSTGRES_USER=nextcloud
       - POSTGRES_DB=nextcloud
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
       test: psql -U nextcloud -d nextcloud -c "SELECT 1;"
-      interval: 60s
-      timeout: 5s
+      interval: 30s
+      timeout: 10s
+      start_period: 10s
       retries: 3
     networks:
       net:

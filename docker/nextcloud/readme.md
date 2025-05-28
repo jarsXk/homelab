@@ -1,4 +1,4 @@
-### config.php
+## config.php
 ```
   'memcache.distributed' => '\\OC\\Memcache\\Redis',
   'memcache.locking' => '\\OC\\Memcache\\Redis',
