@@ -33,6 +33,7 @@ services:
       - 31124:443
     depends_on:
       redis:
+        condition: service_started
       postgresdb:
         condition: service_healthy
     networks:
