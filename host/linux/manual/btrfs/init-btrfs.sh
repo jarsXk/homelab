@@ -17,7 +17,7 @@ mkdir -p ./@rootfs/srv/data/local-books
 mkdir -p ./@rootfs/srv/data/local-music
 mkdir -p ./@rootfs/srv/data/local-software
 mkdir -p ./@rootfs/srv/data/local-video/public
-mkdir -p ./@rootfs/srv/data/local-video/family
+mkdir -p ./@rootfs/srv/data/local-video/groups/family
 mkdir -p ./@rootfs/srv/data/local-documents
 mkdir -p ./@rootfs/srv/data/local-photo
 mkdir -p ./@rootfs/srv/data/local-saves
