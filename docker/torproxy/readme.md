@@ -3,10 +3,7 @@ sudo mkdir -p /srv/docker/assets/torproxy
 sudo wget \
   -O /srv/docker/assets/torproxy/torrc \
   https://raw.githubusercontent.com/jarsXk/homelab/refs/heads/main/docker/torproxy/assets/torrc
-```
-
-## bridges
-```
-obfs4 107.174.212.113:31337 F85EEE917BC94C82DE620D183CE7AA9C7A59FA0A cert=qzYzuuHbDxeLeyfZ9DmK5PU4EfCKSG5Ti6R3+I44A3owPJ4dulA1dT5g2RRxyXQBTqrDbQ iat-mode=0
-obfs4 46.8.43.62:2056 884108625A4EF9A86D3E021B6495201F510146F0 cert=Bu3SZ8hhJvegLhgtwB//0M4jodsfu2B2SY5SZZDX2/hOvUyUcwP+ZP/e3QOUheWdKfWICQ iat-mode=0
+sudo wget \
+  -O /srv/docker/assets/torproxy/bridges.txt \
+  https://raw.githubusercontent.com/jarsXk/homelab/refs/heads/main/docker/torproxy/assets/bridges.txt
 ```
