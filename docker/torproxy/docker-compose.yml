@@ -10,9 +10,9 @@ services:
     container_name: torproxy
     hostname: torproxy
     image: zerolabnet/tor-bridges-proxy:latest
-#    volumes:
-#      - /var/snap/docker/common/assets/torproxy/torrc:/etc/tor/torrc
-#      - /var/snap/docker/common/assets/torproxy/bridges.txt:/etc/tor/bridges.txt
+    volumes:
+      - /var/snap/docker/common/assets/torproxy/torrc:/etc/tor/torrc
+      - /var/snap/docker/common/assets/torproxy/bridges.txt:/etc/tor/bridges.txt
     ports:
       - 31820:9151/tcp
       - 31821:9150/tcp
