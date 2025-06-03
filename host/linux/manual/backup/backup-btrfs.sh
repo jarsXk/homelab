@@ -206,6 +206,8 @@ log_message INFO "Starting FSArchiver backup"
 run_command "fsarchiver savefs -o $BACKUP_DIR/$FILE_PREFIX-$CURDATE.fsa $BOOT_PART $DEVICE_FILE -A -Z3 -j$THREADS" "FSArchiver backup failed"
 run_command "fsarchiver archinfo $BACKUP_DIR/$FILE_PREFIX-$CURDATE.fsa" "FSArchiver backup failed"
 
+log_message INFO "*ROOT* backup finished"
+
 # backup root subvolumes
 if [ $(blkid -o value -s TYPE $DEVICE_FILE) = "btrfs" ]; then
     IS_BTRFS=yes
@@ -275,6 +277,8 @@ if [ -n "$FOLDER_LIST" ]; then
         TMPNAME=${TMPNAME:1}
         run_command "fsarchiver savedir -o $BACKUP_DIR/$FILE_PREFIX-$CURDATE.folder-$TMPNAME.fsa $FOLDER -A -Z3 -j$THREADS" "Error fsarchiver folder backup"
     done  
+
+  log_message INFO "*FOLDER* backup finished" 
 fi      
 
 # Purging old backups
