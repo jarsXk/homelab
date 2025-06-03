@@ -13,7 +13,7 @@ volumes:
   
 services:
   nextcloud:
-    image: lscr.io/linuxserver/nextcloud:30.0.11
+    image: lscr.io/linuxserver/nextcloud:30.0.11-previous
     container_name: nextcloud
     hostname: nextcloud
     environment:
