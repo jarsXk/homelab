@@ -1,5 +1,5 @@
 UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /												btrfs	defaults,noatime,nodiratime,degraded,nofail,subvol=@rootfs					0 0
-UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /.snapshots 									btrfs   defaults,noatime,nodiratime,degraded,nofail,subvol=@.snapshots 				0 0
+UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /.snapshots 									btrfs   defaults,noatime,nodiratime,degraded,nofail,subvol=.snapshots 				0 0
 UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/log 										btrfs   defaults,noatime,nodiratime,degraded,nofail,compress=zstd:3,subvol=@var-log 0 0
 UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/tmp 										btrfs 	defaults,noatime,nodiratime,degraded,nofail,compress=zstd:3,subvol=@var-tmp 0 0
 UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/snap/docker/common/var-lib-docker 		btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@var-lib-docker 			0 0

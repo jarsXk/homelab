@@ -5,7 +5,7 @@ btrfs subvolume create @var-log
 btrfs subvolume create @var-tmp
 
 # snapshots
-btrfs subvolume create @snapshots
+btrfs subvolume create .snapshots
 mkdir -p ./@rootfs/.snapshots
 
 # data
