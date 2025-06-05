@@ -28,7 +28,7 @@ mkdir -p ./@rootfs/var/snap/docker/common/var-lib-docker
 btrfs subvolume create @var-lib-docker
 mkdir -p ./@rootfs/srv/docker
 btrfs subvolume create @srv-docker
-mkdir -p ./@rootfs/var/snap/docker/common/var-lib-docker/volumes
+mkdir -p ./@rootfs/@var-lib-docker/volumes
 mkdir -p ./@srv-docker/volumes
 mkdir -p ./@rootfs/var/snap/docker/common/assets
 mkdir -p ./@srv-docker/assets
