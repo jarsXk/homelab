@@ -134,7 +134,7 @@
                 "antialiasingMode": "grayscale",
                 "closeOnExit": "graceful",
                 "colorScheme": "Campbell Purple",
-                "commandline": "ssh lesha@mimas.home.arpa",
+                "commandline": "ssh lesha@mimas.internal",
                 "cursorShape": "filledBox",
                 "font": 
                 {
