@@ -33,6 +33,7 @@ mkdir -p ./@srv-docker/volumes
 mkdir -p ./@rootfs/var/snap/docker/common/assets
 mkdir -p ./@srv-docker/assets
 mkdir -p ./@rootfs/var/snap/docker/common/data
+mkdir -p ./@rootfs/var/snap/docker/common/dummy
 
 # vm
 btrfs subvolume create @srv-vm

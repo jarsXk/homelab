@@ -1,0 +1,43 @@
+version: "3"
+
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.16.0/24
+          gateway: 198.19.16.1
+
+volumes:
+  config:
+
+services:
+  firefox:
+    image: lscr.io/linuxserver/firefox:latest
+    container_name: firefox
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1999
+      - PGID=100
+      - TZ=Europe/Moscow
+    volumes:
+      - config:/config
+    ports:
+      - 31620:3000
+      - 31624:3001
+    shm_size: "128mb"
+    networks:
+      net:
+        ipv4_address: 198.19.16.2
+    healthcheck:
+        test: ["CMD", "wget", "--spider", "--timeout=10", "http://198.19.16.2:80"]
+        interval: 30s
+        timeout: 10s
+        start_period: 10s
+        retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
