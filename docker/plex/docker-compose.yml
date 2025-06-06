@@ -14,20 +14,23 @@ services:
     hostname: plex
     image: lscr.io/linuxserver/plex:latest
     environment:
-      - PUID=200
+      - PUID=1999
       - PGID=2000
       - VERSION=docker
-      - PLEX_CLAIM=claim-nCC1dQ6jzMt4_WuoSxKc
-      - ADVERTISE_IP="http://makemake.home.arpa:32400,http://plex.makemake.home.arpa"
-      - ALLOWED_NETWORKS="172.16.0.0/19,192.168.22.0/24,198.19.0.0/16"
+      - PLEX_CLAIM=${PLEX_CLAIM}
+      - ADVERTISE_IP=${ADVERTISE_IP}
+      - ALLOWED_NETWORKS=${ALLOWED_NETWORKS}
       - TZ=Europe/Moscow
     devices:
       - /dev/dri:/dev/dri
     volumes:
       - config:/config
-      - /mnt/local-media/Video/Family:/media/video/family:ro
-      - /mnt/local-media/Video/Movies:/media/video/movies:ro
-      - /mnt/local-media/Video/TV Shows:/media/video/tvshows:ro
+      - ${DATA_MOVIES}:/media/video/movies:ro
+      - ${DATA_TVSHOWS}:/media/video/tvshows:ro
+      - ${DATA_ANIMATION}:/media/video/animation:ro
+      - ${DATA_ANIMATIONSHOWS}:/media/video/animationshows:ro
+      - ${DATA_DOCUMENTARY}:/media/video/documentary:ro
+      - ${DATA_FAMILY}:/media/video/family:ro
     ports:
       - 32400:32400/tcp
       - 3005:3005/tcp
@@ -41,6 +44,12 @@ services:
     networks:
       net:
         ipv4_address: 198.19.9.2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://198.19.9.2:32400"]
+      interval: 30s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
     logging:
       driver: "json-file"
       options:
