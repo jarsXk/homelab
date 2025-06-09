@@ -368,6 +368,7 @@ if [ ! "$SSH_PUB" = "-=skipped=-" ]; then
   fi
   run_command "echo "$SSH_PUB"" "Error adding SSH public key" "/home/lesha/.ssh/authorized_keys"
   run_command "chown -R lesha:users /home/lesha/.ssh" "Error adding SSH public key"
+  run_command "chmod -R go-x /home/lesha/.ssh" "Error adding SSH public key"
 fi
 
 # Setting locale
@@ -407,12 +408,12 @@ if [ -f /root/.config/micro/settings.json ]; then
 fi
 run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /root/.config/micro/settings.json https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/micro/settings.json" "Error configuring micro"
 run_command "mkdir -p /home/lesha/.config/micro" "Error configuring micro"
-run_command "chown -R lesha:users /home/lesha/.config/micro" "Error configuring micro"
 if [ -f /home/lesha/.config/micro/settings.json ]; then
   run_command "mv /home/lesha/.config/micro/settings.json /home/lesha/.config/micro/settings.json.bak" "Error configuring micro"
 fi
 run_command "cp /root/.config/micro/settings.json /home/lesha/.config/micro/settings.json" "Error configuring micro"
-run_command "chown -R lesha:users /home/lesha/.config/micro" "Error configuring micro"
+run_command "chown -R lesha:users /home/lesha/.config" "Error configuring micro"
+run_command "chmod -R go-x /home/lesha/.config" "Error configuring micro"
 
 # Configuring aliases
 if [ -f /root/.bash_aliases ]; then
@@ -425,8 +426,10 @@ if [ -f /home/lesha/.bash_aliases ]; then
 fi
 run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /home/lesha/.bash_aliases https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash/.bash_aliases" "Error configuring aliases"
 run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /home/lesha/.bash_export https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/bash/.bash_export" "Error configuring aliases"
-run_command "chown -R lesha:users /home/lesha/.bash_aliases" "Error configuring aliases"
-run_command "chown -R lesha:users /home/lesha/.bash_export" "Error configuring aliases"
+run_command "chown lesha:users /home/lesha/.bash_aliases" "Error configuring aliases"
+run_command "chmod go-x /home/lesha/.bash_aliases" "Error configuring aliases"
+run_command "chown lesha:users /home/lesha/.bash_export" "Error configuring aliases"
+run_command "chmod go-x /home/lesha/.bash_export" "Error configuring aliases"
 
 # Configuring MC
 log_message INFO "Configuring MC"
@@ -440,7 +443,8 @@ if [ -f /home/lesha/.config/mc/panels.ini ]; then
   run_command "mv /home/lesha/.config/mc/panels.ini /home/lesha/.config/mc/panels.ini.bak" "Error configuring MC"
 fi
 run_command "cp /root/.config/mc/panels.ini /home/lesha/.config/mc/panels.ini" "Error configuring MC"
-run_command "chown -R lesha:users /home/lesha/.config/mc" "Error configuring MC"
+run_command "chown -R lesha:users /home/lesha/.config" "Error configuring MC"
+run_command "chmod -R go-x /home/lesha/.config" "Error configuring MC"
 
 # Install usbmount
 CUR_FOLDER=$(pwd)
