@@ -143,6 +143,28 @@ if [ $SSH_PACKAGES -gt 0 ]; then
 fi
 log_message DEBUG "SSH server installed <$SSH_INSTALLED>"
 
+# Reading physical server
+while [ "$PHYSICAL" = "" ]; do
+  log_message READ "Setup physical server [y/n/c]> " -n
+  read -r ANSWER_PHYSICAL
+  case "$ANSWER_PHYSICAL" in
+    [Yy]* )
+      PHYSICAL=yes
+    ;;
+    [Nn]* )
+      PHYSICAL=no
+    ;;
+    [Cc]* )
+      log_message INFO "Canceled setup"
+      exit 1
+    ;;
+    * )
+      log_message INFO "Invalid input. Enter y, n, or c."
+    ;;
+  esac
+done
+log_message DEBUG "Selected install physical server <$PHYSICAL>"
+
 # Updating
 log_message INFO "Updating packages"
 COMMAND="EMPTY"
@@ -156,7 +178,10 @@ run_command "apt -y purge $PACKAGE_LIST" "Error uninstalling"
 run_command "apt -y autoremove --purge" "Error uninstalling"
 
 # Installing packages
-PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl zstd unzip snapd sudo util-linux"
+PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl zstd unzip sudo util-linux"
+if [ $PHYSICAL = yes ]; then
+  SNAP_LIST="$PACKAGE_LIST,snapd"
+fi
 log_message INFO "Installing packages <$PACKAGE_LIST> and <fastfetch>"
 run_command "apt-get -y install $PACKAGE_LIST" "Error installing"
 if [ $(dpkg --print-architecture) = amd64 ]; then
@@ -169,9 +194,11 @@ run_command "wget -O $DPKG_NAME https://github.com/fastfetch-cli/fastfetch/relea
 run_command "dpkg --install ./$DPKG_NAME" "Error installing"
 
 # Installing snap packages
-SNAP_LIST="snapd"
-log_message INFO "Installing snaps <$SNAP_LIST>"
-run_command "snap install $SNAP_LIST" "Error installing"
+if [ $PHYSICAL = yes ]; then
+  SNAP_LIST="snapd"
+  log_message INFO "Installing snaps <$SNAP_LIST>"
+  run_command "snap install $SNAP_LIST" "Error installing"
+fi
 
 # Setting timezone
 log_message INFO "Setting timezone"
@@ -222,61 +249,66 @@ if [ $DOCKER = yes ]; then
 fi
 
 # Reading role & location
-while [ "$NAS" = "" ]; do
-  log_message READ "Setup NAS host [y/n/c]> " -n
-  read -r ANSWER_PUBLIC
-  case "$ANSWER_PUBLIC" in
-    [Yy]* )
-      NAS=yes
-    ;;
-    [Nn]* )
-      NAS=no
-    ;;
-    [Cc]* )
-      log_message INFO "Canceled setup"
-      exit 1
-    ;;
-    * )
-      log_message INFO "Invalid input. Enter y, n, or c."
-    ;;
-  esac
- done
+if [ $PHYSICAL = yes ]; then
+  while [ "$NAS" = "" ]; do
+    log_message READ "Setup NAS host [y/n/c]> " -n
+    read -r ANSWER_PUBLIC
+    case "$ANSWER_PUBLIC" in
+      [Yy]* )
+        NAS=yes
+      ;;
+      [Nn]* )
+        NAS=no
+      ;;
+      [Cc]* )
+        log_message INFO "Canceled setup"
+        exit 1
+      ;;
+      * )
+        log_message INFO "Invalid input. Enter y, n, or c."
+      ;;
+    esac
+  done
 
+  while [ "$LOCATION" = "" ]; do
+    log_message READ "Location"
+    log_message READ "  [1] kommunarka"
+    log_message READ "  [2] vasilkovo"
+    log_message READ "  [3] chanovo"
+    log_message READ "  [4] shodnenskaya"
+    log_message READ "  [0] other"
+    log_message READ "Select [1-4/0/c]> " -n
+    read -r ANSWER_LOCATION
+    case "$ANSWER_LOCATION" in
+      1)
+        LOCATION=kommunarka
+      ;;
+      2)
+        LOCATION=vasilkovo
+      ;;
+      3)
+        LOCATION=chanovo
+      ;;
+      4)
+        LOCATION=shodnenskaya
+      ;;
+      0)
+        LOCATION=other
+      ;;
+      c)
+        log_message INFO "Canceled setup"
+        exit 1
+      ;;
+      * )
+        log_message INFO "Invalid input. Enter 1-4, 0 or c."
+      ;;
+    esac
+  done
+else  
+  NAS=no
+  LOCATION=other
+fi
 log_message DEBUG "Selected NAS host <$NAS>"
-while [ "$LOCATION" = "" ]; do
-  log_message READ "Location"
-  log_message READ "  [1] kommunarka"
-  log_message READ "  [2] vasilkovo"
-  log_message READ "  [3] chanovo"
-  log_message READ "  [4] shodnenskaya"
-  log_message READ "  [0] other"
-  log_message READ "Select [1-4/0/c]> " -n
-  read -r ANSWER_LOCATION
-  case "$ANSWER_LOCATION" in
-    1)
-      LOCATION=kommunarka
-    ;;
-    2)
-      LOCATION=vasilkovo
-    ;;
-    3)
-      LOCATION=chanovo
-    ;;
-    4)
-      LOCATION=shodnenskaya
-    ;;
-    0)
-      LOCATION=other
-    ;;
-    c)
-      log_message INFO "Canceled setup"
-      exit 1
-    ;;
-    * )
-      log_message INFO "Invalid input. Enter 1-4, 0 or c."
-    ;;
-  esac
-done
 log_message DEBUG "Selected location <$LOCATION>"
 
 # Creating groups
@@ -447,19 +479,21 @@ run_command "chown -R lesha:users /home/lesha/.config" "Error configuring MC"
 run_command "chmod -R go-x /home/lesha/.config" "Error configuring MC"
 
 # Install usbmount
-CUR_FOLDER=$(pwd)
-run_command "wget -O /root/mine.zip https://github.com/clach04/automount-usb/archive/refs/heads/mine.zip" "Error installing usbmount"
-run_command "cd /root" "Error installing usbmount"
-run_command "unzip /root/mine.zip" "Error installing usbmount"
-run_command "cd /root/automount-usb-mine" "Error installing usbmount"
-run_command "bash /root/automount-usb-mine/CONFIGURE.sh" "Error installing usbmount"
-run_command "cd $CUR_FOLDER" "Error installing usbmount"
-run_command "rm /etc/systemd/system/usb-mount@.service" "Error installing usbmount"
-run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /etc/systemd/system/usb-mount@.service https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/usbmount/usb-mount@.service" "Error installing usbmount"
-run_command "mv /usr/local/bin/usb-mount.sh /usr/local/sbin/" "Error installing usbmount"
-run_command "mv /root/automount-usb-mine /usr/local/sbin/usbmount" "Error installing usbmount"
-run_command "cp /etc/systemd/system/usb-mount@.service /usr/local/sbin/usbmount/" "Error installing usbmount"
-run_command "rm /root/mine.zip" "Error installing usbmount"
+if [ $PHYSICAL = yes ]; then
+  CUR_FOLDER=$(pwd)
+  run_command "wget -O /root/mine.zip https://github.com/clach04/automount-usb/archive/refs/heads/mine.zip" "Error installing usbmount"
+  run_command "cd /root" "Error installing usbmount"
+  run_command "unzip /root/mine.zip" "Error installing usbmount"
+  run_command "cd /root/automount-usb-mine" "Error installing usbmount"
+  run_command "bash /root/automount-usb-mine/CONFIGURE.sh" "Error installing usbmount"
+  run_command "cd $CUR_FOLDER" "Error installing usbmount"
+  run_command "rm /etc/systemd/system/usb-mount@.service" "Error installing usbmount"
+  run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /etc/systemd/system/usb-mount@.service https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/usbmount/usb-mount@.service" "Error installing usbmount"
+  run_command "mv /usr/local/bin/usb-mount.sh /usr/local/sbin/" "Error installing usbmount"
+  run_command "mv /root/automount-usb-mine /usr/local/sbin/usbmount" "Error installing usbmount"
+  run_command "cp /etc/systemd/system/usb-mount@.service /usr/local/sbin/usbmount/" "Error installing usbmount"
+  run_command "rm /root/mine.zip" "Error installing usbmount"
+fi
 
 # Cleaning
 log_message INFO "Cleaning"
