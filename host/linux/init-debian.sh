@@ -378,7 +378,9 @@ if [ $NAS = yes ]; then
 fi
 
 # Deleting group "lesha"
-run_command "groupdel lesha" "Error deleting group lesha"
+if [ $PHYSICAL = yes ]; then
+  run_command "groupdel lesha" "Error deleting group lesha"
+fi
 
 # Adding ssh public key
 log_message READ "Paste SSH public key [key/s/c] > " -n
