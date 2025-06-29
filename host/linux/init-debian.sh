@@ -180,7 +180,7 @@ run_command "apt -y autoremove --purge" "Error uninstalling"
 # Installing packages
 PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl zstd unzip sudo util-linux"
 if [ $PHYSICAL = yes ]; then
-  PACKAGE_LIST="$PACKAGE_LIST,snapd"
+  PACKAGE_LIST="$PACKAGE_LIST snapd"
 fi
 log_message INFO "Installing packages <$PACKAGE_LIST> and <fastfetch>"
 run_command "apt-get -y install $PACKAGE_LIST" "Error installing"
