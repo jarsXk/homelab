@@ -100,7 +100,7 @@ if %UPG_VASILKOVO%==yes (
 if %UPG_CHANOVO%==yes (
     echo.
     echo #################### Upgrade Mimas ###########################
-    ssh -t lesha@mimas.home.arpa "echo %LINUXPASS% | sudo -S omv-upgrade"
+    ssh -t lesha@mimas.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
 )
 
 if %UPG_SHODNENSKAYA4%==yes (

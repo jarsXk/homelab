@@ -172,7 +172,7 @@
                 "antialiasingMode": "grayscale",
                 "closeOnExit": "graceful",
                 "colorScheme": "Campbell Red",
-                "commandline": "ssh lesha@makemake.home.arpa",
+                "commandline": "ssh lesha@makemake.internal",
                 "cursorShape": "filledBox",
                 "font": 
                 {
