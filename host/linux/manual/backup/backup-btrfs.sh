@@ -67,6 +67,7 @@ purge_old () {
     fi
 }
 
+log_message INFO "Host <$(hostname)>"
 log_message INFO "*FULL* backup starting"
 
 # Checking sudo permissions

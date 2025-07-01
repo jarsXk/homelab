@@ -25,6 +25,7 @@ log_message() {
     fi
 }
 
+log_message INFO "Host <$(hostname)>"
 log_message INFO "Performing a scrub on all mounted Btrfs file systems"
 
 # Checking sudo permissions
