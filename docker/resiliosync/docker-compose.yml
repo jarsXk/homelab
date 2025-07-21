@@ -25,6 +25,7 @@ services:
       - ${DATA_DOCUMENTS_LESHA}:/sync/share/documents/users/lesha
       - ${DATA_SAVES}:/sync/share/saves
       - ${DATA_VIDEO_FAMILY}:/sync/share/video/family
+      - ${DATA_VIDEO_PUBLIC}:/sync/share/video/public
       - ${DATA_PHOTO_LESHA}:/sync/share/photo/users/lesha
       - ${DATA_EXCHANGE}:/sync/exchange
     ports:

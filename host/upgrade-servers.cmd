@@ -103,16 +103,16 @@ if %UPG_CHANOVO%==yes (
     ssh -t lesha@mimas.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
 )
 
-if %UPG_SHODNENSKAYA4%==yes (
-    echo.
-    echo #################### Upgrade Ixion ###########################
-    ssh -t lesha@ixion.home.arpa "echo %LINUXPASS% | sudo -S omv-upgrade"
-)
+REM if %UPG_SHODNENSKAYA4%==yes (
+REM     echo.
+REM     echo #################### Upgrade Ixion ###########################
+REM     ssh -t lesha@ixion.home.arpa "echo %LINUXPASS% | sudo -S omv-upgrade"
+REM )
 
 if %UPG_SHODNENSKAYA5%==yes (
     echo.
     echo #################### Upgrade Makemake ###########################
-    ssh -t lesha@makemake.home.arpa "echo %LINUXPASS% | sudo -S omv-upgrade"
+    ssh -t lesha@makemake.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
 )
 
 if %UPG_WEB%==yes (

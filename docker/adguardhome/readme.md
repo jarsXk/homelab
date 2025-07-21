@@ -8,7 +8,7 @@ sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 sudo systemctl reload-or-restart systemd-resolved
 ```
 
-adguardhome.conf:
+98-adguardhome.conf:
 ```
 [Resolve]
 DNS=127.0.0.1
