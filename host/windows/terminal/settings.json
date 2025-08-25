@@ -96,7 +96,7 @@
                 "antialiasingMode": "grayscale",
                 "closeOnExit": "graceful",
                 "colorScheme": "Campbell Powershell",
-                "commandline": "C:\\Software\\sshsel-kommunarka.cmd",
+                "commandline": "C:\\Software\\sshsel-void.cmd",
                 "cursorShape": "filledBox",
                 "font": 
                 {
@@ -106,7 +106,7 @@
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "name": "kommunarka",
+                "name": "void",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%"
             },
@@ -152,6 +152,25 @@
                 "altGrAliasing": true,
                 "antialiasingMode": "grayscale",
                 "closeOnExit": "graceful",
+                "colorScheme": "Campbell Yellow",
+                "commandline": "ssh lesha@ariel.internal",
+                "cursorShape": "filledBox",
+                "font": 
+                {
+                    "face": "Cascadia Mono"
+                },
+                "guid": "{50de368d-120d-4b2a-8a42-37129a87071e}",
+                "hidden": false,
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
+                "name": "yasenevof (ariel)",
+                "snapOnInput": true,
+                "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "graceful",
                 "colorScheme": "Campbell Teal",
                 "commandline": "ssh lesha@ixion.home.arpa",
                 "cursorShape": "filledBox",
@@ -159,7 +178,7 @@
                 {
                     "face": "Cascadia Mono"
                 },
-                "guid": "{555017bc-7fa9-4eb0-a79d-777737b4a35b}",
+                "guid": "{555017bc-7fa9-4eb0-a79d-777737b4a34b}",
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
@@ -178,7 +197,7 @@
                 {
                     "face": "Cascadia Mono"
                 },
-                "guid": "{50de368d-120d-4b2a-8a42-37129a87071e}",
+                "guid": "{50de368d-120d-4b2a-8a42-37129a87072e}",
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
@@ -318,6 +337,29 @@
             "foreground": "#FFFFFF",
             "green": "#13A10E",
             "name": "Campbell Teal",
+            "purple": "#881798",
+            "red": "#C50F1F",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#C19C00"
+        },
+        {
+            "background": "#383405",
+            "black": "#0C0C0C",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#3B78FF",
+            "brightCyan": "#61D6D6",
+            "brightGreen": "#16C60C",
+            "brightPurple": "#B4009E",
+            "brightRed": "#E74856",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#F9F1A5",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#13A10E",
+            "name": "Campbell Yellow",
             "purple": "#881798",
             "red": "#C50F1F",
             "selectionBackground": "#FFFFFF",
