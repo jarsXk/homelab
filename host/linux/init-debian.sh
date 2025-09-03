@@ -178,7 +178,7 @@ run_command "apt -y purge $PACKAGE_LIST" "Error uninstalling"
 run_command "apt -y autoremove --purge" "Error uninstalling"
 
 # Installing packages
-PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl zstd unzip sudo util-linux"
+PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl zstd unzip sudo util-linux figlet"
 if [ $PHYSICAL = yes ]; then
   PACKAGE_LIST="$PACKAGE_LIST snapd"
 fi
@@ -378,7 +378,7 @@ if [ $NAS = yes ]; then
 fi
 
 # Deleting group "lesha"
-if [ $PHYSICAL = yes ]; then
+if [ $(getent group lesha) ]; then
   run_command "groupdel lesha" "Error deleting group lesha"
 fi
 
@@ -422,6 +422,10 @@ log_message INFO "Setting motd"
 if [ -f /etc/motd ]; then
   run_command "mv /etc/motd /etc/motd.bak" "Error setting motd"
 fi
+
+run_command "mkdir -p /etc/share/figlet" "Error setting motd"
+run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /usr/share/figlet/ANSI_Shadow.flf https://raw.githubusercontent.com/xero/figlet-fonts/refs/heads/master/ANSI%20Shadow.flf" "Error setting motd"
+
 MOTD_PATH=/etc/update-motd.d/70-custom-motd
 CUSTOM_MOTD=70-custom-motd
 if [ $NAS = yes ]; then
