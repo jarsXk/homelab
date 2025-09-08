@@ -504,7 +504,7 @@ fi
 # Install reboot script
 log_message INFO "Installing reboot script"
 run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /usr/local/sbin/reboot-if-needed.sh https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/reboot-if-needed.sh" "Error configuring MC"
-run_command "chmod -R go-wx /home/lesha/.config" "Error configuring MC"
+run_command "chmod 744 /usr/local/sbin/reboot-if-needed.sh" "Error configuring MC"
 
 if [ $PHYSICAL = yes ]; then
   CUR_FOLDER=$(pwd)
