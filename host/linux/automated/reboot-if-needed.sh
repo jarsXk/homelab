@@ -7,5 +7,6 @@ if [ $(id -u) -ne 0 ]; then
 fi
 
 if [ -f /var/run/reboot-required ]; then
+  echo "Reboot is required..."
   reboot
 fi
