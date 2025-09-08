@@ -62,6 +62,10 @@ if %ERRORLEVEL% == 8 (
 if %ERRORLEVEL% == 9 (
     echo Not ready
 )
+if %ERRORLEVEL% == 10 (
+    set UPG_WEB=yes
+)
+
 
 if %UPG_VOID%==yes set ASK_LINUXPASS=yes
 if %UPG_VASILKOVO%==yes set ASK_LINUXPASS=yes
@@ -173,7 +177,7 @@ if %UPG_WEB%==yes (
     echo ##############################################################
     echo.
     ssh -t lesha@proxima.external "echo %PROXIMAPASS% | sudo -S apt update && sudo apt upgrade -y"
-    ssh -t lesha@proxima.internal "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
+    ssh -t lesha@proxima.external "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
 )
 
 set LINUXPASS=?
