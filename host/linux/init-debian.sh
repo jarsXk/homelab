@@ -501,6 +501,27 @@ if [ $PHYSICAL = yes ]; then
   run_command "rm /root/mine.zip" "Error installing usbmount"
 fi
 
+# Install reboot script
+log_message INFO "Installing reboot script"
+run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /usr/local/sbin/reboot-if-needed.sh https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/reboot-if-needed.sh" "Error configuring MC"
+run_command "chmod -R go-wx /home/lesha/.config" "Error configuring MC"
+
+if [ $PHYSICAL = yes ]; then
+  CUR_FOLDER=$(pwd)
+  run_command "wget -O /root/mine.zip https://github.com/clach04/automount-usb/archive/refs/heads/mine.zip" "Error installing usbmount"
+  run_command "cd /root" "Error installing usbmount"
+  run_command "unzip /root/mine.zip" "Error installing usbmount"
+  run_command "cd /root/automount-usb-mine" "Error installing usbmount"
+  run_command "bash /root/automount-usb-mine/CONFIGURE.sh" "Error installing usbmount"
+  run_command "cd $CUR_FOLDER" "Error installing usbmount"
+  run_command "rm /etc/systemd/system/usb-mount@.service" "Error installing usbmount"
+  run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /etc/systemd/system/usb-mount@.service https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/usbmount/usb-mount@.service" "Error installing usbmount"
+  run_command "mv /usr/local/bin/usb-mount.sh /usr/local/sbin/" "Error installing usbmount"
+  run_command "mv /root/automount-usb-mine /usr/local/sbin/usbmount" "Error installing usbmount"
+  run_command "cp /etc/systemd/system/usb-mount@.service /usr/local/sbin/usbmount/" "Error installing usbmount"
+  run_command "rm /root/mine.zip" "Error installing usbmount"
+fi
+
 # Cleaning
 log_message INFO "Cleaning"
 run_command "apt-get autoremove --yes" "Error cleaning"

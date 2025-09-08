@@ -96,7 +96,7 @@
                 "antialiasingMode": "grayscale",
                 "closeOnExit": "graceful",
                 "colorScheme": "Campbell Powershell",
-                "commandline": "C:\\Software\\sshsel-void.cmd",
+                "commandline": "C:\\Software\\sshsel-000.cmd",
                 "cursorShape": "filledBox",
                 "font": 
                 {
@@ -106,7 +106,7 @@
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "name": "void",
+                "name": "???",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%"
             },
@@ -220,7 +220,7 @@
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "name": "proxima",
+                "name": "web (proxima)",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%"
             }

@@ -1,7 +1,7 @@
 @echo off
 cls
 
-echo Server to login (void):
+echo Server to login (?):
 echo  [1] Terra
 REM echo  [2] Vesta prime
 REM echo  [3]   Vesta docker
