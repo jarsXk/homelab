@@ -84,6 +84,7 @@ if %UPG_VOID%==yes (
     echo.
     ssh -t lesha@terra.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
     ssh -t lesha@terra.internal "echo %LINUXPASS% | sudo -S snap refresh" 
+    ssh -t lesha@terra.internal "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
 
 REM    echo.
 REM    echo #################### Upgrade Vesta prime #####################
@@ -112,7 +113,8 @@ if %UPG_VASILKOVO%==yes (
     echo ##############################################################
     echo.
     ssh -t lesha@europa.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
-    ssh -t lesha@europa.internal "echo %LINUXPASS% | sudo -S snap refresh" 
+    ssh -t lesha@europa.internal "echo %LINUXPASS% | sudo -S snap refresh"
+    ssh -t lesha@europa.internal "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
 )
 
 if %UPG_CHANOVO%==yes (
@@ -123,6 +125,7 @@ if %UPG_CHANOVO%==yes (
     echo.
     ssh -t lesha@mimas.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
     ssh -t lesha@mimas.internal "echo %LINUXPASS% | sudo -S snap refresh"
+    ssh -t lesha@mimas.internal "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
 )
 
 if %UPG_YASENEVOF%==yes (
@@ -133,7 +136,7 @@ if %UPG_YASENEVOF%==yes (
     echo.
     ssh -t lesha@ariel.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
     ssh -t lesha@ariel.internal "echo %LINUXPASS% | sudo -S snap refresh" 
-
+    ssh -t lesha@ariel.internal "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
 )
 
 REM if %UPG_YASENEVOD%==yes (
@@ -170,6 +173,7 @@ if %UPG_WEB%==yes (
     echo ##############################################################
     echo.
     ssh -t lesha@proxima.external "echo %PROXIMAPASS% | sudo -S apt update && sudo apt upgrade -y"
+    ssh -t lesha@proxima.internal "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
 )
 
 set LINUXPASS=?
