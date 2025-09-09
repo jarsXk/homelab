@@ -272,10 +272,11 @@ if [ $PHYSICAL = yes ]; then
 
   while [ "$LOCATION" = "" ]; do
     log_message READ "Location"
-    log_message READ "  [1] kommunarka"
+    log_message READ "  [1] ???"
     log_message READ "  [2] vasilkovo"
     log_message READ "  [3] chanovo"
-    log_message READ "  [4] shodnenskaya"
+    log_message READ "  [5] yasenevof"    
+    log_message READ "  [6] shodnenskaya"
     log_message READ "  [0] other"
     log_message READ "Select [1-4/0/c]> " -n
     read -r ANSWER_LOCATION
@@ -290,6 +291,9 @@ if [ $PHYSICAL = yes ]; then
         LOCATION=chanovo
       ;;
       4)
+        LOCATION=yasenevof
+      ;;
+      5)
         LOCATION=shodnenskaya
       ;;
       0)
@@ -330,6 +334,9 @@ if [ $NAS = yes ] && [ $LOCATION = chanovo ]; then
   create_group	lena-group   no        2002
   create_group	yulia-group  no        2006
 fi
+if [ $LOCATION = yasenevof ]; then
+  create_group	kostya-group no        2003
+fi
 if [ $NAS = yes ] && [ $LOCATION = shodnenskaya ]; then
   create_group	lena-group   no        2002
   create_group	yulia-group  no        2006
@@ -362,6 +369,10 @@ if [ $NAS = yes ] && [ $LOCATION = chanovo ]; then
   create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh,family
   create_user yulia        2006 users    no   /usr/sbin/nologin yes         no        yulia-group,family
   DOCKER_GROUPS="$DOCKER_GROUPS,lena-group,yulia-group"
+fi
+if [ $LOCATION = yasenevof ]; then
+  create_user kostya       2003 users    yes  /bin/bash         yes         no        kostya-group,_ssh,family
+  DOCKER_GROUPS="$DOCKER_GROUPS,kostya-group"
 fi
 if [ $NAS = yes ] && [ $LOCATION = shodnenskaya ]; then
   create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh,family
