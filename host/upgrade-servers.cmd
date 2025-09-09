@@ -19,8 +19,8 @@ echo  [1] full
 echo  [2] ? (16)
 echo  [3] vasilkovo (17)
 echo  [4] chanovo (18)
-echo  [5] yasenevof (20)
-REM echo  [6] yasenevod (19)
+REM echo  [5] yasenevod (19)
+echo  [6] yasenevof (20)
 echo  [7] shodnenskaya4 (21)
 echo  [8] shodnenskaya5 (22)
 REM echo  [9] kommunarkad (23)
@@ -48,10 +48,10 @@ if %ERRORLEVEL% == 4 (
     set UPG_CHANOVO=yes
 )
 if %ERRORLEVEL% == 5 (
-    set UPG_YASENEVOF=yes
+    echo Not ready
 )
 if %ERRORLEVEL% == 6 (
-    echo Not ready
+    set UPG_YASENEVOF=yes
 )
 if %ERRORLEVEL% == 7 (
     set UPG_SHODNENSKAYA4=yes
@@ -65,7 +65,6 @@ if %ERRORLEVEL% == 9 (
 if %ERRORLEVEL% == 10 (
     set UPG_WEB=yes
 )
-
 
 if %UPG_VOID%==yes set ASK_LINUXPASS=yes
 if %UPG_VASILKOVO%==yes set ASK_LINUXPASS=yes
@@ -177,7 +176,7 @@ if %UPG_WEB%==yes (
     echo ##############################################################
     echo.
     ssh -t lesha@proxima.external "echo %PROXIMAPASS% | sudo -S apt update && sudo apt upgrade -y"
-    ssh -t lesha@proxima.external "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
+    ssh -t lesha@proxima.external "echo %PROXIMAPASS% | sudo -S reboot-if-needed.sh"
 )
 
 set LINUXPASS=?

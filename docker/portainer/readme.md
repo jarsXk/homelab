@@ -18,7 +18,6 @@ docker run -d \
 ```
 docker run -d \
   --name=portainer \
-  -p 8000:8000 \
   -p 30120:9000 \
   -p 30124:9443 \
   -v portainer_data:/data \
