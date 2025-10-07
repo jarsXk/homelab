@@ -13,7 +13,7 @@ services:
   resiliosync:
     container_name: resiliosync
     hostname: resiliosync
-    image: lscr.io/linuxserver/resilio-sync:2.8.1
+    image: lscr.io/linuxserver/resilio-sync
     environment:
       - PUID=1999
       - PGID=2000
