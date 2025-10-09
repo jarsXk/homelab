@@ -113,16 +113,16 @@ services:
     depends_on:
       - flaresolverr
 
-   flaresolverr:
-     image: ghcr.io/flaresolverr/flaresolverr:latest
-     container_name: mediarr-flaresolverr
-     hostname: flaresolverr
-     networks:
-       net:
-         ipv4_address: 198.19.13.5
-     logging:
-       driver: "json-file"
-       options:
-         max-size: "2m"
-         max-file: "10"
-     restart: unless-stopped
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: mediarr-flaresolverr
+    hostname: flaresolverr
+    networks:
+      net:
+        ipv4_address: 198.19.13.5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
