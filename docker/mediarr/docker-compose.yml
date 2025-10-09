@@ -90,7 +90,7 @@ services:
       - 31340:9117
     volumes:
       - jackett_config:/config
-      - /var/snap/docker/common/assets/jackett/noname-clubl-rus.yml:/app/Jackett/Definitions/noname-clubl-rus.yml:ro
+      - /var/snap/docker/common/assets/mediarr/noname-clubl-rus.yml:/app/Jackett/Definitions/noname-clubl-rus.yml:ro
     environment:
       - PUID=1999
       - PGID=100
