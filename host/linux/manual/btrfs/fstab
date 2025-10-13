@@ -4,9 +4,9 @@ UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/log 										btrfs   defaults,no
 UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/tmp 										btrfs 	defaults,noatime,nodiratime,degraded,nofail,compress=zstd:3,subvol=@var-tmp 0 0
 UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/snap/docker/common/var-lib-docker/volumes  btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@docker-volumes 				0 0
 UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/snap/docker/common/var-lib-docker/overlay2  btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@docker-overlay2				0 0
-UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/lib/machines								btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@var-lib-machines		0 0
-UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/lib/portables							btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@var-lib-portables		0 0
-UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /srv/vm										btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@srv-vm 					0 0
+UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/lib/machines								btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@vm-machines		0 0
+UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/lib/portables							btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@vm-portables		0 0
+UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /srv/vm										btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@vm-data 					0 0
 # >>> CUSTOM DATA MOUNTS
 /srv/dev-disk-by-uuid-2ccbfe2b-4a77-480d-8374-090a32a3b817/storage/download 			/srv/data/local-download 									none 	defaults,bind   0 0
 /srv/dev-disk-by-uuid-2ccbfe2b-4a77-480d-8374-090a32a3b817/storage/junk 				/srv/data/local-junk 										none 	defaults,bind   0 0

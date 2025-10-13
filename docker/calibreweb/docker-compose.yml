@@ -7,6 +7,7 @@ networks:
 
 volumes:
   config:
+  bin:
 
 services:
   calibre-web:
@@ -23,9 +24,21 @@ services:
       - DOCKER_MODS=linuxserver/mods:universal-calibre
     volumes:
       - config:/config
-      - /var/snap/docker/common/assets/calibreweb/xdg-desktop-menu:/usr/bin/xdg-desktop-menu:ro
-      - /var/snap/docker/common/assets/calibreweb/xdg-icon-resource:/usr/bin/xdg-icon-resource:ro
-      - /var/snap/docker/common/assets/calibreweb/xdg-mime:/usr/bin/xdg-mime:ro
+      - type: volume
+        source: bin
+        target: /usr/local/bin/xdg-desktop-menu
+        volume:
+          subpath: xdg-desktop-menu
+      - type: volume
+        source: bin
+        target: /usr/local/bin/xdg-icon-resource
+        volume:
+          subpath: xdg-icon-resource
+      - type: volume
+        source: bin
+        target: /usr/local/bin/xdg-mime
+        volume:
+          subpath: xdg-mime
       - ${DATA_BOOKS}:/books
     networks:
       net:
