@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # common
+btrfs quota enable .
 btrfs subvolume create @var-log
 btrfs subvolume create @var-tmp
 
@@ -26,7 +27,9 @@ mkdir -p ./@rootfs/srv/data/local-backup
 # docker
 mkdir -p ./@rootfs/var/snap/docker/common/var-lib-docker/volumes
 btrfs subvolume create @docker-volumes
+btrfs qgroup limit "<1/8>"G @docker-volumes
 mkdir -p ./@rootfs/var/snap/docker/common/var-lib-docker/overlay2
+btrfs qgroup limit "<1/4>"G @docker-overlay2
 btrfs subvolume create @docker-overlay2
 mkdir -p ./@rootfs/var/snap/docker/common/data
 mkdir -p ./@rootfs/var/snap/docker/common/dummy

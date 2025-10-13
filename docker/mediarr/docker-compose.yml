@@ -9,6 +9,7 @@ volumes:
   radarr_config:
   sonarr_config:
   jackett_config:
+  flaresolverr_config:
   
 services:
   radarr:
@@ -118,6 +119,8 @@ services:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: mediarr-flaresolverr
     hostname: flaresolverr
+    volumes:
+      - flaresolverr_config:/config
     networks:
       net:
         ipv4_address: 198.19.13.5
