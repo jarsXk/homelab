@@ -13,7 +13,7 @@ MOUNT_SERVICE="srv-remotemount-io_backup.mount"
 FILE_PREFIX="$(hostname)-backup"
 KEEP_DAYS=100
 THREADS=2
-EXCL_SUBVOLUMES="@ @rootfs @var-tmp @var-lib-docker @.snapshots"
+EXCL_SUBVOLUMES="@ @rootfs @var-tmp @.snapshots"
 FOLDER_LIST="/root /home"
 
 log_message() {

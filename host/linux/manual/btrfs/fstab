@@ -2,9 +2,10 @@ UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /												btrfs	defaults,noatime,no
 UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /.snapshots 									btrfs   defaults,noatime,nodiratime,degraded,nofail,subvol=.snapshots 				0 0
 UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/log 										btrfs   defaults,noatime,nodiratime,degraded,nofail,compress=zstd:3,subvol=@var-log 0 0
 UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/tmp 										btrfs 	defaults,noatime,nodiratime,degraded,nofail,compress=zstd:3,subvol=@var-tmp 0 0
+UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/snap/docker/common/var-lib-docker/volumes  btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@docker-volumes 				0 0
+UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/snap/docker/common/var-lib-docker/overlay2  btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@docker-overlay2				0 0
 UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/lib/machines								btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@var-lib-machines		0 0
 UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /var/lib/portables							btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@var-lib-portables		0 0
-UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /srv/docker 									btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@srv-docker 				0 0
 UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /srv/vm										btrfs 	defaults,noatime,nodiratime,degraded,nofail,subvol=@srv-vm 					0 0
 # >>> CUSTOM DATA MOUNTS
 /srv/dev-disk-by-uuid-2ccbfe2b-4a77-480d-8374-090a32a3b817/storage/download 			/srv/data/local-download 									none 	defaults,bind   0 0
@@ -21,7 +22,5 @@ UUID=55f2b614-6856-49ef-a33f-be4f994bf34b /srv/vm										btrfs 	defaults,noati
 /srv/dev-disk-by-uuid-c85d7ff9-7bda-4bb0-b52d-8e642b4eec31/storage/backup 				/srv/data/local-backup 										none 	defaults,bind   0 0
 # <<< CUSTOM DATA MOUNTS
 # >>> CUSTOM DOCKER MOUNTS
-/srv/docker/volumes 					/var/snap/docker/common/var-lib-docker/volumes 	none 	defaults,bind   															0 0
-/srv/docker/assets 						/var/snap/docker/common/assets 	             	none 	defaults,bind   															0 0
 /srv/data				 				/var/snap/docker/common/data				 	none 	defaults,bind 																0 0
 # <<< CUSTOM DOCKER MOUNTS

@@ -18,7 +18,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
       - appdata:/appdata
-#      - /var/snap/docker/common/assets/homarr/wallpaper.jpeg:/app/public/imgs/wallpaper.jpeg:ro
     environment:
       - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}
     networks:

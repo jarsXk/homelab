@@ -25,11 +25,9 @@ mkdir -p ./@rootfs/srv/data/local-backup
 
 # docker
 mkdir -p ./@rootfs/var/snap/docker/common/var-lib-docker/volumes
-mkdir -p ./@rootfs/srv/docker
-btrfs subvolume create @srv-docker
-mkdir -p ./@srv-docker/volumes
-mkdir -p ./@rootfs/var/snap/docker/common/assets
-mkdir -p ./@srv-docker/assets
+btrfs subvolume create @docker-volumes
+mkdir -p ./@rootfs/var/snap/docker/common/var-lib-docker/overlay2
+btrfs subvolume create @docker-overlay2
 mkdir -p ./@rootfs/var/snap/docker/common/data
 mkdir -p ./@rootfs/var/snap/docker/common/dummy
 
