@@ -37,7 +37,7 @@ mkdir -p ./@rootfs/var/snap/docker/common/dummy
 # vm
 mkdir -p ./@rootfs/srv/vm
 btrfs subvolume create @vm-data
-btrfs qgroup limit "<40%>"G @vm-data
+btrfs qgroup limit "<60%>"G @vm-data
 mkdir -p ./@rootfs/var/lib/machines
 btrfs subvolume create @vm-machines
 mkdir -p ./@rootfs/var-lib-portables
