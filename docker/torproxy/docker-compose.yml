@@ -5,14 +5,16 @@ networks:
         - subnet: 198.19.18.0/24
           gateway: 198.19.18.1
 
+volumes:
+  tor:
+
 services:
   torproxy:
     container_name: torproxy
     hostname: torproxy
     image: zerolabnet/tor-bridges-proxy:latest
     volumes:
-      - /var/snap/docker/common/assets/torproxy/torrc:/etc/tor/torrc
-      - /var/snap/docker/common/assets/torproxy/bridges.txt:/etc/tor/bridges.txt
+      - tor:/etc/tor
     ports:
       - 31820:9151/tcp
       - 31821:9150/tcp
