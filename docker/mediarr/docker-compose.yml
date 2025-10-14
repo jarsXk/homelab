@@ -9,6 +9,7 @@ volumes:
   radarr_config:
   sonarr_config:
   jackett_config:
+  jackett_indexers:
   flaresolverr_config:
   
 services:
@@ -91,7 +92,11 @@ services:
       - 31340:9117
     volumes:
       - jackett_config:/config
-      - /var/snap/docker/common/assets/mediarr/noname-clubl-rus.yml:/app/Jackett/Definitions/noname-clubl-rus.yml:ro
+      - type: volume
+        source: jackett_indexers
+        target: /app/Jackett/Definitions/noname-clubl-rus.yml
+        volume:
+          subpath: noname-clubl-rus.yml
     environment:
       - PUID=1999
       - PGID=100
