@@ -9,4 +9,6 @@ fi
 if [ -f /var/run/reboot-required ]; then
   echo "Reboot is required..."
   reboot
+else
+  echo "Reboot not requested."
 fi
