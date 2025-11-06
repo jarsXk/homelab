@@ -88,7 +88,7 @@
                 "cursorShape": "filledBox",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
-                "name": "\u041a\u043e\u043c\u0430\u043d\u0434\u043d\u0430\u044f \u0441\u0442\u0440\u043e\u043a\u0430",
+                "name": "1 cmd",
                 "startingDirectory": "%USERPROFILE%/Home"
             },
             {
@@ -96,7 +96,7 @@
                 "antialiasingMode": "grayscale",
                 "closeOnExit": "graceful",
                 "colorScheme": "Campbell Powershell",
-                "commandline": "C:\\Software\\sshsel-000.cmd",
+                "commandline": "C:\\Software\\sshsel-void.cmd",
                 "cursorShape": "filledBox",
                 "font": 
                 {
@@ -106,7 +106,7 @@
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "name": "???",
+                "name": "2 void",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%"
             },
@@ -125,7 +125,7 @@
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "name": "vasilkovo",
+                "name": "3 vasilkovo",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%"
             },
@@ -144,7 +144,7 @@
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "name": "chanovo (mimas)",
+                "name": "4 chanovo (mimas)",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%"
             },
@@ -163,7 +163,7 @@
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "name": "yasenevof (ariel)",
+                "name": "5 yasenevof (ariel)",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%"
             },
@@ -182,7 +182,7 @@
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "name": "shodnenskaya4 (ixion)",
+                "name": "6 shodnenskaya4 (ixion)",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%"
             },
@@ -201,7 +201,7 @@
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "name": "shodnenskaya5 (makemake)",
+                "name": "7 shodnenskaya5 (makemake)",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%"
             },
@@ -220,7 +220,7 @@
                 "hidden": false,
                 "historySize": 9001,
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "name": "web (proxima)",
+                "name": "8 web (proxima)",
                 "snapOnInput": true,
                 "startingDirectory": "%USERPROFILE%"
             }
