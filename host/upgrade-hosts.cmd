@@ -16,7 +16,7 @@ set PROXIMAPASS=?
 
 echo Location to upgrade:
 echo  [1] full           
-echo  [2] ? (16)
+echo  [2] void (16)
 echo  [3] vasilkovo (17)
 echo  [4] chanovo (18)
 REM echo  [5] yasenevod (19)
