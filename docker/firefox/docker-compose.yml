@@ -23,7 +23,6 @@ services:
     volumes:
       - config:/config
     ports:
-      - 31620:3000
       - 31624:3001
     shm_size: "128mb"
     networks:
