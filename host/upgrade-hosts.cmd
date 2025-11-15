@@ -87,6 +87,7 @@ if %UPG_VOID%==yes (
     echo.
     ssh -t lesha@terra.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
     ssh -t lesha@terra.internal "echo %LINUXPASS% | sudo -S snap refresh" 
+    ssh -t lesha@terra.internal "echo %LINUXPASS% | sudo -S sudo apt autoremove -y" 
     ssh -t lesha@terra.internal "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
 
 REM    echo.
@@ -109,6 +110,8 @@ if %UPG_VASILKOVO%==yes (
     echo ##############################################################
     echo.
     ssh -t lesha@io.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
+    ssh -t lesha@io.internal "echo %LINUXPASS% | sudo -S sudo apt autoremove -y"
+    ssh -t lesha@io.internal "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
 
     echo.
     echo ##############################################################
@@ -117,6 +120,7 @@ if %UPG_VASILKOVO%==yes (
     echo.
     ssh -t lesha@europa.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
     ssh -t lesha@europa.internal "echo %LINUXPASS% | sudo -S snap refresh"
+    ssh -t lesha@europa.internal "echo %LINUXPASS% | sudo -S sudo apt autoremove -y"
     ssh -t lesha@europa.internal "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
 )
 
@@ -128,6 +132,7 @@ if %UPG_CHANOVO%==yes (
     echo.
     ssh -t lesha@mimas.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
     ssh -t lesha@mimas.internal "echo %LINUXPASS% | sudo -S snap refresh"
+    ssh -t lesha@mimas.internal "echo %LINUXPASS% | sudo -S sudo apt autoremove -y"
     ssh -t lesha@mimas.internal "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
 )
 
@@ -139,6 +144,7 @@ if %UPG_YASENEVOF%==yes (
     echo.
     ssh -t lesha@ariel.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
     ssh -t lesha@ariel.internal "echo %LINUXPASS% | sudo -S snap refresh" 
+    ssh -t lesha@ariel.internal "echo %LINUXPASS% | sudo -S sudo apt autoremove -y"
     ssh -t lesha@ariel.internal "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
 )
 
@@ -162,7 +168,9 @@ if %UPG_SHODNENSKAYA5%==yes (
     echo ##############################################################
     echo.
     ssh -t lesha@makemake.internal "echo %LINUXPASS% | sudo -S omv-upgrade"
+    ssh -t lesha@makemake.internal "echo %LINUXPASS% | sudo -S sudo apt autoremove -y"
     ssh -t lesha@makemake.internal "echo %LINUXPASS% | sudo -S snap refresh"
+    ssh -t lesha@makemake.internal "echo %LINUXPASS% | sudo -S reboot-if-needed.sh"
 )
 
 REM if %UPG_KOMMUNARKAD%==yes (
@@ -176,6 +184,7 @@ if %UPG_WEB%==yes (
     echo ##############################################################
     echo.
     ssh -t lesha@proxima.external "echo %PROXIMAPASS% | sudo -S apt update && sudo apt upgrade -y"
+    ssh -t lesha@proxima.external "echo %PROXIMAPASS% | sudo -S sudo apt autoremove -y"
     ssh -t lesha@proxima.external "echo %PROXIMAPASS% | sudo -S reboot-if-needed.sh"
 )
 
