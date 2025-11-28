@@ -435,7 +435,7 @@ if [ -f /etc/motd ]; then
 fi
 
 run_command "mkdir -p /usr/share/figlet" "Error setting motd"
-run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /usr/share/figlet/ANSI_Shadow.flf https://raw.githubusercontent.com/xero/figlet-fonts/refs/heads/master/ANSI%20Shadow.flf" "Error setting motd"
+run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /usr/share/figlet/ANSI_Shadow.flf https://raw.githubusercontent.com/xero/figlet-fonts/refs/heads/main/ANSI%20Shadow.flf" "Error setting motd"
 
 MOTD_PATH=/etc/update-motd.d/70-custom-motd
 CUSTOM_MOTD=70-custom-motd
