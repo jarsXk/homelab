@@ -100,7 +100,7 @@
                 "antialiasingMode": "grayscale",
                 "closeOnExit": "graceful",
                 "colorScheme": "Campbell Powershell",
-                "commandline": "C:\\Users\\fedrr\\AppData\\Local\\Programs\\sshsel.cmd",
+                "commandline": "C:\\Software\\ssh-select.cmd lesha",
                 "cursorShape": "filledBox",
                 "font": 
                 {
