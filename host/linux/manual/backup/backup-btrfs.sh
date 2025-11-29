@@ -91,7 +91,7 @@ run_command "apt-get clean" "Error cleaning apt"
 
 log_message INFO "Creating/checking backup dir"
 if [ ! -d $BACKUP_DIR ]; then
-  if [ -n $MOUNT_SERVICE ]; then
+  if [ ! -n $MOUNT_SERVICE ]; then
     BACKUP_MOUNTED=$(systemctl is-active $MOUNT_SERVICE >/dev/null 2>&1 && echo YES || echo NO)
     log_message DEBUG "Backup mounted (1): $BACKUP_MOUNTED"
     if [ $BACKUP_MOUNTED = YES ]; then
