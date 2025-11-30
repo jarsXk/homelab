@@ -1,0 +1,6 @@
+route ADD 13.107.213.44  MASK 255.255.255.255 0.0.0.0 consumer.intel.com
+route ADD 13.107.246.44  MASK 255.255.255.255 0.0.0.0 consumer.intel.com
+route ADD 23.210.254.130 MASK 255.255.255.255 0.0.0.0 www.intel.com
+route ADD 184.86.12.21   MASK 255.255.255.255 0.0.0.0 www.intel.com
+route ADD 95.100.107.88  MASK 255.255.255.252 0.0.0.0 intel.ru
+route ADD 63.140.62.0    MASK 255.255.255.0   0.0.0.0 dogo.intel.com

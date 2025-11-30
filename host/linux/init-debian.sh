@@ -317,9 +317,11 @@ log_message DEBUG "Selected location <$LOCATION>"
 
 # Creating groups
 log_message INFO "Creating groups"
-#                   name         is_system gid  
-create_group    	family       no      2000
-create_group	    lesha-group  no      2001 
+#               name         is_system gid  
+if [ $NAS = yes ]; then
+  create_group  family       no        2000
+fi
+create_group	  lesha-group  no        2001 
 if [ $NAS = yes ] && [ $LOCATION = kommunarka ]; then
   create_group	lena-group   no        2002
 fi
@@ -344,39 +346,42 @@ fi
 
 # Creating users
 log_message INFO "Creating users"
-DOCKER_GROUPS="docker,family,lesha-group"
+DOCKER_GROUPS="docker,lesha-group"
+if [ $NAS = yes ]; then
+  DOCKER_GROUPS="$DOCKER_GROUPS,family"
+fi
 FAMILY_GROUP=""
 if [ $NAS = yes ]; then
   FAMILY_GROUP=",family"
 fi
 # real users
 #               login      uid  group    sudo shell             create_home is_system extra_groups
-create_user     lesha      2001 users    yes  /bin/bash         yes         no        lesha-group,_ssh,family
+create_user     lesha      2001 users    yes  /bin/bash         yes         no        lesha-group,_ssh&FAMILY_GROUP
 if [ $NAS = yes ] && [ $LOCATION = kommunarka ]; then
-  create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh,family
+  create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh&FAMILY_GROUP
   DOCKER_GROUPS="$DOCKER_GROUPS,lena-group"
 fi
 if [ $LOCATION = vasilkovo ]; then
-  create_user kostya       2003 users    yes  /bin/bash         yes         no        kostya-group,_ssh,family
+  create_user kostya       2003 users    yes  /bin/bash         yes         no        kostya-group,_ssh&FAMILY_GROUP
   DOCKER_GROUPS="$DOCKER_GROUPS,kostya-group"
 fi
 if [ $NAS = yes ] && [ $LOCATION = vasilkovo ]; then  
-  create_user tanya        2004 users    no   /usr/sbin/nologin yes         no        tanya-group,family
-  create_user dima         2005 users    no   /bin/bash         yes         no        dima-group,_ssh,family
+  create_user tanya        2004 users    no   /usr/sbin/nologin yes         no        tanya-group&FAMILY_GROUP
+  create_user dima         2005 users    no   /bin/bash         yes         no        dima-group,_ssh&FAMILY_GROUP
   DOCKER_GROUPS="$DOCKER_GROUPS,tanya-group,dima-group"
 fi
 if [ $NAS = yes ] && [ $LOCATION = chanovo ]; then
-  create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh,family
-  create_user yulia        2006 users    no   /usr/sbin/nologin yes         no        yulia-group,family
+  create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh&FAMILY_GROUP
+  create_user yulia        2006 users    no   /usr/sbin/nologin yes         no        yulia-group&FAMILY_GROUP
   DOCKER_GROUPS="$DOCKER_GROUPS,lena-group,yulia-group"
 fi
 if [ $LOCATION = yasenevof ]; then
-  create_user kostya       2003 users    yes  /bin/bash         yes         no        kostya-group,_ssh,family
+  create_user kostya       2003 users    yes  /bin/bash         yes         no        kostya-group,_ssh&FAMILY_GROUP
   DOCKER_GROUPS="$DOCKER_GROUPS,kostya-group"
 fi
 if [ $NAS = yes ] && [ $LOCATION = shodnenskaya ]; then
-  create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh,family
-  create_user yulia        2006 users    no   /usr/sbin/nologin yes         no        yulia-group,family
+  create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh&FAMILY_GROUP
+  create_user yulia        2006 users    no   /usr/sbin/nologin yes         no        yulia-group&FAMILY_GROUP
   DOCKER_GROUPS="$DOCKER_GROUPS,lena-group,yulia-group"
 fi
 # technical users
@@ -387,6 +392,7 @@ fi
 if [ $NAS = yes ]; then
   create_user internal     1998 users    no   /usr/sbin/nologin no          yes
 fi
+# create_user amnezia      1997 users    yes  /bin/bash         yes         yes
 
 # Deleting group "lesha"
 if [ $(getent group lesha) ]; then

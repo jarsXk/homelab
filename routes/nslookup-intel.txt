@@ -1,4 +1,0 @@
-route ADD 13.91.95.74 MASK 255.255.255.255 0.0.0.0 intel.com
-route ADD 23.218.60.116 MASK 255.255.255.255 0.0.0.0 www.intel.com
-route ADD 13.107.253.42 MASK 255.255.255.255 0.0.0.0 consumer.intel.com
-route ADD 130.35.201.120 MASK 255.255.255.255 0.0.0.0 elqtrk.intel.com
