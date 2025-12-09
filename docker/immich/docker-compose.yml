@@ -8,6 +8,7 @@ networks:
 volumes:
   server_upload:
   ml_models:
+  redis_data:
   database_data:
 
 services:
@@ -74,6 +75,8 @@ services:
     image: docker.io/valkey/valkey:8@sha256:81db6d39e1bba3b3ff32bd3a1b19a6d69690f94a3954ec131277b9a26b95b3aa
     environment:
       - TZ=Europe/Moscow
+    volumes:
+      - redis_data:/data
     networks:
       net:
         ipv4_address: 198.19.93.4
