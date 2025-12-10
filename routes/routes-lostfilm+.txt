@@ -1,2 +1,4 @@
-route ADD 104.21.0.0 MASK 255.255.0.0 0.0.0.0 lostfilm.tv/rutracker.org/nnmclub.to/kinozal.tv/radarr.video
-route ADD 172.67.0.0 MASK 255.255.0.0 0.0.0.0 lostfilm.tv/rutracker.org/nnmclub.to/kinozal.tv/radarr.video
+route ADD 104.21.0.0   MASK 255.255.0.0   0.0.0.0 lostfilm.tv/rutracker.org/nnmclub.to/kinozal.tv/radarr.video
+route ADD 172.67.0.0   MASK 255.255.0.0   0.0.0.0 lostfilm.tv/rutracker.org/nnmclub.to/kinozal.tv/radarr.video
+route ADD 188.114.96.0 MASK 255.255.254.0 0.0.0.0 lostfilm.tv/rutracker.org/nnmclub.to/kinozal.tv/radarr.video
+ 
