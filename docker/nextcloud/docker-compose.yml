@@ -21,6 +21,7 @@ services:
       - PGID=2000
       - TZ=Europe/Moscow
       - UMASK=007
+      - DOCKER_MODS=linuxserver/mods:nextcloud-memories
     volumes:
       - config:/config
       - data:/data
