@@ -178,7 +178,7 @@ run_command "apt -y purge $PACKAGE_LIST" "Error uninstalling"
 run_command "apt -y autoremove --purge" "Error uninstalling"
 
 # Installing packages
-PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl zstd unzip sudo util-linux figlet dnsutils"
+PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl zstd unzip sudo util-linux figlet dnsutils imagemagick"
 if [ $PHYSICAL = yes ]; then
   PACKAGE_LIST="$PACKAGE_LIST snapd"
 fi
