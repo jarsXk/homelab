@@ -149,6 +149,9 @@ for %%G in (%RESULT%) do (
   if !AUTOREMOVE! == yes (
     ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! apt autoremove -y"
   )
+  if !OMV_UPG! == yes (
+    ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! omvapply-if-needed.sh"
+  )
   if !REBOOT! == yes (
     ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! reboot-if-needed.sh"
   )
