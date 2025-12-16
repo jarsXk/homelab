@@ -10,7 +10,7 @@ dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
    Mimas    "mimas.internal    (chanovo)" off ^
    Ariel    "ariel.internal    (yasenevof)" on ^
    Ixion    "ixion.home.arpa   (shodnenskaya4)" off ^
-   Makemake "makemake.internal (shodnenskaya5)" off ^
+   Makemake "makemake.internal (shodnenskaya5)" on ^
    Proxima  "proxima.external  (web)" on ^
    2> dialogresult.bak
 cls
