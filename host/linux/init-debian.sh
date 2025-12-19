@@ -262,69 +262,63 @@ if [ $DOCKER != no ]; then
 fi
 
 # Reading role & location
-if [ $PHYSICAL = yes ]; then
-  while [ "$NAS" = "" ]; do
-    log_message READ "Setup NAS host [y/n/c]> " -n
-    read -r ANSWER_PUBLIC
-    case "$ANSWER_PUBLIC" in
-      [Yy]* )
-        NAS=yes
-      ;;
-      [Nn]* )
-        NAS=no
-      ;;
-      [Cc]* )
-        log_message INFO "Canceled setup"
-        exit 1
-      ;;
-      * )
-        log_message INFO "Invalid input. Enter y, n, or c."
-      ;;
-    esac
-  done
-
-  while [ "$LOCATION" = "" ]; do
-    log_message READ "Location"
-    log_message READ "  [1] ???"
-    log_message READ "  [2] vasilkovo"
-    log_message READ "  [3] chanovo"
-    log_message READ "  [5] yasenevof"    
-    log_message READ "  [6] shodnenskaya"
-    log_message READ "  [0] other"
-    log_message READ "Select [1-4/0/c]> " -n
-    read -r ANSWER_LOCATION
-    case "$ANSWER_LOCATION" in
-      1)
-        LOCATION=kommunarka
-      ;;
-      2)
-        LOCATION=vasilkovo
-      ;;
-      3)
-        LOCATION=chanovo
-      ;;
-      4)
-        LOCATION=yasenevof
-      ;;
-      5)
-        LOCATION=shodnenskaya
-      ;;
-      0)
-        LOCATION=other
-      ;;
-      c)
-        log_message INFO "Canceled setup"
-        exit 1
-      ;;
-      * )
-        log_message INFO "Invalid input. Enter 1-4, 0 or c."
-      ;;
-    esac
-  done
-else  
-  NAS=no
-  LOCATION=other
-fi
+while [ "$NAS" = "" ]; do
+  log_message READ "Setup NAS host [y/n/c]> " -n
+  read -r ANSWER_PUBLIC
+  case "$ANSWER_PUBLIC" in
+    [Yy]* )
+      NAS=yes
+    ;;
+    [Nn]* )
+      NAS=no
+    ;;
+    [Cc]* )
+      log_message INFO "Canceled setup"
+      exit 1
+    ;;
+    * )
+      log_message INFO "Invalid input. Enter y, n, or c."
+    ;;
+  esac
+done
+while [ "$LOCATION" = "" ]; do
+  log_message READ "Location"
+  log_message READ "  [1] ???"
+  log_message READ "  [2] vasilkovo"
+  log_message READ "  [3] chanovo"
+  log_message READ "  [5] yasenevof"    
+  log_message READ "  [6] shodnenskaya"
+  log_message READ "  [0] other"
+  log_message READ "Select [1-4/0/c]> " -n
+  read -r ANSWER_LOCATION
+  case "$ANSWER_LOCATION" in
+    1)
+      LOCATION=kommunarka
+    ;;
+    2)
+      LOCATION=vasilkovo
+    ;;
+    3)
+      LOCATION=chanovo
+    ;;
+    4)
+      LOCATION=yasenevof
+    ;;
+    5)
+      LOCATION=shodnenskaya
+    ;;
+    0)
+      LOCATION=other
+    ;;
+    c)
+      log_message INFO "Canceled setup"
+      exit 1
+    ;;
+    * )
+      log_message INFO "Invalid input. Enter 1-4, 0 or c."
+    ;;
+  esac
+done
 log_message DEBUG "Selected NAS host <$NAS>"
 log_message DEBUG "Selected location <$LOCATION>"
 
