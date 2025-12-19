@@ -129,6 +129,8 @@ if [ $LINUX_DISTRO != debian ] && [ $LINUX_DISTRO != ubuntu ]; then
   if [ $IGNORE_ERRORS != yes ]; then
     exit 1
   fi
+else
+  DEBIAN_VERSION=$VERSION_ID
 fi
 
 #Identifying ssh server
@@ -165,39 +167,35 @@ while [ "$PHYSICAL" = "" ]; do
 done
 log_message DEBUG "Selected install physical server <$PHYSICAL>"
 
+# Uninstalling packages
+log_message INFO "Uninstalling packages <$PACKAGE_LIST>"
+PACKAGE_LIST="netcat-traditional"
+run_command "apt -y purge $PACKAGE_LIST" "Error uninstalling"
+run_command "apt -y autoremove --purge" "Error uninstalling"
+
 # Updating
 log_message INFO "Updating packages"
 COMMAND="EMPTY"
 run_command "apt-get update" "Error updating"
 run_command "apt-get -y full-upgrade" "Error updating"
 
-# Uninstalling packages
-PACKAGE_LIST="netcat-traditional"
-log_message INFO "Uninstalling packages <$PACKAGE_LIST>"
-run_command "apt -y purge $PACKAGE_LIST" "Error uninstalling"
-run_command "apt -y autoremove --purge" "Error uninstalling"
-
 # Installing packages
-PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl zstd unzip sudo util-linux figlet dnsutils imagemagick"
-if [ $PHYSICAL = yes ]; then
-  PACKAGE_LIST="$PACKAGE_LIST snapd"
+PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl wget zstd unzip sudo util-linux figlet dnsutils imagemagick locales"
+if [ $DEBIAN_VERSION != "11" ] && [ $DEBIAN_VERSION != "12" ]; then
+  PACKAGE_LIST="$PACKAGE_LIST fastfetch"
 fi
-log_message INFO "Installing packages <$PACKAGE_LIST> and <fastfetch>"
+log_message INFO "Installing packages <$PACKAGE_LIST>"
 run_command "apt-get -y install $PACKAGE_LIST" "Error installing"
-if [ $(dpkg --print-architecture) = amd64 ]; then
-  DPKG_NAME="fastfetch-linux-$(dpkg --print-architecture).deb"
-elif [ $(dpkg --print-architecture) = arm64 ]; then
-  DPKG_NAME="fastfetch-linux-$(uname -m).deb"
-fi
-log_message "DEBUG" "DPKG_NAME <$DPKG_NAME>"
-run_command "wget -O $DPKG_NAME https://github.com/fastfetch-cli/fastfetch/releases/latest/download/$DPKG_NAME" "Error installing"
-run_command "dpkg --install ./$DPKG_NAME" "Error installing"
-
-# Installing snap packages
-if [ $PHYSICAL = yes ]; then
-  SNAP_LIST="snapd"
-  log_message INFO "Installing snaps <$SNAP_LIST>"
-  run_command "snap install $SNAP_LIST" "Error installing"
+if [ $DEBIAN_VERSION = "11" ] || [ $DEBIAN_VERSION = "12" ]; then
+  if [ $(dpkg --print-architecture) = amd64 ]; then
+    DPKG_NAME="fastfetch-linux-$(dpkg --print-architecture).deb"
+  elif [ $(dpkg --print-architecture) = arm64 ]; then
+    DPKG_NAME="fastfetch-linux-$(uname -m).deb"
+  fi
+  log_message "DEBUG" "DPKG_NAME <$DPKG_NAME>"
+  log_message INFO "Installing additional packages <fastfetch>"
+  run_command "wget -O $DPKG_NAME https://github.com/fastfetch-cli/fastfetch/releases/latest/download/$DPKG_NAME" "Error installing"
+  run_command "dpkg --install ./$DPKG_NAME" "Error installing"
 fi
 
 # Setting timezone
@@ -215,11 +213,14 @@ fi
 
 # Installing docker
 while [ "$DOCKER" = "" ]; do
-  log_message READ "Install Docker [y/n/c]> " -n
+  log_message READ "Install Docker native (n), snapd (s), no install (n) [d/s/n/c]> " -n
   read -r ANSWER_DOCKER
   case "$ANSWER_DOCKER" in
-    [Yy]* )
-      DOCKER=yes
+    [Dd]* )
+      DOCKER=native
+    ;;
+    [Ss]* )
+      DOCKER=snapd
     ;;
     [Nn]* )
       DOCKER=no
@@ -229,23 +230,35 @@ while [ "$DOCKER" = "" ]; do
       exit 1
     ;;
     * )
-      log_message INFO "Invalid input. Enter y, n, or c."
+      log_message INFO "Invalid input. Enter d, s, n, or c."
     ;;
   esac
 done
 log_message DEBUG "Selected install Docker <$DOCKER>"
-if [ $DOCKER = yes ]; then
+
+if [ $DOCKER = snapd ]; then
+  PACKAGE_LIST="snapd"
+  log_message INFO "Installing additional packages <$PACKAGE_LIST>"
+  run_command "apt-get -y install $PACKAGE_LIST" "Error installing"
+  SNAP_LIST="snapd"
+  log_message INFO "Installing snaps <$SNAP_LIST>"
+  run_command "snap install $SNAP_LIST" "Error installing"
+fi
+if [ $DOCKER != no ]; then
   log_message INFO "Installing Docker"
   create_group docker yes 199
-  run_command "snap install docker" "Error installing docker"
-  run_command "mkdir -p /var/snap/docker/current/docker" "Error installing docker"
-  if [ -f /var/snap/docker/current/config/daemon.json ]; then
-    run_command "mv /var/snap/docker/current/config/daemon.json /var/snap/docker/current/config/daemon.json.bak" "Error installing docker" 
+
+  if [ $DOCKER = snapd ]; then
+    run_command "snap install docker" "Error installing docker"
+    run_command "mkdir -p /var/snap/docker/current/config" "Error installing docker"
+    if [ -f /var/snap/docker/current/config/daemon.json ]; then
+      run_command "mv /var/snap/docker/current/config/daemon.json /var/snap/docker/current/config/daemon.json.bak" "Error installing docker" 
+    fi
+    run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /var/snap/docker/current/config/daemon.json https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/docker/daemon.json" "Error installing docker"
+    run_command "snap restart docker" "Error installing docker"
+    sleep 2s
+    run_command "/snap/bin/docker version" "Error installing docker"
   fi
-  run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /var/snap/docker/current/config/daemon.json https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/docker/daemon.json" "Error installing docker"
-  run_command "snap restart docker" "Error installing docker"
-  sleep 2s
-  run_command "/snap/bin/docker version" "Error installing docker"
 fi
 
 # Reading role & location
