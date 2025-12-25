@@ -1,0 +1,236 @@
+filtering:
+  rewrites:
+    # null (16)
+    - domain: wired.null.external
+      answer: reserved
+      enabled: false
+    - domain: mobile.null.external
+      answer: reserved
+      enabled: false
+    - domain: sun.null.internal
+      answer: reserved
+      enabled: false
+    - domain: nemesis.null.internal
+      answer: reserved
+      enabled: false
+    - domain: '*.app.null.internal'
+      answer: terra.null.internal
+      enabled: false
+    - domain: terra.null.internal
+      answer: reserved
+      enabled: false
+    - domain: terra.internal
+      answer: terra.yasenevof.internal
+      enabled: true
+    - domain: '*.terra.null.internal'
+      answer: terra.null.internal
+      enabled: false
+    - domain: vesta.null.internal
+      answer: reserved
+      enabled: false
+    - domain: vesta.internal
+      answer: vesta.null.internal
+      enabled: false
+    - domain: '*.vesta.null.internal'
+      answer: vesta.null.internal
+      enabled: false
+    - domain: victoria.null.internal
+      answer: reserved
+      enabled: false
+    - domain: victoria.internal
+      answer: victoria.null.internal
+      enabled: false
+    - domain: '*.victoria.null.internal'
+      answer: victoria.null.internal
+      enabled: false
+    - domain: jupiter.null.internal
+      answer: reserved
+      enabled: false
+    - domain: jupiter.internal
+      answer: jupiter.yasenevof.internal
+      enabled: true
+    - domain: mars.null.internal
+      answer: reserved
+      enabled: false
+    - domain: mars.internal
+      answer: mars.yasenevof.internal
+      enabled: true
+    - domain: saturn.null.internal
+      answer: reserved
+      enabled: false
+    - domain: saturn.internal
+      answer: saturn.yasenevof.internal
+      enabled: true
+    - domain: uranus.null.internal
+      answer: reserved
+      enabled: false
+    - domain: uranus.internal
+      answer: uranus.yasenevof.internal
+      enabled: true
+    - domain: eris.null.internal
+      answer: reserved
+      enabled: false
+    - domain: hygiea.null.internal
+      answer: reserved
+      enabled: false
+    - domain: hebe.null.internal
+      answer: reserved
+      enabled: false
+    # vasilkovo (17)
+    - domain: ganymede.vasilkovo
+      answer: 172.17.0.1
+      enabled: true
+    - domain: ganymede.internal
+      answer: ganymede.vasilkovo
+      enabled: true
+    - domain: callisto.vasilkovo
+      answer: 172.17.0.2
+      enabled: true
+    - domain: callisto.internal
+      answer: callisto.vasilkovo
+      enabled: true
+    - domain: himalia.vasilkovo
+      answer: 172.17.0.20
+      enabled: true
+    - domain: himalia.internal
+      answer: himalia.vasilkovo
+      enabled: true
+    - domain: thebe.vasilkovo
+      answer: 172.17.0.21
+      enabled: true
+    - domain: thebe.internal
+      answer: thebe.vasilkovo
+      enabled: true
+    - domain: amalthea.vasilkovo
+      answer: 172.17.0.4
+      enabled: true
+    - domain: amalthea.internal
+      answer: amalthea.vasilkovo
+      enabled: true
+    - domain: io.vasilkovo
+      answer: 172.17.2.10
+      enabled: true
+    - domain: io.internal
+      answer: io.vasilkovo
+      enabled: true
+    - domain: '*.io.vasilkovo'
+      answer: io.vasilkovo
+      enabled: true
+    - domain: '*.io.internal'
+      answer: io.vasilkovo
+      enabled: true
+    - domain: europa.vasilkovo
+      answer: 172.17.2.11
+      enabled: true
+    - domain: europa.internal
+      answer: europa.vasilkovo
+      enabled: true
+    - domain: '*.europa.vasilkovo'
+      answer: europa.vasilkovo
+      enabled: true
+    - domain: '*.europa.internal'
+      answer: europa.vasilkovo
+      enabled: true
+    - domain: elara.vasilkovo
+      answer: 172.17.4.12
+      enabled: true
+    - domain: leda.vasilkovo
+      answer: 172.17.4.110
+      enabled: true
+    - domain: ananke.vasilkovo
+      answer: 172.17.4.11
+      enabled: true
+    # chanovo (18)
+    # yasenevod (19)
+    # yesenevof (20)
+    - domain: mts.yasenevof.external
+      answer: 192.168.1.1
+      enabled: true
+    - domain: yota.yasenevof.external
+      answer: 192.168.0.1
+      enabled: true
+    - domain: titania.yasenevof.internal
+      answer: 172.20.0.1
+      enabled: true
+    - domain: oberon.yasenevof.internal
+      answer: 172.20.0.2
+      enabled: true
+    - domain: '*.app.yasenevof.internal'
+      answer: ariel.yasenevof.internal
+      enabled: true
+    - domain: ariel.yasenevof.internal
+      answer: 172.20.2.10
+      enabled: true
+    - domain: ariel.internal
+      answer: ariel.yasenevof.internal
+      enabled: true
+    - domain: '*.ariel.yasenevof.internal'
+      answer: ariel.yasenevof.internal
+      enabled: true
+    - domain: terra.yasenevof.internal
+      answer: 172.20.2.12
+      enabled: true
+    - domain: '*.terra.yasenevof.internal'
+      answer: terra.yasenevof.internal
+      enabled: true
+    - domain: jupiter.yasenevof.internal
+      answer: 172.20.4.10
+      enabled: true
+    - domain: mars.yasenevof.internal
+      answer: 172.20.4.111
+      enabled: true
+    - domain: saturn.yasenevof.internal
+      answer: 172.20.4.112
+      enabled: true
+    - domain: uranus.yasenevof.internal
+      answer: 172.20.4.13
+      enabled: true
+    - domain: eris.yasenevof.internal
+      answer: 172.20.4.14
+      enabled: true
+    - domain: leda.yasenevof.internal
+      answer: 172.20.4.115
+      enabled: true
+    - domain: ananke.yasenevof.internal
+      answer: 172.20.4.16
+      enabled: true
+    # shodnenskaya4 (21)
+    # shodnenskaya5 (22)
+    # unsorted
+    - domain: titan.internal
+      answer: 172.18.0.1
+      enabled: true
+    - domain: rhea.internal
+      answer: 172.18.0.2
+      enabled: true
+    - domain: dione.internal
+      answer: 172.18.0.3
+      enabled: true
+    - domain: mimas.internal
+      answer: 172.20.13.18
+      enabled: true
+    - domain: '*.mimas.internal'
+      answer: mimas.internal
+      enabled: true
+    - domain: phobos.internal
+      answer: 172.19.0.1
+      enabled: true
+    - domain: ixion.home.arpa
+      answer: 192.168.21.7
+      enabled: true
+    - domain: '*.ixion.home.arpa'
+      answer: ixion.home.arpa
+      enabled: true
+    - domain: pluto.home.arpa
+      answer: 192.168.21.1
+      enabled: true
+    - domain: makemake.internal
+      answer: 172.22.2.10
+      enabled: true
+    - domain: '*.makemake.internal'
+      answer: makemake.internal
+      enabled: true
+    # global
+    - domain: proxima.external
+      answer: 185.133.173.100
+      enabled: true
