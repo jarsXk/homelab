@@ -431,11 +431,7 @@ fi
 
 # Setting locale
 log_message INFO "Setting locale"
-RU_LOCALE=$(locale --all-locales | grep ru_RU.utf8 | wc -c)
-if [ $RU_LOCALE -eq 0 ]; then
-  run_command "locale-gen ru_RU.UTF-8" "Error setting locale"
-fi
-run_command "localectl set-locale LANG=ru_RU.UTF-8" "Error setting locale"
+run_command "dpkg-reconfigure locales" "Error setting locale"
 
 # Updating sudoers file
 log_message INFO "Updating sudoers file"
