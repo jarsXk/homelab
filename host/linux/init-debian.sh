@@ -168,8 +168,8 @@ done
 log_message DEBUG "Selected install physical server <$PHYSICAL>"
 
 # Uninstalling packages
+PACKAGE_LIST="netcat-traditional"n
 log_message INFO "Uninstalling packages <$PACKAGE_LIST>"
-PACKAGE_LIST="netcat-traditional"
 run_command "apt -y purge $PACKAGE_LIST" "Error uninstalling"
 run_command "apt -y autoremove --purge" "Error uninstalling"
 
@@ -213,7 +213,7 @@ fi
 
 # Installing docker
 while [ "$DOCKER" = "" ]; do
-  log_message READ "Install Docker native (n), snapd (s), no install (n) [d/s/n/c]> " -n
+  log_message READ "Install Docker native (d), snapd (s), no install (n) [d/s/n/c]> " -n
   read -r ANSWER_DOCKER
   case "$ANSWER_DOCKER" in
     [Dd]* )
