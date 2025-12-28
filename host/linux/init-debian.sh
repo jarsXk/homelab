@@ -168,7 +168,7 @@ done
 log_message DEBUG "Selected install physical server <$PHYSICAL>"
 
 # Uninstalling packages
-PACKAGE_LIST="netcat-traditional"n
+PACKAGE_LIST="netcat-traditional"
 log_message INFO "Uninstalling packages <$PACKAGE_LIST>"
 run_command "apt -y purge $PACKAGE_LIST" "Error uninstalling"
 run_command "apt -y autoremove --purge" "Error uninstalling"
