@@ -437,7 +437,7 @@ run_command "dpkg-reconfigure locales" "Error setting locale"
 if [ $DOCKER = snapd ]; then
   log_message INFO "Updating sudoers file"
   run_command "wget -O /etc/sudoers.d/10-snappath https://github.com/jarsXk/homelab/raw/main/host/linux/automated/10-snappath" "Error updating sudoers file"
-аш
+fi
 
 # Setting motd
 log_message INFO "Setting motd"
