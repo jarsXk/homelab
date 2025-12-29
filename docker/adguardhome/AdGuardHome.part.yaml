@@ -79,6 +79,12 @@ filtering:
     - domain: hebe.nul.internal
       answer: reserved
       enabled: false
+    - domain: photoframe.nul.internal
+      answer: reserved
+      enabled: false
+    - domain: inky.internal
+      answer: inky.yaf.internal
+      enabled: true
     # vasilkovo (17)
     - domain: point.vas.external
       answer: 192.168.1.1
@@ -256,6 +262,9 @@ filtering:
       enabled: true
     - domain: ananke.yaf.internal
       answer: 172.20.4.16
+      enabled: true
+    - domain: inky.yaf.internal
+      answer: 172.20.6.50
       enabled: true
     # shodnenskaya4 (21)
     - domain: mts.sh4.external
