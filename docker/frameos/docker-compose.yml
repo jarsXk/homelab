@@ -1,0 +1,39 @@
+version: "3"
+
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.19.0/24
+          gateway: 198.19.19.1
+
+volumes:
+  db:
+
+services:
+  frameos:
+    container_name: frameos
+    hostname: frameos
+    image: frameos/frameos:latest
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+    volumes:
+      - db:/app/db
+    ports:
+      - 31920:8989
+    networks:
+      net:
+        ipv4_address: 198.19.19.2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://198.19.19.2:8989"]
+      interval: 30s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
+        
