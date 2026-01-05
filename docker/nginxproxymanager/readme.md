@@ -27,6 +27,6 @@ DNS.2 = *.domain
 ```
 
 ```bash
-openssl req -newkey rsa:2048 -noenc -keyout domain.key -out domain.csr
+openssl req -newkey rsa:2048 -noenc -keyout domain.key -out domain.csr -subj "/C=RU/ST=State/L=Locality/O=VOID/OU=Unit/CN=domain"
 openssl x509 -req -CA rootCA.crt -CAkey rootCA.key -in domain.csr -out domain.crt -days 730 -CAcreateserial -extfile domain.ext
 ```
