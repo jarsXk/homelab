@@ -43,6 +43,7 @@ subjectAltName = @alt_names
 IP.1 = 192.168.1.1  # Replace with your IP address
 ```
 
-```javascript
-openssl req -new -nodes -x509 -days 365 -keyout domain.key -out domain.crt -config domain.ext
+openssl req -new -nodes -x509 -days 365CA rootCA.crt -CAkey rootCA.key - -keyout domain.key -out domain.crt -config domain.ext
+ig domain.ext
+
 ```
