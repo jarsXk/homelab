@@ -7,14 +7,15 @@ if "x%USER%" == "x" (
 )
 
 dialog --ascii-lines --begin 5 5  --menu "Server to login (user: %USER%)" -1 0 0 ^
-   Terra    "terra.internal    (void)" ^
-   Io       "io.internal       (vasilkovo)" ^
-   Europa   "europa.internal   (vasilkovo)" ^
-   Mimas    "mimas.internal    (chanovo)" ^
-   Ariel    "ariel.internal    (yasenevof)" ^
-   Ixion    "ixion.home.arpa   (shodnenskaya4)" ^
-   Makemake "makemake.internal (shodnenskaya5)" ^
-   Proxima  "proxima.external  (web)" ^
+   Terra    "terra.internal    S null" ^
+   Inky     "inky.internal     D null" ^
+   Io       "io.internal       S vasilkovo" ^
+   Europa   "europa.internal   S vasilkovo" ^
+   Mimas    "mimas.internal    S chanovo" ^
+   Ariel    "ariel.internal    S yasenevof" ^
+   Ixion    "ixion.home.arpa   S shodnenskaya4" ^
+   Makemake "makemake.internal S shodnenskaya5" ^
+   Proxima  "proxima.external  S web" ^
    2> dialogresult.bak
 set /p RESULT=<dialogresult.bak
 del dialogresult.bak           
@@ -22,6 +23,7 @@ cls
 
 if not "x%RESULT%" == "x" (
   if "%RESULT%" == "Terra" ssh %USER%@terra.internal
+  if "%RESULT%" == "Inky" ssh %USER%@inky.internal
   if "%RESULT%" == "Io" ssh %USER%@io.internal
   if "%RESULT%" == "Europa" ssh %USER%@europa.internal
   if "%RESULT%" == "Ariel" ssh %USER%@ariel.internal

@@ -11,6 +11,9 @@ dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
    Ariel    "ariel.internal    (yasenevof)" on ^
    Ixion    "ixion.home.arpa   (shodnenskaya4)" off ^
    Makemake "makemake.internal (shodnenskaya5)" on ^
+   -------- "---------------------------------" off ^
+   Inky     "inky.internal     (void)" on ^
+   -------- "---------------------------------" off ^
    Proxima  "proxima.external  (web)" on ^
    2> dialogresult.bak
 cls
@@ -120,6 +123,15 @@ for %%G in (%RESULT%) do (
     set PASS=%LINUXPASS%
   )
 
+  if %%G == Inky (
+    set APT_UPG=yes
+    set AUTOREMOVE=yes
+    set REBOOT=yes
+    set DOMAIN=internal
+
+    set PASS=%LINUXPASS%
+  )
+  
   if %%G == Proxima (
     set APT_UPG=yes
     set AUTOREMOVE=yes

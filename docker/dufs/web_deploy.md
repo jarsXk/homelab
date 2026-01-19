@@ -4,32 +4,31 @@
 docker run -d \
   --name dufs \
   --hostname dufs \
-  -e DUFS_SERVE_PATdataat
- -e DUFS_PORT=443 \ a \
-  -e DUFS_ALLOW_Afalse
-
- -e DUFS_ALLOW_UPLOAD=true \
- -e DUFS_ALLOW_DELETE=true \
- -e DUFS_ALLOW_SEARCH=true \  
- -e DUFS_ALLOW_SYMLINK=false \
- -e DUFS_ALLOW_ARCHIVE=true \l -e DUFS_ENABLE_CORS=true \
+  -e DUFS_SERVE_PATH=/data \
+  -e DUFS_HIDDEN=.DAV \
+  -e DUFS_PORT=443 \
+  -e DUFS_ALLOW_ALL=false
+  -e DUFS_ALLOW_UPLOAD=true \
+  -e DUFS_ALLOW_DELETE=true \
+  -e DUFS_ALLOW_SEARCH=true \  
+  -e DUFS_ALLOW_SYMLINK=false \
+  -e DUFS_ALLOW_ARCHIVE=true \
+  -e DUFS_ALLOW_HASH=true \
+  -e DUFS_ENABLE_CORS=true \
   -e DUFS_RENDER_INDEX=true \
   -e DUFS_RENDER_TRY_INDEX=true \
-  -e DUFS_RENDER_SPA=truen-e DUFS_HIDDEN=.DAV \
-  t-e DUFS_LOG_FILE=/config/dufs.log \rma-e DUFS_LOG_FORMAT='$remote_addr "$request" $status $http_user_agent' \
-  l \
-  \       ORS=true \
+  -e DUFS_RENDER_SPA=true \
+  -e DUFS_LOG_FILE=/config/dufs.log \
+  -e DUFS_LOG_FORMAT='$remote_addr "$request" $status $http_user_agent' \
+  -e DUFS_ENABLE_CORS=true \
   -e DUFS_CONFIG=/config/config.yaml \
   -v dufs_config:/config \
-  -v /srv/442/443l-junk:/data \
-  -p 8080:5000 \
+  -v /srv/data/local-junk:/data \
+  -p 442/443 \
   --net amnezia-dns-net \
   --ip 172.29.172.101 \
-  --resm
-    --tls-key <path>        DUFS_TLS_KEY=key.pem
-
-
-n/dufs
+  --restart always \
+  sigoden/dufs
 ```
 
 ## DNS certificate

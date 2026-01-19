@@ -1,9 +1,20 @@
-```javascriptsudo mkdir -p /srv/datra/proxima-junk
+## Linux
 
+```javascript
+sudo mkdir -p /srv/data/proxima-junk
 ```
 
 ### fstab
 
 ```javascript
-/srv/remotemount/proxima                                                                /srv/data/proxima-junk                                      none    defaults,nofail,bind   0 0
+/srv/remotemount/proxima                                                                /srv/data/proxima-junk                                      none    defaults,nofail,bind   
+```
+
+## Windows
+
+import BasicAuthLevel.reg
+
+```javascript
+net stop webclient
+net start webclient
 ```

@@ -50,6 +50,5 @@ openssl req -new -nodes -x509 -days 365 -CA rootCA.crt -CAkey rootCA.key -keyout
 ### spki
 
 ```javascript
-echo | openssl s_client -connect '185.133.173.100:853' 2>/dev/null | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der |  openssl dgst -sha256
--binary | openssl enc -base64
+echo | openssl s_client -connect '185.133.173.100:853' 2>/dev/null | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der |   openssl dgst -sha256 -binary | openssl enc -base64
 ```

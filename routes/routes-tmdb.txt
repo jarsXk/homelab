@@ -1,0 +1,6 @@
+route ADD 169.150.247.32 MASK 255.255.255.240 0.0.0.0 tmdb.org
+route ADD 138.199.36.0   MASK 255.255.254.0   0.0.0.0 tmdb.org
+route ADD 79.127.134.128 MASK 255.255.255.128 0.0.0.0 tmdb.org
+route ADD 185.93.2.245   MASK 255.255.255.255 0.0.0.0 tmdb.org
+route ADD 108.138.26.0   MASK 255.255.255.128 0.0.0.0 tmdb.org
+route ADD 3.174.113.0    MASK 255.255.255.128 0.0.0.0 tmdb.org

@@ -1,7 +1,7 @@
 dns:
   upstream_dns:
     - '#cloudflare'
-    - '#https://cloudflare-dns.com/dns-query'
+    - https://cloudflare-dns.com/dns-query
     - '#tls://1.1.1.1'
     - '#tls://1.0.0.1'
     - '#google'
@@ -10,33 +10,38 @@ dns:
     - '#tls://8.8.8.8'
     - '#tls://8.8.4.4'
     - '#Quad9'
-    - '#https://dns.quad9.net/dns-query'
+    - https://dns.quad9.net/dns-query
     - '#tls://dns.quad9.net'
     - '#tls://9.9.9.9'
     - '#tls://149.112.112.112'
     - '#Yandex'
-    - '#https://common.dot.dns.yandex.net/dns-query'
+    - https://common.dot.dns.yandex.net/dns-query
     - '#tls://common.dot.dns.yandex.net'
     - '#tls://77.88.8.8'
     - '#tls://77.88.8.1'
     - '#AdGuard'
-    - '#https://dns.adguard-dns.com/dns-query'
+    - https://dns.adguard-dns.com/dns-query
     - '#https://unfiltered.adguard-dns.com/dns-query'
     - '#tls://dns.adguard-dns.com'
     - '#tls://unfiltered.adguard-dns.com'
     - '#tls://94.140.14.14'
     - '#tls://94.140.15.15'
     - '#Comss.one'
-    - '#https://dns.comss.one/dns-query'
+    - https://dns.comss.one/dns-query
     - '#tls://dns.comss.one'
     - '#OpenDNS'
-    - '#https://doh.opendns.com/dns-query'
+    - https://doh.opendns.com/dns-query
     - '#tls://dns.opendns.com'
     - '#tls://208.67.222.222'
     - '#tls://208.67.220.220'
     - '#Mullvad'
     - '#https://dns.mullvad.net/dns-query'
     - '#tls://dns.mullvad.net'
+    - '#themoviedb.org domain bypass'
+    - '[/themoviedb.org/]https://dns10.quad9.net/dns-query'
+    - '#tmdb.org domain bypass'
+    - '[/tmdb.org/]https://dns10.quad9.net/dns-query'
+    - '[/image.tmdb.org/]https://dns10.quad9.net/dns-query'
   local_ptr_upstreams:
     - 172.17.0.1
     - 172.18.0.1
