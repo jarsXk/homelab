@@ -10,19 +10,18 @@ btrfs subvolume create .snapshots
 mkdir -p ./@rootfs/.snapshots
 
 # data
-mkdir -p ./@rootfs/srv/data
-mkdir -p ./@rootfs/srv/data/local-download
-mkdir -p ./@rootfs/srv/data/local-junk
-mkdir -p ./@rootfs/srv/data/local-share
-mkdir -p ./@rootfs/srv/data/local-books
-mkdir -p ./@rootfs/srv/data/local-music
-mkdir -p ./@rootfs/srv/data/local-software
-mkdir -p ./@rootfs/srv/data/local-video/public
-mkdir -p ./@rootfs/srv/data/local-video/groups/family
-mkdir -p ./@rootfs/srv/data/local-documents
-mkdir -p ./@rootfs/srv/data/local-photo
-mkdir -p ./@rootfs/srv/data/local-saves
-mkdir -p ./@rootfs/srv/data/local-backup
+mkdir -p ./@rootfs/mnt/local-download
+mkdir -p ./@rootfs/mnt/local-junk
+mkdir -p ./@rootfs/mnt/local-share
+mkdir -p ./@rootfs/mnt/local-books
+mkdir -p ./@rootfs/mnt/local-music
+mkdir -p ./@rootfs/mnt/local-software
+mkdir -p ./@rootfs/mnt/local-video/public
+mkdir -p ./@rootfs/mnt/local-video/groups/family
+mkdir -p ./@rootfs/mnt/local-documents
+mkdir -p ./@rootfs/mnt/local-photo
+mkdir -p ./@rootfs/mnt/local-saves
+mkdir -p ./@rootfs/mnt/local-backup
 
 # docker
 mkdir -p ./@rootfs/var/snap/docker/common/var-lib-docker/volumes
@@ -31,7 +30,6 @@ btrfs qgroup limit "<20%>"G @docker-volumes
 mkdir -p ./@rootfs/var/snap/docker/common/var-lib-docker/overlay2
 btrfs subvolume create @docker-overlay2
 btrfs qgroup limit "<40%>"G @docker-overlay2
-mkdir -p ./@rootfs/var/snap/docker/common/data
 mkdir -p ./@rootfs/var/snap/docker/common/dummy
 
 # vm

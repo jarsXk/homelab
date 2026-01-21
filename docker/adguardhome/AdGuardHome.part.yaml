@@ -136,6 +136,12 @@ filtering:
     - domain: '*.terra.nul.internal'
       answer: terra.nul.internal
       enabled: false
+    - domain: phaeton.nul.internal
+      answer: reserved
+      enabled: false
+    - domain: phaeton.internal
+      answer: phaeton.yaf.internal
+      enabled: true
     - domain: vesta.nul.internal
       answer: reserved
       enabled: false
@@ -319,6 +325,9 @@ filtering:
       enabled: true
     - domain: '*.terra.yaf.internal'
       answer: terra.yaf.internal
+      enabled: true
+    - domain: phaeton.yaf.internal
+      answer: 172.20.2.201
       enabled: true
     - domain: vaultwarden.app.yaf.internal
       answer: terra.yaf.internal
