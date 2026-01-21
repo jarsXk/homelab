@@ -7,30 +7,36 @@ if "x%USER%" == "x" (
 )
 
 dialog --ascii-lines --begin 5 5  --menu "Server to login (user: %USER%)" -1 0 0 ^
-   Terra    "terra.internal    S null" ^
-   Inky     "inky.internal     D null" ^
-   Io       "io.internal       S vasilkovo" ^
-   Europa   "europa.internal   S vasilkovo" ^
-   Mimas    "mimas.internal    S chanovo" ^
-   Ariel    "ariel.internal    S yasenevof" ^
-   Ixion    "ixion.home.arpa   S shodnenskaya4" ^
-   Makemake "makemake.internal S shodnenskaya5" ^
-   Proxima  "proxima.external  S web" ^
+   Terra       "terra.internal        S null" ^
+   "  Phaeton" "phaeton.internal    V S null" ^
+   Inky        "inky.internal         D null" ^
+   Io          "io.internal           S vasilkovo" ^
+   Europa      "europa.internal       S vasilkovo" ^
+   Mimas       "mimas.internal        S chanovo" ^
+   Ariel       "ariel.internal        S yasenevof" ^
+   Ixion       "ixion.home.arpa       S shodnenskaya4" ^
+   Makemake    "makemake.internal     S shodnenskaya5" ^
+   Proxima     "proxima.external      S web" ^
    2> dialogresult.bak
 set /p RESULT=<dialogresult.bak
 del dialogresult.bak           
+
+FOR /F "tokens=*" %%A IN ("%RESULT%") DO (
+    SET "TRIMRESULT=%%A"
+)
 cls
 
-if not "x%RESULT%" == "x" (
-  if "%RESULT%" == "Terra" ssh %USER%@terra.internal
-  if "%RESULT%" == "Inky" ssh %USER%@inky.internal
-  if "%RESULT%" == "Io" ssh %USER%@io.internal
-  if "%RESULT%" == "Europa" ssh %USER%@europa.internal
-  if "%RESULT%" == "Ariel" ssh %USER%@ariel.internal
-  if "%RESULT%" == "Mimas" ssh %USER%@mimas.internal
-  if "%RESULT%" == "Ixion" ssh %USER%@ixion.home.arpa
-  if "%RESULT%" == "Makemake" ssh %USER%@makemake.internal
-  if "%RESULT%" == "Proxima" ssh %USER%@proxima.external
+if not "x%TRIMRESULT%" == "x" (
+  if "%TRIMRESULT%" == "Terra" ssh %USER%@terra.internal
+  if "%TRIMRESULT%" == "Phaeton" ssh %USER%@phaeton.internal
+  if "%TRIMRESULT%" == "Inky" ssh %USER%@inky.internal
+  if "%TRIMRESULT%" == "Io" ssh %USER%@io.internal
+  if "%TRIMRESULT%" == "Europa" ssh %USER%@europa.internal
+  if "%TRIMRESULT%" == "Ariel" ssh %USER%@ariel.internal
+  if "%TRIMRESULT%" == "Mimas" ssh %USER%@mimas.internal
+  if "%TRIMRESULT%" == "Ixion" ssh %USER%@ixion.home.arpa
+  if "%TRIMRESULT%" == "Makemake" ssh %USER%@makemake.internal
+  if "%TRIMRESULT%" == "Proxima" ssh %USER%@proxima.external
 )
 
 @echo on
