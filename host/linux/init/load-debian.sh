@@ -2,12 +2,14 @@
 # Loader for initial setup for host, VM and LXC
 
 mkdir -p ./init-debian
+cd ./init-debian
 
-wget -O ./init-debian/init-test-debian.sh https://github.com/jarsXk/homelab/raw/main/host/linux/init/init-test-debian.sh
-wget -O ./init-debian/lib-check.sh https://github.com/jarsXk/homelab/raw/main/host/linux/init/lib-check.sh
-wget -O ./init-debian/lib-env.sh https://github.com/jarsXk/homelab/raw/main/host/linux/init/lib-env.sh
-wget -O ./init-debian/lib-helper.sh https://github.com/jarsXk/homelab/raw/main/host/linux/init/lib-helper.sh
+wget https://github.com/jarsXk/homelab/raw/main/host/linux/init/init-test-debian.sh
+wget https://github.com/jarsXk/homelab/raw/main/host/linux/init/lib-check.sh
+wget https://github.com/jarsXk/homelab/raw/main/host/linux/init/lib-env.sh
+wget https://github.com/jarsXk/homelab/raw/main/host/linux/init/lib-helper.sh
 
 sh ./init-debian/init-test-debian.sh
 
+cd ..
 # rm -rf ./init-debian
