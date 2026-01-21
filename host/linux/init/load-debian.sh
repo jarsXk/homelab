@@ -9,7 +9,7 @@ wget https://github.com/jarsXk/homelab/raw/main/host/linux/init/lib-check.sh
 wget https://github.com/jarsXk/homelab/raw/main/host/linux/init/lib-env.sh
 wget https://github.com/jarsXk/homelab/raw/main/host/linux/init/lib-helper.sh
 
-sh ./init-debian/init-test-debian.sh
+sh init-test-debian.sh
 
 cd ..
-# rm -rf ./init-debian
+rm -rf ./init-debian
