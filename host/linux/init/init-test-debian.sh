@@ -1,6 +1,9 @@
 #!/bin/sh
 # Initial setup for host, VM and LXC
 
+apt update
+apt install -y wget
+
 source lib-env.sh
 source lib-helper.sh
 
