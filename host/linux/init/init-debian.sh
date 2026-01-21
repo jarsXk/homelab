@@ -1,21 +1,17 @@
 #!/bin/sh
 # Initial setup for host, VM and LXC
 
-apt update
-apt install -y wget
-
-source lib-env.sh
-source lib-helper.sh
+. lib-env.sh
+. lib-helper.sh
 
 log_message INFO "Initial setup for VM & LXC"
 
-source lib-check.sh
-
-if [ $LINUX_DISTRO == debian ] || [ $LINUX_DISTRO == ubuntu ]; then  
+. lib-check.sh
+if [ $LINUX_DISTRO == debian ] || [ $LINUX_DISTRO == ubuntu ]; then
   DEBIAN_VERSION=$VERSION_ID
 fi
 
-source lib-start-debian.sh
+#. lib-start-debian.sh
 
 #Identifying ssh server
 SSH_INSTALLED=no
@@ -29,6 +25,6 @@ if [ $SSH_PACKAGES -gt 0 ]; then
 fi
 log_message DEBUG "SSH server installed <$SSH_INSTALLED>"
 
-source lib-finish-debian.sh
+#. lib-finish-debian.sh
 
 exit 0
