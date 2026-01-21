@@ -1,17 +1,19 @@
 #!/bin/sh
 # Initial setup for host, VM and LXC
 
-. lib-env.sh
-. lib-helper.sh
+INIT_REPO=https://github.com/jarsXk/homelab/raw/main/host/linux
+
+wget -O - ${INIT_REPO}/raw/main/host/linux/init/lib-env.sh | . /dev/stdin
+wget -O - ${INIT_REPO}/raw/main/host/linux/init/lib-helper.sh | . /dev/stdin
 
 log_message INFO "Initial setup for VM & LXC"
 
-. lib-check.sh
+wget -O - ${INIT_REPO}/raw/main/host/linux/init/lib-check.sh | . /dev/stdin
 if [ $LINUX_DISTRO == debian ] || [ $LINUX_DISTRO == ubuntu ]; then
   DEBIAN_VERSION=$VERSION_ID
 fi
 
-#. lib-start-debian.sh
+# wget -O - ${INIT_REPO}/raw/main/host/linux/init/lib-start-debian.sh | . /dev/stdin
 
 #Identifying ssh server
 SSH_INSTALLED=no
@@ -25,6 +27,6 @@ if [ $SSH_PACKAGES -gt 0 ]; then
 fi
 log_message DEBUG "SSH server installed <$SSH_INSTALLED>"
 
-#. lib-finish-debian.sh
+# wget -O - ${INIT_REPO}/raw/main/host/linux/init/lib-finish-debian.sh | . /dev/stdin
 
 exit 0
