@@ -11,6 +11,7 @@ DRY_RUN=no
 IGNORE_ERRORS=no
 LOG_NAME="/var/log/upgrade-universal.log"
 
+echo -e "\033[32m>>> $(hostname | tr '[:lower:]' '[:upper:]') <<<\033[0m"
 echo -e "\033[32m$(uname -snvm)\033[0m"
 log_message INFO "Upgrade script for Debian/OMV"
 
