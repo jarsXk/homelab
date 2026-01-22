@@ -1,4 +1,3 @@
-#!/bin/sh
 # Initial setup for host, VM and LXC
 
 create_group() {
