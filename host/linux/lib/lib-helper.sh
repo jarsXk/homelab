@@ -15,7 +15,7 @@ log_message() {
   if [ $1 = "READ" ];                          then IS_SHOW=yes; fi
 
   if [ $IS_SHOW = "yes" ]; then
-    echo $NEW_LINE "$(date +'%Y-%m-%d %H:%M:%S')	$1	: $2" | tee -a $LOG_NAME
+    echo $NEW_LINE "   $(date +'%Y-%m-%d %H:%M:%S')	$1	: $2" | tee -a $LOG_NAME
   fi
 }
 

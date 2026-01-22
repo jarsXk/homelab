@@ -4,18 +4,17 @@ setlocal enabledelayedexpansion
 
 REM Запрос списка хостов
 dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
-   Terra    "terra.internal    (void)" on ^
-   Io       "io.internal       (vasilkovo)" on ^
-   Europa   "europa.internal   (vasilkovo)" on ^
-   Mimas    "mimas.internal    (chanovo)" off ^
-   Ariel    "ariel.internal    (yasenevof)" on ^
-   Ixion    "ixion.home.arpa   (shodnenskaya4)" off ^
-   Makemake "makemake.internal (shodnenskaya5)" on ^
-   -------- "---------------------------------" off ^
-   Inky     "inky.internal     (void)" on ^
-   -------- "---------------------------------" off ^
-   Proxima  "proxima.external  (web)" on ^
-   2> dialogresult.bak
+  Terra     "terra.internal      S void" on ^
+    Phaeton "phaeton.internal  V S void" on ^
+  Inky      "inky.internal       D void" off ^
+  Io        "io.internal         S vasilkovo" on ^
+  Europa    "europa.internal     S vasilkovo" on ^
+  Mimas     "mimas.internal      S chanovo" off ^
+  Ariel     "ariel.internal      S yasenevof" on ^
+  Ixion     "ixion.home.arpa     S shodnenskaya4" off ^
+  Makemake  "makemake.internal   S shodnenskaya5" on ^
+  Proxima   "proxima.external    S web" on ^
+  2> dialogresult.bak
 cls
 
 REM Получение и очистка результата
@@ -40,11 +39,7 @@ cls
 REM Основной цикл по хостам
 for %%G in (%RESULT%) do ( 
 
-  set OMV_UPG=no
-  set APT_UPG=no
-  set SNAP_UPG=no
-  set AUTOREMOVE=no
-  set REBOOT=no
+  set UNI_UPG=no
   set PASS=?
   set SSHSUDO=?
 
@@ -56,88 +51,56 @@ for %%G in (%RESULT%) do (
 
   REM Определение списка команд
   if %%G == Terra (
-    set OMV_UPG=yes
-    set SNAP_UPG=yes
-    set AUTOREMOVE=yes
-    set REBOOT=yes
+    set UNI_UPG=yes
     set DOMAIN=internal
-
     set PASS=%LINUXPASS%
   )
 
   if %%G == Io (
-    set OMV_UPG=yes
-    set SNAP_UPG=yes
-    set AUTOREMOVE=yes
-    set REBOOT=yes
+    set UNI_UPG=yes
     set DOMAIN=internal
-
     set PASS=%LINUXPASS%
   )
 
   if %%G == Europa (
-    set OMV_UPG=yes
-    set SNAP_UPG=yes
-    set AUTOREMOVE=yes
-    set REBOOT=yes
+    set UNI_UPG=yes
     set DOMAIN=internal
-
     set PASS=%LINUXPASS%
   )
 
   if %%G == Mimas (
-    set OMV_UPG=yes
-    set SNAP_UPG=yes
-    set AUTOREMOVE=yes
-    set REBOOT=yes
+    set UNI_UPG=yes
     set DOMAIN=internal
-
     set PASS=%LINUXPASS%
   )
 
   if %%G == Ariel (
-    set OMV_UPG=yes
-    set SNAP_UPG=yes
-    set AUTOREMOVE=yes
-    set REBOOT=yes
+    set UNI_UPG=yes
     set DOMAIN=internal
-
     set PASS=%LINUXPASS%
   )
 
   if %%G == Ixion (
-    set OMV_UPG=yes
-    set AUTOREMOVE=yes
+    set UNI_UPG=yes
     set DOMAIN=home.internal
-
     set PASS=%LINUXPASS%
   )
 
   if %%G == Makemake (
-    set OMV_UPG=yes
-    set SNAP_UPG=yes
-    set AUTOREMOVE=yes
-    set REBOOT=yes
+    set UNI_UPG=yes
     set DOMAIN=internal
-
     set PASS=%LINUXPASS%
   )
 
   if %%G == Inky (
-    set APT_UPG=yes
-    set AUTOREMOVE=yes
-    set REBOOT=yes
+    set UNI_UPG=yes
     set DOMAIN=internal
-
     set PASS=%LINUXPASS%
   )
   
   if %%G == Proxima (
-    set APT_UPG=yes
-    set AUTOREMOVE=yes
-    set REBOOT=yes
+    set UNI_UPG=yes
     set DOMAIN=external
-
     set PASS=%PROXIMAPASS%
   )
 
@@ -149,6 +112,9 @@ for %%G in (%RESULT%) do (
     set "SSHSUDO=echo !PASS! | sudo -S"
   )
 
+  if !UNI_UPG! == yes (
+    ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! wget -qO- https://raw.githubusercontent.com/jarsXk/homelab/main/host/linux/manual/upgrade/upgrade-debian.sh | sudo bash"
+  )
   if !OMV_UPG! == yes (
     ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! omv-upgrade"
   )
@@ -172,12 +138,7 @@ for %%G in (%RESULT%) do (
 set LINUXUSER=
 set LINUXPASS=
 set PROXIMAPASS=
-set PASS=
-set OMV_UPG=
-set APT_UPG=
-set SNAP_UPG=
-set AUTOREMOVE=
-set REBOOT=
+set UNI_UPG=
 set DOMAIN=
 set SSHSUDO=
 
