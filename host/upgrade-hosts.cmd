@@ -43,12 +43,6 @@ for %%G in (%RESULT%) do (
   set PASS=?
   set SSHSUDO=?
 
-  echo.
-  echo #######################################
-  echo ########## Upgrade %%G
-  echo #######################################
-  echo.
-
   REM Определение списка команд
   if %%G == Terra (
     set UNI_UPG=yes
