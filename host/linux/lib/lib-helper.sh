@@ -8,6 +8,9 @@ log_message() {
     if [ $3 = "-n" ]; then
       NEW_LINE=$3
     fi
+    if [ $3 = "-e" ]; then
+      COLORS=$3
+    fi
   fi
   if [ $1 = "ERROR" ] && [ $LOG_LEVEL -ge 1 ]; then IS_SHOW=yes; fi
   if [ $1 = "INFO" ]  && [ $LOG_LEVEL -ge 3 ]; then IS_SHOW=yes; fi
@@ -15,7 +18,7 @@ log_message() {
   if [ $1 = "READ" ];                          then IS_SHOW=yes; fi
 
   if [ $IS_SHOW = "yes" ]; then
-    echo $NEW_LINE "   $(date +'%Y-%m-%d %H:%M:%S')	$1	: $2" | tee -a $LOG_NAME
+    echo $NEW_LINE $COLORS "   $(date +'%Y-%m-%d %H:%M:%S')	$1	: $2" | tee -a $LOG_NAME
   fi
 }
 

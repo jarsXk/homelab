@@ -11,7 +11,7 @@ DRY_RUN=no
 IGNORE_ERRORS=no
 LOG_NAME="/var/log/upgrade-universal.log"
 
-echo -e "\033[32m$(uname -snvm)\033[0m"
+log_message INFO "\033[32m$(uname -snvm)\033[0m" -e
 log_message INFO "Upgrade script for Debian/OMV"
 
 . <(wget -qO- ${INIT_REPO}/manual/upgrade/lib-upgrade-snap.sh)
