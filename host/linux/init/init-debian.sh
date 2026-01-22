@@ -13,6 +13,6 @@ if [ $LINUX_DISTRO == debian ] || [ $LINUX_DISTRO == ubuntu ]; then
   DEBIAN_VERSION=$VERSION_ID
 fi
 
-. <(wget -O - ${INIT_REPO}/init/lib-raw-debian.sh)
+. <(wget -qO - ${INIT_REPO}/init/lib-raw-debian.sh)
 
 exit 0
