@@ -87,61 +87,9 @@ create_user() {
   log_message INFO "User <$1 ($(cat /etc/passwd | grep "$1"))>"
 }
 
-#Identifying ssh server
-SSH_INSTALLED=no
-if [ $LINUX_DISTRO = debian ] || [ $LINUX_DISTRO = ubuntu ]; then
-  SSH_PACKAGES=$(apt list --installed "openssh-server" | wc -c)
-else
-  SSH_PACKAGES=$(apk list --installed "openssh-server" | wc -c)
-fi
-if [ $SSH_PACKAGES -gt 0 ]; then
-  SSH_INSTALLED=yes
-fi
-log_message DEBUG "SSH server installed <$SSH_INSTALLED>"
-
-# Uninstalling packages
-PACKAGE_LIST="netcat-traditional"
-log_message INFO "Uninstalling packages <$PACKAGE_LIST>"
-run_command "apt -y purge $PACKAGE_LIST" "Error uninstalling"
-run_command "apt -y autoremove --purge" "Error uninstalling"
-
-# Updating
-log_message INFO "Updating packages"
-COMMAND="EMPTY"
-run_command "apt-get update" "Error updating"
-run_command "apt-get -y full-upgrade" "Error updating"
-
-# Installing packages
-PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl wget zstd unzip sudo util-linux figlet dnsutils imagemagick locales"
-if [ $DEBIAN_VERSION != "11" ] && [ $DEBIAN_VERSION != "12" ]; then
-  PACKAGE_LIST="$PACKAGE_LIST fastfetch"
-fi
-log_message INFO "Installing packages <$PACKAGE_LIST>"
-run_command "apt-get -y install $PACKAGE_LIST" "Error installing"
-if [ $DEBIAN_VERSION = "11" ] || [ $DEBIAN_VERSION = "12" ]; then
-  if [ $(dpkg --print-architecture) = amd64 ]; then
-    DPKG_NAME="fastfetch-linux-$(dpkg --print-architecture).deb"
-  elif [ $(dpkg --print-architecture) = arm64 ]; then
-    DPKG_NAME="fastfetch-linux-$(uname -m).deb"
-  fi
-  log_message "DEBUG" "DPKG_NAME <$DPKG_NAME>"
-  log_message INFO "Installing additional packages <fastfetch>"
-  run_command "wget -O $DPKG_NAME https://github.com/fastfetch-cli/fastfetch/releases/latest/download/$DPKG_NAME" "Error installing"
-  run_command "dpkg --install ./$DPKG_NAME" "Error installing"
-fi
-
 # Setting timezone
 log_message INFO "Setting timezone"
 run_command "timedatectl set-timezone Europe/Moscow" "Error setting timezone"
-
-# Configuring SSH
-if [ $SSH_INSTALLED = no ]; then
-  log_message INFO "Configuring SSH server"
-  create_group _ssh yes
-  run_command "mkdir -p /etc/ssh/sshd_config.d" "Error configuring SSH server"
-  run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /etc/ssh/sshd_config.d/custom.conf https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/ssh/custom.conf" "Error configuring SSH server"
-  run_command "systemctl restart sshd" "Error configuring SSH server"
-fi
 
 # Installing docker
 while [ "$DOCKER" = "" ]; do

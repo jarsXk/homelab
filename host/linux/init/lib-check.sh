@@ -12,7 +12,7 @@ log_message DEBUG "Running as root"
 . /etc/os-release
 LINUX_DISTRO=$ID
 log_message INFO "Linux distro identified as <$LINUX_DISTRO>"
-if [ $LINUX_DISTRO != debian ] && [ $LINUX_DISTRO != ubuntu ]; then
+if [ $LINUX_DISTRO != debian ]; then
   log_message ERROR "Unsupported Linux distro"
   if [ $IGNORE_ERRORS != yes ]; then
     exit 1

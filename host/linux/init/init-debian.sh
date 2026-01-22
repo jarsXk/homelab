@@ -9,9 +9,10 @@ INIT_REPO=https://raw.githubusercontent.com/jarsXk/homelab/main/host/linux
 log_message INFO "Initial setup for VM & LXC"
 
 . <(wget -qO- ${INIT_REPO}/init/lib-check.sh)
-if [ $LINUX_DISTRO == debian ] || [ $LINUX_DISTRO == ubuntu ]; then
-  DEBIAN_VERSION=$VERSION_ID
-fi
+
+. <(wget -qO- ${INIT_REPO}/init/lib-env-debian.sh)
+
+. <(wget -qO- ${INIT_REPO}/init/lib-packages-debian.sh)
 
 . <(wget -qO- ${INIT_REPO}/init/lib-raw-debian.sh)
 
