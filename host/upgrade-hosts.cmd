@@ -56,6 +56,18 @@ for %%G in (%RESULT%) do (
     set PASS=%LINUXPASS%
   )
 
+  if %%G == Phaeton (
+    set UNI_UPG=yes
+    set DOMAIN=internal
+    set PASS=%LINUXPASS%
+  )
+
+  if %%G == Inky (
+    set UNI_UPG=yes
+    set DOMAIN=internal
+    set PASS=%LINUXPASS%
+  )
+
   if %%G == Io (
     set UNI_UPG=yes
     set DOMAIN=internal
@@ -113,7 +125,7 @@ for %%G in (%RESULT%) do (
   )
 
   if !UNI_UPG! == yes (
-    ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! wget -qO- https://raw.githubusercontent.com/jarsXk/homelab/main/host/linux/manual/upgrade/upgrade-debian.sh | sudo bash"
+    ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! echo && wget -qO- https://raw.githubusercontent.com/jarsXk/homelab/main/host/linux/manual/upgrade/upgrade-debian.sh | sudo bash"
   )
   if !OMV_UPG! == yes (
     ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! omv-upgrade"
