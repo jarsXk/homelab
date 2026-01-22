@@ -1,5 +1,27 @@
 # Initial setup for host, VM and LXC
 
+# Reading physical server
+while [ "$PHYSICAL" = "" ]; do
+  log_message READ "Setup physical server [y/n/c]> " -n
+  read -r ANSWER_PHYSICAL
+  case "$ANSWER_PHYSICAL" in
+    [Yy]* )
+      PHYSICAL=yes
+    ;;
+    [Nn]* )
+      PHYSICAL=no
+    ;;
+    [Cc]* )
+      log_message INFO "Canceled setup"
+      exit 1
+    ;;
+    * )
+      log_message INFO "Invalid input. Enter y, n, or c."
+    ;;
+  esac
+done
+log_message DEBUG "Selected install physical server <$PHYSICAL>"
+
 create_group() {
 # create_group name is_system gid 
   if [ $(cat /etc/group | grep "$1" | wc -c) = 0 ]; then
@@ -64,28 +86,6 @@ create_user() {
   run_command "passwd $1" "Error adding user $1"
   log_message INFO "User <$1 ($(cat /etc/passwd | grep "$1"))>"
 }
-
-# Reading physical server
-while [ "$PHYSICAL" = "" ]; do
-  log_message READ "Setup physical server [y/n/c]> " -n
-  read -r ANSWER_PHYSICAL
-  case "$ANSWER_PHYSICAL" in
-    [Yy]* )
-      PHYSICAL=yes
-    ;;
-    [Nn]* )
-      PHYSICAL=no
-    ;;
-    [Cc]* )
-      log_message INFO "Canceled setup"
-      exit 1
-    ;;
-    * )
-      log_message INFO "Invalid input. Enter y, n, or c."
-    ;;
-  esac
-done
-log_message DEBUG "Selected install physical server <$PHYSICAL>"
 
 #Identifying ssh server
 SSH_INSTALLED=no
