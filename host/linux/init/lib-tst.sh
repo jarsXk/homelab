@@ -1,0 +1,3 @@
+
+echo "!!Inside"
+TSTMES="!!Ok"
