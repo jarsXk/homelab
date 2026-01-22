@@ -1,7 +1,7 @@
 
 if [ -f /var/run/reboot-required ]; then
-  echo "Rebooting..."
+  log_message INFO "Rebooting..."
   reboot
 else
-  echo "No reboot needed"
+  log_message INFO "No reboot needed"
 fi
