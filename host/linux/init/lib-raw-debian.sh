@@ -65,6 +65,28 @@ create_user() {
   log_message INFO "User <$1 ($(cat /etc/passwd | grep "$1"))>"
 }
 
+# Reading physical server
+#while [ "$PHYSICAL" = "" ]; do
+#  log_message READ "Setup physical server [y/n/c]> " -n
+#  read -r ANSWER_PHYSICAL
+#  case "$ANSWER_PHYSICAL" in
+#    [Yy]* )
+#      PHYSICAL=yes
+#    ;;
+#    [Nn]* )
+#      PHYSICAL=no
+#    ;;
+#    [Cc]* )
+#      log_message INFO "Canceled setup"
+#      exit 1
+#    ;;
+#    * )
+#      log_message INFO "Invalid input. Enter y, n, or c."
+#    ;;
+#  esac
+#done
+#log_message DEBUG "Selected install physical server <$PHYSICAL>"
+
 #Identifying ssh server
 SSH_INSTALLED=no
 if [ $LINUX_DISTRO = debian ] || [ $LINUX_DISTRO = ubuntu ]; then
@@ -76,28 +98,6 @@ if [ $SSH_PACKAGES -gt 0 ]; then
   SSH_INSTALLED=yes
 fi
 log_message DEBUG "SSH server installed <$SSH_INSTALLED>"
-
-# Reading physical server
-while [ "$PHYSICAL" = "" ]; do
-  log_message READ "Setup physical server [y/n/c]> " -n
-  read -r ANSWER_PHYSICAL
-  case "$ANSWER_PHYSICAL" in
-    [Yy]* )
-      PHYSICAL=yes
-    ;;
-    [Nn]* )
-      PHYSICAL=no
-    ;;
-    [Cc]* )
-      log_message INFO "Canceled setup"
-      exit 1
-    ;;
-    * )
-      log_message INFO "Invalid input. Enter y, n, or c."
-    ;;
-  esac
-done
-log_message DEBUG "Selected install physical server <$PHYSICAL>"
 
 # Uninstalling packages
 PACKAGE_LIST="netcat-traditional"
