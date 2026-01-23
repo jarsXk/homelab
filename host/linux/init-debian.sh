@@ -523,38 +523,6 @@ if [ $PHYSICAL = yes ]; then
   run_command "rm /root/mine.zip" "Error installing usbmount"
 fi
 
-# Install reboot script
-log_message INFO "Installing reboot script"
-run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /usr/local/sbin/reboot-if-needed.sh https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/reboot-if-needed.sh" "Error configuring MC"
-run_command "chmod 744 /usr/local/sbin/reboot-if-needed.sh" "Error configuring MC"
-
-# Install OMV apply script
-while [ "$OMVAPPLY" = "" ]; do
-  log_message READ "Install OMV apply script [y/n/c]> " -n
-  read -r OMVAPPLY_PUBLIC
-  case "$OMVAPPLY_PUBLIC" in
-    [Yy]* )
-      OMVAPPLY=yes
-    ;;
-    [Nn]* )
-      OMVAPPLY=no
-    ;;
-    [Cc]* )
-      log_message INFO "Canceled setup"
-      exit 1
-    ;;
-    * )
-      log_message INFO "Invalid input. Enter y, n, or c."
-    ;;
-  esac
-done
-log_message DEBUG "Installing OMV apply script <$OMVAPPLY>"
-if [ $OMVAPPLY = yes ]; then
-  log_message INFO "Installing OMV apply script"
-  run_command "wget --header 'Accept: application/vnd.github.v3.raw' -O /usr/local/sbin/omvapply-if-needed.sh https://api.github.com/repos/jarsXk/homelab/contents/host/linux/automated/omvapply-if-needed.sh" "Error configuring MC"
-  run_command "chmod 744 /usr/local/sbin/omvapply-if-needed.sh" "Error configuring MC"
-fi 
-
 # Cleaning
 log_message INFO "Cleaning"
 run_command "apt-get autoremove --yes" "Error cleaning"
