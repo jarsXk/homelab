@@ -1,5 +1,3 @@
-version: "3"
-
 networks:
   net:  
     ipam:
@@ -12,7 +10,7 @@ volumes:
 
 services:
   firefox:
-    image: lscr.io/linuxserver/firefox:latest
+    image: lscr.io/linuxserver/firefox:kasm
     container_name: firefox
     security_opt:
       - seccomp:unconfined #optional
@@ -20,11 +18,13 @@ services:
       - PUID=1999
       - PGID=100
       - TZ=Europe/Moscow
+    devices:
+      - /dev/dri:/dev/dri
     volumes:
       - config:/config
     ports:
       - 31624:3001
-    shm_size: "128mb"
+    shm_size: "256mb"
     networks:
       net:
         ipv4_address: 198.19.16.2
