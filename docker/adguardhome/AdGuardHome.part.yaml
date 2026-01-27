@@ -193,7 +193,7 @@ filtering:
     - domain: hebe.nul.internal
       answer: reserved
       enabled: false
-    - domain: photoframe.nul.internal
+    - domain: inky.nul.internal
       answer: reserved
       enabled: false
     - domain: inky.internal
@@ -289,7 +289,7 @@ filtering:
     - domain: phobos.yad.internal
       answer: 172.21.0.1
       enabled: true
-    # yesenevof (20)
+    # yasenevof (20)
     - domain: mts.yaf.external
       answer: 192.168.1.1
       enabled: true
@@ -305,9 +305,6 @@ filtering:
     - domain: oberon.yaf.internal
       answer: 172.20.0.2
       enabled: true
-    - domain: '*.app.yaf.internal'
-      answer: ariel.yaf.internal
-      enabled: true
     - domain: ariel.yaf.internal
       answer: 172.20.2.10
       enabled: true
@@ -315,49 +312,49 @@ filtering:
       answer: ariel.yaf.internal
       enabled: true
     - domain: '*.ariel.yaf.internal'
-      answer: ariel.yaf.internal
+      answer: 172.20.2.10
       enabled: true
     - domain: '*.app.yaf.internal'
-      answer: ariel.yaf.internal
+      answer: 172.20.2.10
       enabled: true
     - domain: terra.yaf.internal
       answer: 172.20.2.12
       enabled: true
     - domain: '*.terra.yaf.internal'
-      answer: terra.yaf.internal
+      answer: 172.20.2.12
       enabled: true
     - domain: phaeton.yaf.internal
       answer: 172.20.2.201
       enabled: true
     - domain: vaultwarden.app.yaf.internal
-      answer: terra.yaf.internal
+      answer: 172.20.2.12
       enabled: true
     - domain: nextcloud.app.yaf.internal
-      answer: terra.yaf.internal
+      answer: 172.20.2.12
       enabled: true
     - domain: calibre.app.yaf.internal
-      answer: terra.yaf.internal
+      answer: 172.20.2.12
       enabled: true
     - domain: qbittorrent.app.yaf.internal
-      answer: terra.yaf.internal
+      answer: 172.20.2.12
       enabled: true
     - domain: resilio.app.yaf.internal
-      answer: terra.yaf.internal
+      answer: 172.20.2.12
       enabled: true
     - domain: hplip.app.yaf.internal
-      answer: terra.yaf.internal
+      answer: 172.20.2.12
       enabled: true
     - domain: jellyfin.app.yaf.internal
-      answer: terra.yaf.internal
+      answer: 172.20.2.12
       enabled: true
     - domain: radarr.app.yaf.internal
-      answer: terra.yaf.internal
+      answer: 172.20.2.12
       enabled: true
     - domain: sonarr.app.yaf.internal
-      answer: terra.yaf.internal
+      answer: 172.20.2.12
       enabled: true
     - domain: jackett.app.yaf.internal
-      answer: terra.yaf.internal
+      answer: 172.20.2.12
       enabled: true
     - domain: jupiter.yaf.internal
       answer: 172.20.4.10
