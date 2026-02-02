@@ -23,7 +23,7 @@ services:
       net:
         ipv4_address: 198.19.15.2
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://198.19.15.2:8000"]
+      test: ["CMD", "wget", "--spider", "--timeout=10", "http://localhost:8123"]
       interval: 30s
       timeout: 10s
       start_period: 10s
