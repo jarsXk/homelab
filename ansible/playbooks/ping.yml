@@ -1,5 +1,5 @@
-- name: Update linux and reboot if neccessary
-  hosts: linux-vasilkovo
+- name: Ping all hosts
+  hosts: hood
 
   tasks:
     - name: Induce an exception to see what happens

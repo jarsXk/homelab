@@ -1,0 +1,14 @@
+hood:
+  children:
+    vasilkovo:
+    yasenevof:
+
+linux-hood:
+  children:
+    linux-vasilkovo:
+    linux-yasenevof:
+
+server-linux-hood:
+  children:
+    server-linux-vasilkovo:
+    server-linux-yasenevof:

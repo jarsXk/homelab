@@ -180,7 +180,7 @@ run_command "apt-get update" "Error updating"
 run_command "apt-get -y full-upgrade" "Error updating"
 
 # Installing packages
-PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl wget zstd unzip sudo util-linux figlet dnsutils imagemagick locales"
+PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata netcat-openbsd curl wget zstd unzip sudo util-linux figlet dnsutils imagemagick locales iperf3"
 if [ $DEBIAN_VERSION != "11" ] && [ $DEBIAN_VERSION != "12" ]; then
   PACKAGE_LIST="$PACKAGE_LIST fastfetch"
 fi
