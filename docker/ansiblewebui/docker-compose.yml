@@ -15,8 +15,8 @@ services:
     image: oxlorg/ansible-webui:latest
     hostname: ansiblewebui
     volumes:
-      ansiblewebui_data:/data
-      ansiblewebui_playbook:/playbook
+      - ansiblewebui_data:/data
+      - ansiblewebui_playbook:/playbook
     ports:
       - 31520:8000
     networks:
