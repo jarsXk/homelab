@@ -2,6 +2,5 @@
   hosts: hood
 
   tasks:
-    - name: Induce an exception to see what happens
+    - name: Ping hosts
       ansible.builtin.ping:
-        data: crash

@@ -6,7 +6,6 @@ vasilkovo:
 linux-vasilkovo:
   children:
     server-linux-vasilkovo:
-    desktop-linux-vasilkovo:
 
 windows-vasilkovo:
   children:
@@ -14,10 +13,6 @@ windows-vasilkovo:
 
 # servers
 server-linux-vasilkovo:
-  children:
-    metal-server-linux-vasilkovo:
-
-metal-server-linux-vasilkovo:
   hosts:
     io.vas.internal:
     europa.vas.internal:
@@ -26,6 +21,3 @@ metal-server-linux-vasilkovo:
 desktop-windows-vasilkovo:
   hosts:
     elara.vas.internal:
-
-desktop-linux-vasilkovo:
-  hosts:

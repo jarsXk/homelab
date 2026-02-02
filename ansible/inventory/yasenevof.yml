@@ -6,7 +6,6 @@ yasenevof:
 linux-yasenevof:
   children:
     server-linux-yasenevof:
-    desktop-linux-yasenevof:
 
 windows-yasenevof:
   children:
@@ -14,16 +13,9 @@ windows-yasenevof:
 
 # servers
 server-linux-yasenevof:
-  children:
-    metal-server-linux-yasenevof:
-
-metal-server-linux-yasenevof:
   hosts:
     ariel.yaf.internal:
 
 #desktops                
 desktop-windows-yasenevof:
-  hosts:
-
-desktop-linux-yasenevof:
   hosts:
