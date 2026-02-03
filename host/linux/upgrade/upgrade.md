@@ -1,0 +1,13 @@
+## debian/OMV
+
+### github
+
+```javascript
+wget -qO- https://raw.githubusercontent.com/jarsXk/homelab/main/host/lnual/upgrade/upgrade-debian.sh | sudo bash
+```
+
+### internal
+
+```javascript
+sudo bash upgrade-debian.sh
+```

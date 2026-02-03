@@ -134,7 +134,7 @@ if [ $DOCKER != no ]; then
     if [ -f /var/snap/docker/current/config/daemon.json ]; then
       run_command "mv /var/snap/docker/current/config/daemon.json /var/snap/docker/current/config/daemon.json.bak" "Error installing docker" 
     fi
-    run_command "wget -O /var/snap/docker/current/config/daemon.json ${INIT_REPO}/automated/docker/daemon.json" "Error installing docker"
+    run_command "wget -O /var/snap/docker/current/config/daemon.json ${INIT_REPO}/host/linux/init/download/docker/daemon.json" "Error installing docker"
     run_command "snap restart docker" "Error installing docker"
     sleep 2s
     run_command "/snap/bin/docker version" "Error installing docker"
@@ -316,7 +316,7 @@ run_command "dpkg-reconfigure locales" "Error setting locale"
 # Updating sudoers file
 if [ $DOCKER = snapd ]; then
   log_message INFO "Updating sudoers file"
-  run_command "wget -qO /etc/sudoers.d/10-snappath ${INIT_REPO}/automated/10-snappath" "Error updating sudoers file"
+  run_command "wget -O /etc/sudoers.d/10-snappath ${INIT_REPO}/host/linux/init/download/10-snappath" "Error updating sudoers file"
 fi
 
 # Setting motd
@@ -326,18 +326,18 @@ if [ -f /etc/motd ]; then
 fi
 
 run_command "mkdir -p /usr/share/figlet" "Error setting motd"
-run_command "wget -qO /usr/share/figlet/ANSI_Shadow.flf https://raw.githubusercontent.com/xero/figlet-fonts/refs/heads/main/ANSI%20Shadow.flf" "Error setting motd"
+run_command "wget -O /usr/share/figlet/ANSI_Shadow.flf https://raw.githubusercontent.com/xero/figlet-fonts/refs/heads/main/ANSI%20Shadow.flf" "Error setting motd"
 
 MOTD_PATH=/etc/update-motd.d/70-custom-motd
 CUSTOM_MOTD=70-custom-motd
 if [ $NAS = yes ]; then
-  run_command "wget -O /root/nas-ascii.txt ${INIT_REPO}/automated/motd/nas-ascii.txt" "Error setting motd"
-  run_command "wget -O /etc/update-motd.d/70-custom-motd ${INIT_REPO}/automated/motd/70-custom-motd.nas.sh" "Error setting motd"
+  run_command "wget -O /root/nas-ascii.txt ${INIT_REPO}/host/linux/init/download/motd/nas-ascii.txt" "Error setting motd"
+  run_command "wget -O /etc/update-motd.d/70-custom-motd ${INIT_REPO}/host/linux/init/download/motd/70-custom-motd.nas.sh" "Error setting motd"
 elif [ $DOCKER = yes ]; then
-  run_command "wget -O /root/docker-ascii.txt ${INIT_REPO}/automated/motd/docker-ascii.txt" "Error setting motd"
-  run_command "wget -O /etc/update-motd.d/70-custom-motd ${INIT_REPO}/automated/motd/70-custom-motd.docker.sh" "Error setting motd"
+  run_command "wget -O /root/docker-ascii.txt ${INIT_REPO}/host/linux/init/download/motd/docker-ascii.txt" "Error setting motd"
+  run_command "wget -O /etc/update-motd.d/70-custom-motd ${INIT_REPO}/host/linux/init/download/motd/70-custom-motd.docker.sh" "Error setting motd"
 else
-  run_command "wget -O /etc/update-motd.d/70-custom-motd ${INIT_REPO}/automated/motd/70-custom-motd.sh" "Error setting motd"
+  run_command "wget -O /etc/update-motd.d/70-custom-motd ${INIT_REPO}/host/linux/init/download/motd/70-custom-motd.sh" "Error setting motd"
 fi
 run_command "chmod ug+x /etc/update-motd.d/70-custom-motd" "Error setting motd"
 
@@ -346,7 +346,7 @@ run_command "mkdir -p /root/.config/micro" "Error configuring micro"
 if [ -f /root/.config/micro/settings.json ]; then
   run_command "mv /root/.config/micro/settings.json /root/.config/micro/settings.json.bak" "Error configuring micro"
 fi
-run_command "wget -O /root/.config/micro/settings.json ${INIT_REPO}/automated/micro/settings.json" "Error configuring micro"
+run_command "wget -O /root/.config/micro/settings.json ${INIT_REPO}/host/linux/init/download/micro/settings.json" "Error configuring micro"
 run_command "mkdir -p /home/lesha/.config/micro" "Error configuring micro"
 if [ -f /home/lesha/.config/micro/settings.json ]; then
   run_command "mv /home/lesha/.config/micro/settings.json /home/lesha/.config/micro/settings.json.bak" "Error configuring micro"
@@ -359,13 +359,13 @@ run_command "chmod -R go-x /home/lesha/.config" "Error configuring micro"
 if [ -f /root/.bash_aliases ]; then
   run_command "cp /root/.bash_aliases /root/.bash_aliases.bak" "Error configuring aliases"
 fi
-run_command "wget -O /root/.bash_aliases ${INIT_REPO}/automated/bash/.bash_aliases" "Error configuring aliases"
-run_command "wget -O /root/.bash_export ${INIT_REPO}/automated/bash/.bash_export" "Error configuring aliases"
+run_command "wget -O /root/.bash_aliases ${INIT_REPO}/host/linux/init/download/bash/.bash_aliases" "Error configuring aliases"
+run_command "wget -O /root/.bash_export ${INIT_REPO}/host/linux/init/download/bash/.bash_export" "Error configuring aliases"
 if [ -f /home/lesha/.bash_aliases ]; then
   run_command "cp /home/lesha/.bash_aliases /home/lesha/.bash_aliases.bak" "Error configuring aliases"
 fi
-run_command "wget -O /home/lesha/.bash_aliases ${INIT_REPO}/automated/bash/.bash_aliases" "Error configuring aliases"
-run_command "wget -O /home/lesha/.bash_export ${INIT_REPO}/automated/bash/.bash_export" "Error configuring aliases"
+run_command "wget -O /home/lesha/.bash_aliases ${INIT_REPO}/host/linux/init/download/bash/.bash_aliases" "Error configuring aliases"
+run_command "wget -O /home/lesha/.bash_export ${INIT_REPO}/host/linux/init/download/bash/.bash_export" "Error configuring aliases"
 run_command "chown lesha:users /home/lesha/.bash_aliases" "Error configuring aliases"
 run_command "chmod go-x /home/lesha/.bash_aliases" "Error configuring aliases"
 run_command "chown lesha:users /home/lesha/.bash_export" "Error configuring aliases"
@@ -377,7 +377,7 @@ run_command "mkdir -p /root/.config/mc" "Error configuring MC"
 if [ -f /root/.config/mc/panels.ini ]; then
   run_command "mv /root/.config/mc/panels.ini /root/.config/mc/panels.ini.bak" "Error configuring MC"
 fi
-run_command "wget -O /root/.config/mc/panels.ini ${INIT_REPO}/automated/mc/panels.ini" "Error configuring MC"
+run_command wge"t -O /root/.config/mc/panels.ini ${INIT_REPO}/host/linux/init/download/mc/panels.ini" "Error configuring MC"
 run_command "mkdir -p /home/lesha/.config/mc" "Error configuring MC"
 if [ -f /home/lesha/.config/mc/panels.ini ]; then
   run_command "mv /home/lesha/.config/mc/panels.ini /home/lesha/.config/mc/panels.ini.bak" "Error configuring MC"
@@ -396,7 +396,7 @@ if [ $PHYSICAL = yes ]; then
   run_command "bash /root/automount-usb-mine/CONFIGURE.sh" "Error installing usbmount"
   run_command "cd $CUR_FOLDER" "Error installing usbmount"
   run_command "rm /etc/systemd/system/usb-mount@.service" "Error installing usbmount"
-  run_command "wget -O /etc/systemd/system/usb-mount@.service ${INIT_REPO}/automated/usbmount/usb-mount@.service" "Error installing usbmount"
+  run_command "wget -O /etc/systemd/system/usb-mount@.service ${INIT_REPO}/host/linux/init/download/usbmount/usb-mount@.service" "Error installing usbmount"
   run_command "mv /usr/local/bin/usb-mount.sh /usr/local/sbin/" "Error installing usbmount"
   run_command "mv /root/automount-usb-mine /usr/local/sbin/usbmount" "Error installing usbmount"
   run_command "cp /etc/systemd/system/usb-mount@.service /usr/local/sbin/usbmount/" "Error installing usbmount"
