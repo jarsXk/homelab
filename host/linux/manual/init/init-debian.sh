@@ -6,8 +6,8 @@ INIT_REPO=https://raw.githubusercontent.com/jarsXk/homelab/main/host/linux
 . <(wget -qO- ${INIT_REPO}/lib/lib-startup.sh)
 . <(wget -qO- ${INIT_REPO}/lib/lib-helper.sh)
 
-LOG_LEVEL=5
-DRY_RUN=yes
+LOG_LEVEL=3
+DRY_RUN=no
 IGNORE_ERRORS=no
 LOG_NAME="./init.log"
 
