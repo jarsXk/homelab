@@ -11,7 +11,7 @@ DRY_RUN=no
 IGNORE_ERRORS=no
 LOG_NAME="./init.log"
 
-log_message INFO "Initial setup for VM & LXC"
+log_message INFO "Initial setup for Debian Metal, VM & LXC"
 
 . <(wget -qO- ${INIT_REPO}/host/linux/lib/lib-checkroot.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/lib-init-env.sh)
