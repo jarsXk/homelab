@@ -331,7 +331,7 @@ run_command "wget -qO /usr/share/figlet/ANSI_Shadow.flf https://raw.githubuserco
 MOTD_PATH=/etc/update-motd.d/70-custom-motd
 CUSTOM_MOTD=70-custom-motd
 if [ $NAS = yes ]; then
-  run_command "wget -qO /root/nas-ascii.txt h${INIT_REPO}/automated/motd/nas-ascii.txt" "Error setting motd"
+  run_command "wget -qO /root/nas-ascii.txt ${INIT_REPO}/automated/motd/nas-ascii.txt" "Error setting motd"
   run_command "wget -qO /etc/update-motd.d/70-custom-motd ${INIT_REPO}/automated/motd/70-custom-motd.nas.sh" "Error setting motd"
 elif [ $DOCKER = yes ]; then
   run_command "wget -qO /root/docker-ascii.txt ${INIT_REPO}/automated/motd/docker-ascii.txt" "Error setting motd"
