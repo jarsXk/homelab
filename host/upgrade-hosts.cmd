@@ -118,27 +118,7 @@ for %%G in (%RESULT%) do (
     set "SSHSUDO=echo !PASS! | sudo -S"
   )
 
-  if !UNI_UPG! == yes (
-    ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! echo && wget -qO- https://raw.githubusercontent.com/jarsXk/homelab/main/host/linux/manual/upgrade/upgrade-debian.sh | sudo bash"
-  )
-  if !OMV_UPG! == yes (
-    ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! omv-upgrade"
-  )
-  if !APT_UPG! == yes (
-    ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! apt update && sudo apt upgrade -y"
-  )
-  if !SNAP_UPG! == yes (
-    ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! snap refresh"
-  )
-  if !AUTOREMOVE! == yes (
-    ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! apt autoremove -y"
-  )
-  if !OMV_UPG! == yes (
-    ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! omvapply-if-needed.sh"
-  )
-  if !REBOOT! == yes (
-    ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! reboot-if-needed.sh"
-  )
+  ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! echo && wget -qO- https://raw.githubusercontent.com/jarsXk/homelab/main/host/linux/upgrade/upgrade-debian.sh | sudo bash"
 )
 
 set LINUXUSER=
