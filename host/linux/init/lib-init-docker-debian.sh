@@ -54,6 +54,7 @@ if [ $DOCKER != no ]; then
     sleep 2s
     run_command "docker version" "Error installing docker"
   elif [ $DOCKER = snapd ]; then
+    run_command "snap connect docker:removable-media" "Error installing docker"
     run_command "snap restart docker" "Error installing docker"
     sleep 2s
     run_command "/snap/bin/docker version" "Error installing docker"
