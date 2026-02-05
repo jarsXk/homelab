@@ -1,6 +1,6 @@
 ## Preinstall
 
-```javascript
+```bash
 sudo mkdir -p /etc/systemd/resolved.conf.d
 sudo micro /etc/systemd/resolved.conf.d/98-adguardhome.conf
 sudo mv /etc/resolv.conf /etc/resolv.conf.backup
@@ -10,7 +10,7 @@ sudo systemctl reload-or-restart systemd-resolved
 
 98-adguardhome.conf:
 
-```javascript
+```toml
 [Resolve]
 DNS=127.0.0.1
 DNSStubListener=no
