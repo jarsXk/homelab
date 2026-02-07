@@ -7,10 +7,10 @@ docker run -d \
   -e DUFS_SERVE_PATH=/data \
   -e DUFS_HIDDEN=.DAV \
   -e DUFS_PORT=443 \
-  -e DUFS_ALLOW_ALL=false
+  -e DUFS_ALLOW_ALL=false \
   -e DUFS_ALLOW_UPLOAD=true \
   -e DUFS_ALLOW_DELETE=true \
-  -e DUFS_ALLOW_SEARCH=true \  
+  -e DUFS_ALLOW_SEARCH=true \
   -e DUFS_ALLOW_SYMLINK=false \
   -e DUFS_ALLOW_ARCHIVE=true \
   -e DUFS_ALLOW_HASH=true \
@@ -23,8 +23,8 @@ docker run -d \
   -e DUFS_ENABLE_CORS=true \
   -e DUFS_CONFIG=/config/config.yaml \
   -v dufs_config:/config \
-  -v /srv/data/local-junk:/data \
-  -p 442/443 \
+  -v /mnt/local-junk:/data \
+  -p 442:443 \
   --net amnezia-dns-net \
   --ip 172.29.172.101 \
   --restart always \
