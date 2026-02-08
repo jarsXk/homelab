@@ -3,8 +3,8 @@
 
 INIT_REPO=https://raw.githubusercontent.com/jarsXk/homelab/main
 
-. <(wget -qO- ${INIT_REPO}/lib/lib-startup.sh)
-. <(wget -qO- ${INIT_REPO}/lib/lib-helper.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/lib/lib-startup.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/lib/lib-helper.sh)
 
 LOG_LEVEL=3
 DRY_RUN=no
