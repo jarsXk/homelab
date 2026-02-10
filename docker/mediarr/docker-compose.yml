@@ -30,6 +30,8 @@ services:
       - PGID=100
       - TZ=Europe/Moscow
       - UMASK=002
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
     networks:
       net:
         ipv4_address: 198.19.13.2
