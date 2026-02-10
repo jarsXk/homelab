@@ -1,9 +1,13 @@
 {
-    "log-level":        "error",
-    "default-address-pools": [
-        {
-            "base": "198.19.0.0/16",
-            "size": 24
-        }
-    ]
+  "log-level":        "error",
+  "dns": [
+    "4.4.4.4",
+    "8.8.8.8"
+  ],
+  "default-address-pools": [
+    {
+      "base": "198.19.0.0/16",
+      "size": 24
+    }
+  ]
 }

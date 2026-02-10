@@ -48,6 +48,7 @@ if [ $DOCKER != no ]; then
     run_command "mv ${DOCKER_CONFIG_PATH}/daemon.json ${DOCKER_CONFIG_PATH}/daemon.json.bak" "Error installing docker" 
   fi
   run_command "wget -O ${DOCKER_CONFIG_PATH}/daemon.json ${INIT_REPO}/host/linux/init/download/docker/daemon.json" "Error installing docker"
+  nano ${DOCKER_CONFIG_PATH}/daemon.json
 
   if [ $DOCKER = native ]; then
     run_command "systemctl restart docker" "Error installing docker"

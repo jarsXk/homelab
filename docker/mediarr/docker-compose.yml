@@ -24,6 +24,7 @@ services:
       - ${DATA_MOVIES}:/video/movies
       - ${DATA_ANIMATION}:/video/animation
       - ${DATA_DOWNLOAD}:/downloads
+      - /etc/resolv.conf:/etc/resolv.conf:ro
     environment:
       - PUID=1999
       - PGID=100
