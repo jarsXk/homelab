@@ -1,5 +1,6 @@
 networks:
   net:  
+    enable_ipv6: false  
     ipam:
       config:
         - subnet: 198.19.2.0/24
@@ -29,6 +30,8 @@ services:
       - 5443:5443/udp
     environment:
       - TZ=Europe/Moscow
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
     volumes:
       - work:/opt/adguardhome/work
       - conf:/opt/adguardhome/conf
