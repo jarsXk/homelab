@@ -1,5 +1,6 @@
 networks:
-  net:  
+  net:
+    enable_ipv6: false  
     ipam:
       config:
         - subnet: 198.19.13.0/24
@@ -24,7 +25,6 @@ services:
       - ${DATA_MOVIES}:/video/movies
       - ${DATA_ANIMATION}:/video/animation
       - ${DATA_DOWNLOAD}:/downloads
-      - /etc/resolv.conf:/etc/resolv.conf:ro
     environment:
       - PUID=1999
       - PGID=100
@@ -33,6 +33,7 @@ services:
     networks:
       net:
         ipv4_address: 198.19.13.2
+        ipv6: false
     depends_on:
       jackett:
         condition: service_healthy
@@ -69,6 +70,7 @@ services:
     networks:
       net:
         ipv4_address: 198.19.13.3
+        ipv6: false
     depends_on:
       jackett:
         condition: service_healthy
@@ -105,6 +107,7 @@ services:
     networks:
       net:
         ipv4_address: 198.19.13.4
+        ipv6: false
     healthcheck:
       test: ["CMD", "curl", "-f", "http://198.19.13.4:9117"]
       interval: 30s
@@ -130,6 +133,7 @@ services:
     networks:
       net:
         ipv4_address: 198.19.13.5
+        ipv6: false
     healthcheck:
       test: ["CMD", "curl", "-f", "http://198.19.13.5:8191"]
       interval: 30s
