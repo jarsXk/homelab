@@ -381,32 +381,29 @@ filtering:
       answer: 172.20.6.50
       enabled: true
     # shodnenskaya4 (21)
-    - domain: mts.sh4.external
+    - domain: mts.sh4.outer
       answer: 192.168.1.1
       enabled: true
-    - domain: router.sh4.internal
-      answer: pluto.sh4.internal
+    - domain: router.sh4.local
+      answer: pluto.sh4.local
       enabled: true
-    - domain: pluto.sh4.internal
+    - domain: pluto.sh4.local
       answer: 192.168.21.1
       enabled: true
-    - domain: pluto.home.arpa
-      answer: pluto.sh4.internal
+    - domain: pluto.local
+      answer: pluto.sh4.local
       enabled: true
-    - domain: '*.app.sh4.internal'
-      answer: ixion.sh4.internal
+    - domain: '*.app.sh4.local'
+      answer: ixion.sh4.local
       enabled: true
-    - domain: ixion.sh4.internal
+    - domain: ixion.sh4.local
       answer: 192.168.21.7
       enabled: true
-    - domain: ixion.home.arpa
-      answer: ixion.sh4.internal
+    - domain: ixion.local
+      answer: ixion.sh4.local
       enabled: true
-    - domain: '*.ixion.sh4.internal'
-      answer: ixion.sh4.internal
-      enabled: true
-    - domain: '*.ixion.home.arpa'
-      answer: ixion.sh4.internal
+    - domain: '*.ixion.sh4.local'
+      answer: ixion.sh4.local
       enabled: true
     # shodnenskaya5 (22)
     - domain: mts.sh5.external

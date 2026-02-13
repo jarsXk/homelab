@@ -17,7 +17,7 @@ openssl x509 -req -CA rootCA.crt -CAkey rootCA.key -in domain.csr -out domain.cr
 
 ### domain.ext
 
-```powershell
+```toml
 authorityKeyIdentifier=keyid,issuer
 basicConstraints=CA:FALSE
 subjectAltName = @alt_names

@@ -11,7 +11,7 @@ dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
   Europa    "europa.internal     S vasilkovo" on ^
   Mimas     "mimas.internal      S chanovo" off ^
   Ariel     "ariel.internal      S yasenevof" on ^
-  Ixion     "ixion.home.arpa     S shodnenskaya4" off ^
+  Ixion     "ixion.local         S shodnenskaya4" on ^
   Makemake  "makemake.internal   S shodnenskaya5" on ^
   Proxima   "proxima.external    S web" on ^
   2> dialogresult.bak
