@@ -253,6 +253,61 @@ filtering:
       enabled: true
     - domain: ananke.yaf.internal
       answer: 172.17.4.11
+      enabled: true 
+    # vasilkovo-new (17)
+    - domain: point.vas.outer
+      answer: 192.168.1.1
+      enabled: true
+    - domain: yota.vas.outer
+      answer: 192.168.8.1
+      enabled: true
+    - domain: router.vas.local
+      answer: ganymede.vas.local
+      enabled: true
+    - domain: ganymede.vas.local
+      answer: 172.17.0.1
+      enabled: true
+    - domain: callisto.vas.local
+      answer: 172.17.0.2
+      enabled: true
+    - domain: himalia.vas.local
+      answer: 172.17.0.20
+      enabled: true
+    - domain: thebe.vas.local
+      answer: 172.17.0.21
+      enabled: true
+    - domain: amalthea.vas.local
+      answer: 172.17.0.4
+      enabled: true
+    - domain: '*.app.vas.local'
+      answer: io.vas.local
+      enabled: true
+    - domain: io.vas.local
+      answer: 172.17.2.10
+      enabled: true
+    - domain: io.local
+      answer: io.vas.local
+      enabled: true
+    - domain: '*.io.vas.local'
+      answer: io.vas.local
+      enabled: true
+    - domain: europa.vas.local
+      answer: 172.17.2.11
+      enabled: true
+    - domain: europa.local
+      answer: europa.vas.local
+      enabled: true
+    - domain: '*.europa.vas.local'
+      answer: europa.vas.local
+      enabled: true
+    - domain: elara.vas.local
+      answer: 172.17.4.12
+      enabled: true
+    - domain: leda.yaf.local
+      answer: 172.17.4.110
+      enabled: true
+    - domain: ananke.yaf.local
+      answer: 172.17.4.11
       enabled: true
     # chanovo (18)
     - domain: router.cha.internal
@@ -388,7 +443,7 @@ filtering:
       answer: pluto.sh4.local
       enabled: true
     - domain: pluto.sh4.local
-      answer: 192.168.21.1
+      answer: 172.21.1.1
       enabled: true
     - domain: pluto.local
       answer: pluto.sh4.local
@@ -397,7 +452,7 @@ filtering:
       answer: ixion.sh4.local
       enabled: true
     - domain: ixion.sh4.local
-      answer: 192.168.21.7
+      answer: 172.20.13.21
       enabled: true
     - domain: ixion.local
       answer: ixion.sh4.local
