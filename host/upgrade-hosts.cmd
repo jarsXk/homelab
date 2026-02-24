@@ -4,16 +4,16 @@ setlocal enabledelayedexpansion
 
 REM Запрос списка хостов
 dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
-  Terra     "terra.internal      S void" on ^
-    Phaeton "phaeton.internal  V S void" on ^
-  Inky      "inky.internal       D void" off ^
-  Io        "io.internal         S vasilkovo" on ^
-  Europa    "europa.internal     S vasilkovo" on ^
-  Mimas     "mimas.internal      S chanovo" off ^
-  Ariel     "ariel.internal      S yasenevof" on ^
-  Ixion     "ixion.local         S shodnenskaya4" on ^
-  Makemake  "makemake.internal   S shodnenskaya5" on ^
-  Proxima   "proxima.external    S web" on ^
+  Terra     "terra.local       S void" on ^
+    Phaeton "phaeton.local   V S void" on ^
+  Inky      "inky.local        D void" off ^
+  Io        "io.local          S vasilkovo" on ^
+  Europa    "europa.local      S vasilkovo" on ^
+  Mimas     "mimas.internal    S chanovo" off ^
+  Ariel     "ariel.internal    S yasenevof" on ^
+  Ixion     "ixion.local       S shodnenskaya4" on ^
+  Makemake  "makemake.internal S shodnenskaya5" on ^
+  Proxima   "proxima.ecto      S web" on ^
   2> dialogresult.bak
 cls
 

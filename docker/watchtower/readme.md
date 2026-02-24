@@ -5,5 +5,9 @@ docker run \
    -v /var/run/docker.sock:/var/run/docker.sock \
    containrrr/watchtower \
    --run-once \
-   --cleanup
+   --cleanup \ 
+   --disable-containers amnezia-awg,amnezia-awg2,amnezia-xray
+```
+```
+docker start watchtower
 ```

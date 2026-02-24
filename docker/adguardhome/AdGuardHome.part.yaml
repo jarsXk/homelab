@@ -109,156 +109,89 @@ user_rules:
 filtering:
   rewrites:
     # null (16)
-    - domain: wired.nul.external
+    - domain: wired.nul.ecto
       answer: reserved
       enabled: false
-    - domain: mobile.nul.external
+    - domain: mobile.nul.ecto
       answer: reserved
       enabled: false
-    - domain: router.nul.internal
-      answer: sun.nul.internal
+    - domain: router.nul.local
+      answer: sun.nul.local
       enabled: false
-    - domain: sun.nul.internal
+    - domain: sun.nul.local
       answer: reserved
       enabled: false
-    - domain: nemesis.nul.internal
+    - domain: nemesis.nul.local
       answer: reserved
       enabled: false
-    - domain: '*.app.nul.internal'
-      answer: terra.nul.internal
+    - domain: '*.app.nul.local'
+      answer: terra.nul.local
       enabled: false
-    - domain: terra.nul.internal
+    - domain: terra.nul.local
       answer: reserved
       enabled: false
-    - domain: terra.internal
-      answer: terra.yaf.internal
+    - domain: terra.local
+      answer: terra.yaf.local
       enabled: true
-    - domain: '*.terra.nul.internal'
-      answer: terra.nul.internal
+    - domain: '*.terra.nul.local'
+      answer: terra.nul.local
       enabled: false
-    - domain: phaeton.nul.internal
+    - domain: phaeton.nul.local
       answer: reserved
       enabled: false
-    - domain: phaeton.internal
-      answer: phaeton.yaf.internal
+    - domain: phaeton.local
+      answer: phaeton.yaf.local
       enabled: true
-    - domain: vesta.nul.internal
+    - domain: vesta.nul.local
       answer: reserved
       enabled: false
-    - domain: vesta.internal
-      answer: vesta.nul.internal
+    - domain: vesta.local
+      answer: vesta.nul.local
       enabled: false
-    - domain: '*.vesta.nul.internal'
-      answer: vesta.nul.internal
+    - domain: '*.vesta.nul.local'
+      answer: vesta.nul.local
       enabled: false
-    - domain: victoria.nul.internal
+    - domain: victoria.nul.local
       answer: reserved
       enabled: false
-    - domain: victoria.internal
-      answer: victoria.nul.internal
+    - domain: victoria.local
+      answer: victoria.nul.local
       enabled: false
-    - domain: '*.victoria.nul.internal'
-      answer: victoria.nul.internal
+    - domain: '*.victoria.nul.local'
+      answer: victoria.nul.local
       enabled: false
-    - domain: jupiter.nul.internal
+    - domain: jupiter.nul.local
       answer: reserved
       enabled: false
-    - domain: jupiter.internal
-      answer: jupiter.yaf.internal
-      enabled: true
-    - domain: mars.nul.internal
+    - domain: mars.nul.local
       answer: reserved
       enabled: false
-    - domain: mars.internal
-      answer: mars.yaf.internal
-      enabled: true
-    - domain: saturn.nul.internal
+    - domain: saturn.nul.local
       answer: reserved
       enabled: false
-    - domain: saturn.internal
-      answer: saturn.yaf.internal
-      enabled: true
-    - domain: uranus.nul.internal
+    - domain: uranus.nul.local
       answer: reserved
       enabled: false
-    - domain: uranus.internal
-      answer: uranus.yaf.internal
-      enabled: true
-    - domain: eris.nul.internal
+    - domain: eris.nul.local
       answer: reserved
       enabled: false
-    - domain: hygiea.nul.internal
+    - domain: hygiea.nul.local
       answer: reserved
       enabled: false
-    - domain: hebe.nul.internal
+    - domain: hebe.nul.local
       answer: reserved
       enabled: false
-    - domain: inky.nul.internal
+    - domain: inky.nul.local
       answer: reserved
       enabled: false
-    - domain: inky.internal
+    - domain: inky.local
       answer: inky.yaf.internal
       enabled: true
     # vasilkovo (17)
-    - domain: point.vas.external
+    - domain: point.vas.ecto
       answer: 192.168.1.1
       enabled: true
-    - domain: yota.vas.external
-      answer: 192.168.8.1
-      enabled: true
-    - domain: router.vas.internal
-      answer: ganymede.vas.internal
-      enabled: true
-    - domain: ganymede.vas.internal
-      answer: 172.17.0.1
-      enabled: true
-    - domain: callisto.vas.internal
-      answer: 172.17.0.2
-      enabled: true
-    - domain: himalia.vas.internal
-      answer: 172.17.0.20
-      enabled: true
-    - domain: thebe.vas.internal
-      answer: 172.17.0.21
-      enabled: true
-    - domain: amalthea.vas.internal
-      answer: 172.17.0.4
-      enabled: true
-    - domain: '*.app.vas.internal'
-      answer: io.vas.internal
-      enabled: true
-    - domain: io.vas.internal
-      answer: 172.17.2.10
-      enabled: true
-    - domain: io.internal
-      answer: io.vas.internal
-      enabled: true
-    - domain: '*.io.vas.internal'
-      answer: io.vas.internal
-      enabled: true
-    - domain: europa.vas.internal
-      answer: 172.17.2.11
-      enabled: true
-    - domain: europa.internal
-      answer: europa.vas.internal
-      enabled: true
-    - domain: '*.europa.vas.internal'
-      answer: europa.vas.internal
-      enabled: true
-    - domain: elara.vas.internal
-      answer: 172.17.4.12
-      enabled: true
-    - domain: leda.yaf.internal
-      answer: 172.17.4.110
-      enabled: true
-    - domain: ananke.yaf.internal
-      answer: 172.17.4.11
-      enabled: true 
-    # vasilkovo-new (17)
-    - domain: point.vas.outer
-      answer: 192.168.1.1
-      enabled: true
-    - domain: yota.vas.outer
+    - domain: yota.vas.ecto
       answer: 192.168.8.1
       enabled: true
     - domain: router.vas.local
@@ -436,7 +369,7 @@ filtering:
       answer: 172.20.6.50
       enabled: true
     # shodnenskaya4 (21)
-    - domain: mts.sh4.outer
+    - domain: mts.sh4.ecto
       answer: 192.168.1.1
       enabled: true
     - domain: router.sh4.local
@@ -483,18 +416,18 @@ filtering:
       answer: makemake.sh5.internal
       enabled: true
     # web
-    - domain: proxima.web.external
-      answer: 185.133.173.100
+    - domain: proxima.web.ecto
+      answer: 208.92.227.11
       enabled: true
-    - domain: proxima.external
-      answer: proxima.web.external
+    - domain: proxima.ecto
+      answer: proxima.web.ecto
       enabled: true
-    - domain: adguard.app.web.external
+    - domain: adguard.app.web.ecto
       answer: 172.29.172.100
       enabled: true
-    - domain: share.app.web.external
+    - domain: share.app.web.ecto
       answer: 172.29.172.101
       enabled: true
-    - domain: webdav.app.web.external
+    - domain: webdav.app.web.ecto
       answer: 172.29.172.102
       enabled: true
