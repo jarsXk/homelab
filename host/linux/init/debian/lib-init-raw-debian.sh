@@ -1,125 +1,9 @@
 # Initial setup for host, VM and LXC
 
-# Reading physical server
-while [ "$PHYSICAL" = "" ]; do
-  log_message READ "Setup physical server [y/n/c]> " -n
-  read -r ANSWER_PHYSICAL
-  case "$ANSWER_PHYSICAL" in
-    [Yy]* )
-      PHYSICAL=yes
-    ;;
-    [Nn]* )
-      PHYSICAL=no
-    ;;
-    [Cc]* )
-      log_message INFO "Canceled setup"
-      exit 1
-    ;;
-    * )
-      log_message INFO "Invalid input. Enter y, n, or c."
-    ;;
-  esac
-done
-log_message DEBUG "Selected install physical server <$PHYSICAL>"
-
-# Setting timezone
-log_message INFO "Setting timezone"
-run_command "timedatectl set-timezone Europe/Moscow" "Error setting timezone"
-
-# Reading role & location
-while [ "$NAS" = "" ]; do
-  log_message READ "Setup NAS host [y/n/c]> " -n
-  read -r ANSWER_PUBLIC
-  case "$ANSWER_PUBLIC" in
-    [Yy]* )
-      NAS=yes
-    ;;
-    [Nn]* )
-      NAS=no
-    ;;
-    [Cc]* )
-      log_message INFO "Canceled setup"
-      exit 1
-    ;;
-    * )
-      log_message INFO "Invalid input. Enter y, n, or c."
-    ;;
-  esac
-done
-while [ "$LOCATION" = "" ]; do
-  log_message READ "Location"
-  log_message READ "  [1] ???"
-  log_message READ "  [2] vasilkovo"
-  log_message READ "  [3] chanovo"
-  log_message READ "  [5] yasenevof"    
-  log_message READ "  [6] shodnenskaya"
-  log_message READ "  [0] other"
-  log_message READ "Select [1-4/0/c]> " -n
-  read -r ANSWER_LOCATION
-  case "$ANSWER_LOCATION" in
-    1)
-      LOCATION=kommunarka
-    ;;
-    2)
-      LOCATION=vasilkovo
-    ;;
-    3)
-      LOCATION=chanovo
-    ;;
-    4)
-      LOCATION=yasenevof
-    ;;
-    5)
-      LOCATION=shodnenskaya
-    ;;
-    0)
-      LOCATION=other
-    ;;
-    c)
-      log_message INFO "Canceled setup"
-      exit 1
-    ;;
-    * )
-      log_message INFO "Invalid input. Enter 1-4, 0 or c."
-    ;;
-  esac
-done
-log_message DEBUG "Selected NAS host <$NAS>"
-log_message DEBUG "Selected location <$LOCATION>"
-
-# Creating groups
-log_message INFO "Creating groups"
-#               name         is_system gid  
-if [ $NAS = yes ]; then
-  create_group  family       no        2000
-fi
-create_group	  lesha-group  no        2001 
-if [ $NAS = yes ] && [ $LOCATION = kommunarka ]; then
-  create_group	lena-group   no        2002
-fi
-if [ $LOCATION = vasilkovo ]; then
-  create_group	kostya-group no        2003
-fi
-if [ $NAS = yes ] && [ $LOCATION = vasilkovo ]; then
-  create_group	tanya-group  no        2004
-  create_group	dima-group   no        2005
-fi
-if [ $NAS = yes ] && [ $LOCATION = chanovo ]; then
-  create_group	lena-group   no        2002
-  create_group	yulia-group  no        2006
-fi
-if [ $LOCATION = yasenevof ]; then
-  create_group	kostya-group no        2003
-fi
-if [ $NAS = yes ] && [ $LOCATION = shodnenskaya ]; then
-  create_group	lena-group   no        2002
-  create_group	yulia-group  no        2006
-fi
-
 # Creating users
 log_message INFO "Creating users"
 DOCKER_GROUPS="docker,lesha-group"
-if [ $NAS = yes ]; then
+if [ "$SERVER_ROLE" = "nas" ]; then
   DOCKER_GROUPS="$DOCKER_GROUPS,family"
 fi
 FAMILY_GROUP=""
@@ -129,7 +13,7 @@ fi
 # real users
 #               login      uid  group    sudo shell             create_home is_system extra_groups
 create_user     lesha      2001 users    yes  /bin/bash         yes         no        lesha-group,_ssh$FAMILY_GROUP
-if [ $NAS = yes ] && [ $LOCATION = kommunarka ]; then
+if [ "$SERVER_ROLE" = "nas" ] && [ $LOCATION = kommunarka ]; then
   create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh$FAMILY_GROUP
   DOCKER_GROUPS="$DOCKER_GROUPS,lena-group"
 fi
@@ -137,12 +21,12 @@ if [ $LOCATION = vasilkovo ]; then
   create_user kostya       2003 users    yes  /bin/bash         yes         no        kostya-group,_ssh$FAMILY_GROUP
   DOCKER_GROUPS="$DOCKER_GROUPS,kostya-group"
 fi
-if [ $NAS = yes ] && [ $LOCATION = vasilkovo ]; then  
+if [ "$SERVER_ROLE" = "nas" ] && [ $LOCATION = vasilkovo ]; then  
   create_user tanya        2004 users    no   /usr/sbin/nologin yes         no        tanya-group$FAMILY_GROUP
   create_user dima         2005 users    no   /bin/bash         yes         no        dima-group,_ssh$FAMILY_GROUP
   DOCKER_GROUPS="$DOCKER_GROUPS,tanya-group,dima-group"
 fi
-if [ $NAS = yes ] && [ $LOCATION = chanovo ]; then
+if [ "$SERVER_ROLE" = "nas" ] && [ $LOCATION = chanovo ]; then
   create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh$FAMILY_GROUP
   create_user yulia        2006 users    no   /usr/sbin/nologin yes         no        yulia-group$FAMILY_GROUP
   DOCKER_GROUPS="$DOCKER_GROUPS,lena-group,yulia-group"
@@ -151,7 +35,7 @@ if [ $LOCATION = yasenevof ]; then
   create_user kostya       2003 users    yes  /bin/bash         yes         no        kostya-group,_ssh$FAMILY_GROUP
   DOCKER_GROUPS="$DOCKER_GROUPS,kostya-group"
 fi
-if [ $NAS = yes ] && [ $LOCATION = shodnenskaya ]; then
+if [ "$SERVER_ROLE" = "nas" ] && [ $LOCATION = shodnenskaya ]; then
   create_user lena         2002 users    no   /bin/bash         yes         no        lena-group,_ssh$FAMILY_GROUP
   create_user yulia        2006 users    no   /usr/sbin/nologin yes         no        yulia-group$FAMILY_GROUP
   DOCKER_GROUPS="$DOCKER_GROUPS,lena-group,yulia-group"
@@ -161,7 +45,7 @@ fi
 if [ $DOCKER = yes ]; then
   create_user docker       1999 users    no   /usr/sbin/nologin no          yes       $DOCKER_GROUPS
 fi
-if [ $NAS = yes ]; then
+if [ "$SERVER_ROLE" = "nas" ]; then
   create_user internal     1998 users    no   /usr/sbin/nologin no          yes
 fi
 # create_user amnezia      1997 users    yes  /bin/bash         yes         yes
@@ -169,29 +53,6 @@ fi
 # Deleting group "lesha"
 if [ $(getent group lesha) ]; then
   run_command "groupdel lesha" "Error deleting group lesha"
-fi
-
-# Adding ssh public key
-log_message READ "Paste SSH public key [key/s/c] > " -n
-read -r ANSWER_SSH_PUB
-if [ "$ANSWER_PUB_KEY" = "s" ]; then
-  SSH_PUB="-=skipped=-"
-  log_message INFO "Skipped SSH public key setup"
-elif [ "$ANSWER_PUB_KEY" = "c" ]; then
-  log_message INFO "Canceled setup"
-  exit 1
-else
-  SSH_PUB=$ANSWER_SSH_PUB
-fi
-log_message DEBUG "SSH public key <$SSH_PUB>"
-if [ ! "$SSH_PUB" = "-=skipped=-" ]; then
-  run_command "mkdir -p /home/lesha/.ssh" "Error adding SSH public key"
-  if [ ! -f /home/lesha/.ssh/authorized_keys ]; then
-    run_command "touch /home/lesha/.ssh/authorized_keys" "Error adding SSH public key"
-  fi
-  run_command "echo "$SSH_PUB"" "Error adding SSH public key" "/home/lesha/.ssh/authorized_keys"
-  run_command "chown -R lesha:users /home/lesha/.ssh" "Error adding SSH public key"
-  run_command "chmod -R go-x /home/lesha/.ssh" "Error adding SSH public key"
 fi
 
 # Setting locale
