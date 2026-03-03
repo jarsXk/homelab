@@ -22,26 +22,27 @@ done
 log_message DEBUG "Selected install physical server <$PHYSICAL>"
 
 if [ "$SERVER_ROLE" = "" ];
-# Reading location
-while [ "$SERVER_ROLE" = "" ]; do
-  log_message READ "Setup NAS host [y/n/c]> " -n
-  read -r ANSWER_NAS
-  case "$ANSWER_NAS" in
-    [Yy]* )
+  # Reading location
+  while [ "$SERVER_ROLE" = "" ]; do
+    log_message READ "Setup NAS host [y/n/c]> " -n
+    read -r ANSWER_NAS
+    case "$ANSWER_NAS" in
+      [Yy]* )
       SERVER_ROLE="nas"
-    ;;
-    [Nn]* )
+      ;;
+      [Nn]* )
       SERVER_ROLE=""
-    ;;
-    [Cc]* )
+      ;;
+      [Cc]* )
       log_message INFO "Canceled setup"
       exit 1
-    ;;
-    * )
+      ;;
+      * )
       log_message INFO "Invalid input. Enter y, n, or c."
-    ;;
-  esac
-done
+      ;;
+    esac
+  done
+fi
 
 # Reading location
 while [ "$LOCATION" = "" ]; do

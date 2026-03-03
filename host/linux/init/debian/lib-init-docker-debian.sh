@@ -59,4 +59,10 @@ if [ $DOCKER != no ]; then
     sleep 2s
     run_command "/snap/bin/docker version" "Error installing docker"
   fi
+
+  # Updating sudoers file
+  if [ $DOCKER = snapd ]; then
+    log_message INFO "Updating sudoers file"
+    run_command "wget -O /etc/sudoers.d/10-snappath ${INIT_REPO}/host/linux/init/download/10-snappath" "Error updating sudoers file"
+  fi
 fi

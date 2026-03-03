@@ -1,4 +1,4 @@
 #!/bin/sh
 echo ""
-echo $(hostname) | figlet -f ANSI_Shadow
+echo $(hostname) | tr '[:lower:]' '[:upper:]' | figlet -f Tmplr
 fastfetch --pipe false --disable-linewrap true
