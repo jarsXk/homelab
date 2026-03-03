@@ -3,8 +3,7 @@
 
 INIT_REPO=https://raw.githubusercontent.com/jarsXk/homelab/main
 
-. <(wget -qO- ${INIT_REPO}/host/linux/lib/lib-startup.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/lib/lib-helper.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/lib/lib-base.sh)
 
 LOG_LEVEL=3
 DRY_RUN=no
@@ -14,10 +13,10 @@ LOG_NAME="./init.log"
 log_message INFO "Initial setup for Debian Metal, VM & LXC"
 
 . <(wget -qO- ${INIT_REPO}/host/linux/lib/lib-checkroot.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/init/lib-init-env.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/init/lib-init-env-debian.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/init/lib-init-packages-debian.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/init/lib-init-ssh.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-env.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-env-debian.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-packages-debian.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-ssh.sh)
 
 create_group() {
 # create_group name is_system gid 
@@ -84,8 +83,8 @@ create_user() {
   log_message INFO "User <$1 ($(cat /etc/passwd | grep "$1"))>"
 }
 
-. <(wget -qO- ${INIT_REPO}/host/linux/init/lib-init-docker-debian.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-docker-debian.sh)
 
-. <(wget -qO- ${INIT_REPO}/host/linux/init/lib-init-raw-debian.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-raw-debian.sh)
 
 exit 0

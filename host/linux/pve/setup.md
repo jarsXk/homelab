@@ -1,0 +1,2 @@
+- temperatures: https://help.rackzar.com/en/knowledgebase/article/how-to-monitor-cpu-temps-and-fan-speeds-in-proxmox-virtual-environment
+- thunderbolt net: https://gist.github.com/karubits/787632319e529066a81d1192d879834c

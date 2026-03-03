@@ -1,10 +1,14 @@
 ## groups
 
-| group  | gid  | system |
-| -----  | ---- | ------ |
-| family | 2000 | no     |
-| lesha-group | 2001 | no     |
-| lena-group | 2002 | no     |
+```
+groupadd -g <gid> [--system] <group>
+```
+
+| group       | gid  | system | location                                    |
+| ----------- | ---- | ------ | ------------------------------------------- |
+| family      | 2000 | no     | *                                           |
+| lesha-group | 2001 | no     | *                                           |
+| lena-group  | 2002 | no     | null, chanovo, shodnanstaya4, shodnanskaya5 |
 
 create_group	  lesha-group  no        2001 
 if [ $NAS = yes ] && [ $LOCATION = kommunarka ]; then
@@ -29,17 +33,19 @@ if [ $NAS = yes ] && [ $LOCATION = shodnenskaya ]; then
   create_group	yulia-group  no        2006
 fi
 
-```
-groupadd -g <gid> [--system] <group>
-```
+
 
 ## users
 
-| login  | ui   | group | sudo | shell     | create home | system | extra groups              |
-| ------ | ---- | ----- | ---- | --------- | ----------- | ------ | ------------------------- |
-| lesha  | 2001 | users | yes  | /bin/bash | yes         | no     | lesha-group,\_ssh,family  |
-| lena   | 2002 | users | no   | /bin/bash | yes         | no     | lena-group,\_ssh,family   |
-| kostya | 2003 | users | yes  | /bin/bash | yes         | no     | kostya-group,\_ssh,family |
+```
+useradd --uid <uid> --gid <group> [-G <extragroup1>[,<extragroup2>][][,sudo]] --shell <shell> [--[no-]create-home] [--system] <user>
+```
+
+| login  | ui   | group | sudo | shell     | create home | system | extra groups              | location                                    |
+| ------ | ---- | ----- | ---- | --------- | ----------- | ------ | ------------------------- | ------------------------------------------- |
+| lesha  | 2001 | users | yes  | /bin/bash | yes         | no     | lesha-group,\_ssh,family  | *                                           |
+| lena   | 2002 | users | no   | /bin/bash | yes         | no     | lena-group,\_ssh,family   | null, chanovo, shodnanskaya4, shodnenskaya5 |
+| kostya | 2003 | users | yes  | /bin/bash | yes         | no     | kostya-group,\_ssh,family | vasilkovo, yasenevof                        |
 
 
 
@@ -73,6 +79,3 @@ fi
 
 # create\_user amnezia      1997 users    yes  /bin/bash         yes         yes
 
-```
-useradd --uid <uid> --gid <group> [-G <extragroup1>[,<extragroup2>][][,sudo]] --shell <shell> [--[no-]create-home] [--system] <user>
-```

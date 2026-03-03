@@ -136,6 +136,30 @@ filtering:
     - domain: '*.terra.nul.local'
       answer: terra.nul.local
       enabled: false
+    - domain: hina.nul.local
+      answer: reserved
+      enabled: false
+    - domain: hina.local
+      answer: hina.yaf.local
+      enabled: true
+    - domain: luna.nul.local
+      answer: reserved
+      enabled: false
+    - domain: luna.local
+      answer: luna.yaf.local
+      enabled: true
+    - domain: selena.nul.local
+      answer: reserved
+      enabled: false
+    - domain: selena.local
+      answer: selena.yaf.local
+      enabled: true
+    - domain: chandra.nul.local
+      answer: reserved
+      enabled: false
+    - domain: chandra.local
+      answer: chandra.yaf.local
+      enabled: true
     - domain: phaeton.nul.local
       answer: reserved
       enabled: false
@@ -185,7 +209,7 @@ filtering:
       answer: reserved
       enabled: false
     - domain: inky.local
-      answer: inky.yaf.internal
+      answer: inky.yaf.local
       enabled: true
     # vasilkovo (17)
     - domain: point.vas.ecto
@@ -268,104 +292,116 @@ filtering:
       answer: mimas.cha.internal
       enabled: true
     # yasenevod (19)
-    - domain: mts.yad.external
+    - domain: mts.yad.ecto
       answer: 192.168.1.1
       enabled: true
-    - domain: router.yad.internal
-      answer: phobos.yad.internal
+    - domain: router.yad.local
+      answer: phobos.yad.local
       enabled: true
-    - domain: phobos.yad.internal
+    - domain: phobos.yad.local
       answer: 172.21.0.1
       enabled: true
     # yasenevof (20)
-    - domain: mts.yaf.external
+    - domain: mts.yaf.ecto
       answer: 192.168.1.1
       enabled: true
-    - domain: yota.yaf.external
+    - domain: yota.yaf.ecto
       answer: 192.168.0.1
       enabled: true
-    - domain: router.yaf.internal
-      answer: titania.yaf.internal
+    - domain: router.yaf.local
+      answer: titania.yaf.local
       enabled: true
-    - domain: titania.yaf.internal
+    - domain: titania.yaf.local
       answer: 172.20.0.1
       enabled: true
-    - domain: oberon.yaf.internal
+    - domain: oberon.yaf.local
       answer: 172.20.0.2
       enabled: true
-    - domain: ariel.yaf.internal
+    - domain: ariel.yaf.local
       answer: 172.20.2.10
       enabled: true
-    - domain: ariel.internal
-      answer: ariel.yaf.internal
+    - domain: ariel.local
+      answer: ariel.yaf.local
       enabled: true
-    - domain: '*.ariel.yaf.internal'
+    - domain: '*.ariel.yaf.local'
       answer: 172.20.2.10
       enabled: true
-    - domain: '*.app.yaf.internal'
+    - domain: '*.app.yaf.local'
       answer: 172.20.2.10
       enabled: true
-    - domain: terra.yaf.internal
+    - domain: terra.yaf.local
       answer: 172.20.2.12
       enabled: true
-    - domain: '*.terra.yaf.internal'
+    - domain: hina.yaf.local
+      answer: 172.20.2.20
+      enabled: true
+    - domain: luna.yaf.local
+      answer: 172.20.2.21
+      enabled: true
+    - domain: selena.yaf.local
+      answer: 172.20.2.22
+      enabled: true
+    - domain: chandra.yaf.local
+      answer: 172.20.2.23
+      enabled: true
+    - domain: '*.terra.yaf.local'
       answer: 172.20.2.12
       enabled: true
-    - domain: phaeton.yaf.internal
+    - domain: phaeton.yaf.local
       answer: 172.20.2.201
       enabled: true
-    - domain: vaultwarden.app.yaf.internal
+    - domain: vaultwarden.app.yaf.local
       answer: 172.20.2.12
       enabled: true
-    - domain: nextcloud.app.yaf.internal
+    - domain: nextcloud.app.yaf.local
       answer: 172.20.2.12
       enabled: true
-    - domain: calibre.app.yaf.internal
+    - domain: calibre.app.yaf.local
       answer: 172.20.2.12
       enabled: true
-    - domain: qbittorrent.app.yaf.internal
+    - domain: qbittorrent.app.yaf.local
       answer: 172.20.2.12
       enabled: true
-    - domain: resilio.app.yaf.internal
+    - domain: resilio.app.yaf.local
       answer: 172.20.2.12
       enabled: true
-    - domain: hplip.app.yaf.internal
+    - domain: hplip.app.yaf.local
       answer: 172.20.2.12
       enabled: true
-    - domain: jellyfin.app.yaf.internal
+    - domain: jellyfin.app.yaf.local
       answer: 172.20.2.12
       enabled: true
-    - domain: radarr.app.yaf.internal
+    - domain: radarr.app.yaf.local
       answer: 172.20.2.12
       enabled: true
-    - domain: sonarr.app.yaf.internal
+    - domain: sonarr.app.yaf.local
       answer: 172.20.2.12
       enabled: true
-    - domain: jackett.app.yaf.internal
+    - domain: jackett.app.yaf.local
       answer: 172.20.2.12
       enabled: true
-    - domain: jupiter.yaf.internal
+    - domain: jupiter.yaf.local
       answer: 172.20.4.10
       enabled: true
-    - domain: mars.yaf.internal
+    - domain: mars.yaf.local
       answer: 172.20.4.111
       enabled: true
-    - domain: saturn.yaf.internal
+    - domain: saturn.yaf.local
       answer: 172.20.4.112
       enabled: true
-    - domain: uranus.yaf.internal
+    - domain: uranus.yaf.local
       answer: 172.20.4.13
       enabled: true
-    - domain: eris.yaf.internal
+    - domain: eris.yaf.local
       answer: 172.20.4.14
       enabled: true
-    - domain: leda.yaf.internal
+    - domain: leda.yaf.local
       answer: 172.20.4.115
       enabled: true
-    - domain: ananke.yaf.internal
+    - domain: ananke.yaf.local
       answer: 172.20.4.16
       enabled: true
-    - domain: inky.yaf.internal
+    - domain: inky.yaf.local
       answer: 172.20.6.50
       enabled: true
     # shodnenskaya4 (21)
