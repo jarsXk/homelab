@@ -1,9 +1,12 @@
+### network
 ```
 docker network create \
   --subnet=198.19.1.0/24 \
   --gateway=198.19.1.1 \
   portainer_net
 ```
+### portaner agent
+snap
 ```
 docker run -d \
   -p 30130:9001 \
@@ -15,6 +18,19 @@ docker run -d \
   --ip 198.19.1.3 \
   portainer/agent:alpine
 ```
+native
+```
+docker run -d \
+  -p 30130:9001 \
+  --name portaineragent \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /var/lib/docker/volumes:/var/lib/docker/volumes \
+  --restart=always \
+  --network portainer_net \
+  --ip 198.19.1.3 \
+  portainer/agent:alpine
+```
+### portainer
 ```
 docker run -d \
   --name=portainer \
