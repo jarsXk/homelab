@@ -1,4 +1,4 @@
 - temperatures: https://help.rackzar.com/en/knowledgebase/article/how-to-monitor-cpu-temps-and-fan-speeds-in-proxmox-virtual-environment
 - thunderbolt net: https://gist.github.com/karubits/787632319e529066a81d1192d879834c
-- intel vgpu: https://www.derekseaman.com/2024/07/proxmox-ve-8-2-windows-11-vgpu-vt-d-passthrough-with-intel-alder-lake.html
+- intel vgpu: https://github.com/strongtz/i915-sriov-dkms https://www.derekseaman.com/2024/07/proxmox-ve-8-2-windows-11-vgpu-vt-d-passthrough-with-intel-alder-lake.html
 - kernel clean: `bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/tools/pve/kernel-clean.sh)"`

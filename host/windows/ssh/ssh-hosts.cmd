@@ -7,28 +7,26 @@ if "x%USER%" == "x" (
 )
 
 dialog --ascii-lines --begin 5 5  --menu "Server to login (user: %USER%)" -1 0 0 ^
-   Terra       "terra.local         S null" ^
-   "  Phaeton" "phaeton.local     V S null" ^
-   Moon        "" ^
-   "  Hina"    "hina.local          S null" ^
-   "  Luna"    "luna.local          S null" ^
-   "  Selena"  "selena.local        S null" ^
-   Inky        "inky.local          D null" ^
-   Io          "io.local            S vasilkovo" ^
-   Europa      "europa.local        S vasilkovo" ^
-   Mimas       "mimas.internal      S chanovo" ^
-   Ariel       "ariel.local         S yasenevof" ^
-   Ixion       "ixion.local         S shodnenskaya4" ^
-   (old)Ixion  "ixion.home.arpa     S shodnenskaya4" ^
-   Makemake    "makemake.internal   S shodnenskaya5" ^
-   Proxima     "proxima.ecto        S web" ^
+   Terra         "terra.local       null" ^
+   "  Phaeton" "phaeton.local     null" ^
+   Moon "" ^
+   "  Hina"      "hina.local        null" ^
+   "  Luna"      "luna.local        null" ^
+   "  Selena"    "selena.local      null" ^
+   Inky          "inky.local        null" ^
+   Io            "io.local          vasilkovo" ^
+   Europa        "europa.local      vasilkovo" ^
+   Mimas         "mimas.internal    chanovo" ^
+   Ariel         "ariel.local       yasenevof" ^
+   Ixion         "ixion.local       shodnenskaya4" ^
+   (old)Ixion    "ixion.home.arpa   shodnenskaya4" ^
+   Makemake      "makemake.internal shodnenskaya5" ^
+   Proxima       "proxima.ecto      web" ^
    2> dialogresult.bak
 set /p RESULT=<dialogresult.bak
 del dialogresult.bak           
 
-FOR /F "tokens=*" %%A IN ("%RESULT%") DO (
-    SET "TRIMRESULT=%%A"
-)
+set TRIMRESULT=%RESULT: =%
 cls
 
 if not "x%TRIMRESULT%" == "x" (
