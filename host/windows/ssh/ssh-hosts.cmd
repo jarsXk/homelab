@@ -8,11 +8,11 @@ if "x%USER%" == "x" (
 
 dialog --ascii-lines --begin 5 5  --menu "Server to login (user: %USER%)" -1 0 0 ^
    Terra         "terra.local       null" ^
-   "  Phaeton" "phaeton.local     null" ^
    Moon "" ^
    "  Hina"      "hina.local        null" ^
    "  Luna"      "luna.local        null" ^
    "  Selena"    "selena.local      null" ^
+   "    Phaeton" "phaeton.local     null" ^
    Inky          "inky.local        null" ^
    Io            "io.local          vasilkovo" ^
    Europa        "europa.local      vasilkovo" ^

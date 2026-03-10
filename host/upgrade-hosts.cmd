@@ -4,16 +4,20 @@ setlocal enabledelayedexpansion
 
 REM Запрос списка хостов
 dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
-  Terra       "terra.local       null" on ^
-  "  Phaeton" "phaeton.local     null" on ^
-  Inky        "inky.local        null" off ^
-  Io          "io.local          vasilkovo" on ^
-  Europa      "europa.local      vasilkovo" on ^
-  Mimas       "mimas.internal    chanovo" off ^
-  Ariel       "ariel.local       yasenevof" on ^
-  Ixion       "ixion.local       shodnenskaya4" on ^
-  Makemake    "makemake.internal shodnenskaya5" on ^
-  Proxima     "proxima.ecto      web" on ^
+  Terra         "terra.local       null" on ^
+  Moon          ""                       off ^
+  "  Hina"      "hina.local        null" off ^
+  "  Luna"      "lina.local        null" off ^
+  "  Selena"    "selena.local      null" off ^
+  "    Phaeton" "phaeton.local     null" on ^
+  Inky          "inky.local        null" off ^
+  Io            "io.local          vasilkovo" on ^
+  Europa        "europa.local      vasilkovo" on ^
+  Mimas         "mimas.internal    chanovo" off ^
+  Ariel         "ariel.local       yasenevof" on ^
+  Ixion         "ixion.local       shodnenskaya4" off ^
+  Makemake      "makemake.internal shodnenskaya5" off ^
+  Proxima       "proxima.ecto      web" on ^
   2> dialogresult.bak
 cls
 REM Получение и очистка результата
@@ -30,8 +34,8 @@ REM Запрос паролей
   if not "x%RESULT%" == "xProxima" (
     set /P "LINUXPASS=Linux password (): "
   )
-  set TMPSTR=%RESULT%
-  if not "x%TMPSTR:Proxima=%" == "x%TMPSTR%" (
+  set TMPSTR=!RESULT!
+  if not "x!TMPST:Proxima=!" == "x!TMPSTR!" (
     set /P "PROXIMAPASS=Proxima password (): "
   )
 )
@@ -47,31 +51,31 @@ for %%G in (%RESULT%) do (
   REM Определение списка команд
   if %%G == Terra (
     set UNI_UPG=yes
-    set DOMAIN=internal
+    set DOMAIN=local
     set PASS=%LINUXPASS%
   )
 
   if %%G == Phaeton (
     set UNI_UPG=yes
-    set DOMAIN=internal
+    set DOMAIN=local
     set PASS=%LINUXPASS%
   )
 
   if %%G == Inky (
     set UNI_UPG=yes
-    set DOMAIN=internal
+    set DOMAIN=local
     set PASS=%LINUXPASS%
   )
 
   if %%G == Io (
     set UNI_UPG=yes
-    set DOMAIN=internal
+    set DOMAIN=local
     set PASS=%LINUXPASS%
   )
 
   if %%G == Europa (
     set UNI_UPG=yes
-    set DOMAIN=internal
+    set DOMAIN=local
     set PASS=%LINUXPASS%
   )
 
@@ -83,31 +87,25 @@ for %%G in (%RESULT%) do (
 
   if %%G == Ariel (
     set UNI_UPG=yes
-    set DOMAIN=internal
+    set DOMAIN=local
     set PASS=%LINUXPASS%
   )
 
   if %%G == Ixion (
     set UNI_UPG=yes
-    set DOMAIN=home.internal
+    set DOMAIN=local
     set PASS=%LINUXPASS%
   )
 
   if %%G == Makemake (
     set UNI_UPG=yes
-    set DOMAIN=internal
-    set PASS=%LINUXPASS%
-  )
-
-  if %%G == Inky (
-    set UNI_UPG=yes
-    set DOMAIN=internal
+    set DOMAIN=local
     set PASS=%LINUXPASS%
   )
   
   if %%G == Proxima (
     set UNI_UPG=yes
-    set DOMAIN=external
+    set DOMAIN=ecto
     set PASS=%PROXIMAPASS%
   )
 
