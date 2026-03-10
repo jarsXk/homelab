@@ -16,7 +16,7 @@ if [ "$SERVER_ROLE" != "proxmox" ]; then
 fi
 #               login      uid  group    sudo shell             create_home is_system extra_groups
 create_user     lesha      2001 users    yes  /bin/bash         yes         no        _ssh$USER_GROUP$FAMILY_GROUP
-if [ "$SERVER_ROLE" = "nas" ] && [ $LOCATION = null ]; then
+if [ "$SERVER_ROLE" = "nas" ] && [ "$LOCATION" = "null" ]; then
   if [ "$SERVER_ROLE" != "proxmox" ]; then
     USER_GROUP=",lena-group"
     DOCKER_GROUPS="$DOCKER_GROUPS,lena-group"
@@ -32,7 +32,7 @@ if [ $LOCATION = vasilkovo ]; then
 #               login      uid  group    sudo shell             create_home is_system extra_groups  
   create_user   kostya     2003 users    yes  /bin/bash         yes         no        _ssh$USER_GROUP$FAMILY_GROUP
 fi
-if [ "$SERVER_ROLE" = "nas" ] && [ $LOCATION = vasilkovo ]; then  
+if [ "$SERVER_ROLE" = "nas" ] && [ "$LOCATION" = "vasilkovo" ]; then  
   if [ "$SERVER_ROLE" != "proxmox" ]; then
     USER_GROUP=",tanya-group"
     DOCKER_GROUPS="$DOCKER_GROUPS,tanya-group"
@@ -46,7 +46,7 @@ if [ "$SERVER_ROLE" = "nas" ] && [ $LOCATION = vasilkovo ]; then
 #               login      uid  group    sudo shell             create_home is_system extra_groups   
   create_user   dima       2005 users    no   /bin/bash         yes         no        _ssh$USER_GROUP$FAMILY_GROUP
 fi
-if [ "$SERVER_ROLE" = "nas" ] && [ $LOCATION = chanovo ]; then
+if [ "$SERVER_ROLE" = "nas" ] && [ "$LOCATION" = "chanovo" ]; then
   if [ "$SERVER_ROLE" != "proxmox" ]; then
     USER_GROUP=",lena-group"
     DOCKER_GROUPS="$DOCKER_GROUPS,lena-group"
@@ -68,7 +68,7 @@ if [ $LOCATION = yasenevof ]; then
 #               login      uid  group    sudo shell             create_home is_system extra_groups  
   create_user   kostya     2003 users    yes  /bin/bash         yes         no        _ssh$USER_GROUP$FAMILY_GROUP
 fi
-if [ "$SERVER_ROLE" = "nas" ] && [ $LOCATION = shodnenskaya ]; then
+if [ "$SERVER_ROLE" = "nas" ] && [ "$LOCATION" = "shodnenskaya" ]; then
   if [ "$SERVER_ROLE" != "proxmox" ]; then
     USER_GROUP=",lena-group"
     DOCKER_GROUPS="$DOCKER_GROUPS,lena-group"
@@ -84,7 +84,7 @@ if [ "$SERVER_ROLE" = "nas" ] && [ $LOCATION = shodnenskaya ]; then
 fi
 # technical users
 #             login        uid  group    sudo shell             create_home is_system extra_groups
-if [ $DOCKER = yes ]; then
+if [ "$DOCKER" = "yes" ]; then
   create_user docker       1999 users    no   /usr/sbin/nologin no          yes       $DOCKER_GROUPS
 fi
 if [ "$SERVER_ROLE" = "nas" ]; then
