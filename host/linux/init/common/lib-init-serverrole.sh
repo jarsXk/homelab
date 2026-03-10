@@ -31,7 +31,7 @@ if [ "$SERVER_ROLE" = "" ]; then
       SERVER_ROLE="nas"
       ;;
       [Nn]* )
-      SERVER_ROLE=""
+      SERVER_ROLE="undefined"
       ;;
       [Cc]* )
       log_message INFO "Canceled setup"
