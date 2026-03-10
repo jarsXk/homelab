@@ -50,7 +50,7 @@ if [ $DOCKER != no ]; then
   run_command "wget -O ${DOCKER_CONFIG_PATH}/daemon.json ${INIT_REPO}/host/linux/init/download/docker/daemon.json" "Error installing docker"
 
   if [ $DOCKER = native ]; then
-    run_command "systemctl restart docker" "Error installing docker"
+    run_command "$SERVICERESTART docker $SERVICERESTART_FOOTER" "Error installing docker"
     sleep 2s
     run_command "docker version" "Error installing docker"
   elif [ $DOCKER = snapd ]; then

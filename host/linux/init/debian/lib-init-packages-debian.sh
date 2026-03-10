@@ -2,23 +2,23 @@
 # Uninstalling packages
 #PACKAGE_LIST=""
 #log_message INFO "Uninstalling packages <$PACKAGE_LIST>"
-#run_command "$PACKAGEMANAGER -y purge $PACKAGE_LIST" "Error uninstalling"
-#run_command "$PACKAGEMANAGER -y autoremove --purge" "Error uninstalling"
+#run_command "apt -y purge $PACKAGE_LIST" "Error uninstalling"
+#run_command "apt -y autoremove --purge" "Error uninstalling"
 
 # Updating
 log_message INFO "Updating packages"
-run_command "$PACKAGEMANAGER update" "Error updating"
-run_command "$PACKAGEMANAGER -y full-upgrade" "Error updating"
+run_command "apt update" "Error updating"
+run_command "apt -y full-upgrade" "Error updating"
 
 # Installing packages
-log_message "DEBUG" "DEBIAN_VERSION <$DEBIAN_VERSION>"
-PACKAGE_LIST="micro mc htop openssh-server openssh-client ca-certificates bash tzdata curl wget zstd unzip sudo util-linux figlet dnsutils imagemagick locales iperf3"
-if [ "$DEBIAN_VERSION" -ge 13 ]; then
+log_message "DEBUG" "DEBIAN_VERSION <$DISTRO_VERSION>"
+PACKAGE_LIST="micro mc htop openssh-server ca-certificates bash tzdata curl wget zstd unzip sudo util-linux figlet dnsutils imagemagick locales iperf3"
+if [ "$DISTRO_VERSION" -ge 13 ]; then
   PACKAGE_LIST="$PACKAGE_LIST fastfetch"
 fi
 log_message INFO "Installing packages <$PACKAGE_LIST>"
-run_command "$PACKAGEMANAGER -y install $PACKAGE_LIST" "Error installing"
-if [ "$DEBIAN_VERSION" -lt 13 ] ; then
+run_command "apt -y install $PACKAGE_LIST" "Error installing"
+if [ "$DISTRO_VERSION" -lt 13 ] ; then
   ARCHITECTURE=$(dpkg --print-architecture)
   log_message "DEBUG" "ARCHITECTURE <$ARCHITECTURE>"
   if [ $ARCHITECTURE = amd64 ]; then
