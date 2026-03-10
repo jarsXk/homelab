@@ -21,7 +21,7 @@ while [ "$PHYSICAL" = "" ]; do
 done
 log_message DEBUG "Selected install physical server <$PHYSICAL>"
 
-if [ "$SERVER_ROLE" = "" ]; do
+if [ "$SERVER_ROLE" = "" ]; then
   # Reading location
   while [ "$SERVER_ROLE" = "" ]; do
     log_message READ "Setup NAS host [y/n/c]> " -n
