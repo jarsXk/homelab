@@ -19,10 +19,8 @@ log_message INFO "Initial setup for Debian Metal, VM & LXC"
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-packages-proxmox.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-serverrole.sh)
 
-. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-groups-base-debian.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-groupsusers-base-debian.sh)
 # no user groups creation
-
-. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-users-base-debian.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-users.sh)
 
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-ssh.sh)

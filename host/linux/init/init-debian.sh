@@ -19,14 +19,12 @@ log_message INFO "Initial setup for Debian Metal, VM & LXC"
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-packages-debian.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-serverrole.sh)
 
-. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-groups-base-debian.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-groupsusers-base-debian.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-groups.sh)
 # Deleting group "lesha"
 if [ $(getent group lesha) ]; then
   run_command "groupdel lesha" "Error deleting group lesha"
 fi
-
-. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-users-base-debian.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-users.sh)
 
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-ssh.sh)
