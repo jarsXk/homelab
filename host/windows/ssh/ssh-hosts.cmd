@@ -7,21 +7,23 @@ if "x%USER%" == "x" (
 )
 
 dialog --ascii-lines --begin 5 5  --menu "Server to login (user: %USER%)" -1 0 0 ^
-   Terra         "terra.local       null" ^
+   Terra         "terra.local    null" ^
    Moon "" ^
-   "  Hina"      "hina.local        null" ^
-   "  Luna"      "luna.local        null" ^
-   "  Selena"    "selena.local      null" ^
-   "    Phaeton" "phaeton.local     null" ^
-   Inky          "inky.local        null" ^
-   Io            "io.local          vasilkovo" ^
-   Europa        "europa.local      vasilkovo" ^
-   Mimas         "mimas.internal    chanovo" ^
-   Ariel         "ariel.local       yasenevof" ^
-   Ixion         "ixion.local       shodnenskaya4" ^
-   (old)Ixion    "ixion.home.arpa   shodnenskaya4" ^
-   Makemake      "makemake.internal shodnenskaya5" ^
-   Proxima       "proxima.ecto      web" ^
+   "  Mani"      "               null" ^
+   "  Luna"      "luna.local     null" ^
+   "  Selena"    "selena.local   null" ^
+   "  Hina"      "               null" ^
+   "    Phaeton" "phaeton.local  null" ^
+   Inky          "inky.local     null" ^
+   Io            "io.local       vasilkovo" ^
+   Europa        "europa.local   vasilkovo" ^
+   Mimas         "mimas.internal chanovo" ^
+   Ariel         "ariel.local    yasenevof" ^
+   Ixion@yaf     "172.20.13.21   yasenevof" ^
+   Makemake@yaf  "172.20.13.22   yasenevof" ^
+   Ixion         "ixion.local    shodnenskaya4" ^
+   Makemake      "makemake.local shodnenskaya5" ^
+   Proxima       "proxima.ecto   web" ^
    2> dialogresult.bak
 set /p RESULT=<dialogresult.bak
 del dialogresult.bak           
@@ -38,10 +40,11 @@ if not "x%TRIMRESULT%" == "x" (
   if "%TRIMRESULT%" == "Inky" ssh %USER%@inky.local
   if "%TRIMRESULT%" == "Io" ssh %USER%@io.local
   if "%TRIMRESULT%" == "Europa" ssh %USER%@europa.local
-  if "%TRIMRESULT%" == "Ariel" ssh %USER%@ariel.local
   if "%TRIMRESULT%" == "Mimas" ssh %USER%@mimas.internal
+  if "%TRIMRESULT%" == "Ariel" ssh %USER%@ariel.local
+  if "%TRIMRESULT%" == "Ixion@yaf" ssh %USER%@172.20.13.21
+  if "%TRIMRESULT%" == "Makemake@yaf" ssh %USER%@172.20.13.22
   if "%TRIMRESULT%" == "Ixion" ssh %USER%@ixion.local
-  if "%TRIMRESULT%" == "(old)Ixion" ssh %USER%@192.168.21.7
   if "%TRIMRESULT%" == "Makemake" ssh %USER%@makemake.internal
   if "%TRIMRESULT%" == "Proxima" ssh %USER%@proxima.ecto
 )

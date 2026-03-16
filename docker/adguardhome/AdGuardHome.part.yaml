@@ -421,7 +421,7 @@ filtering:
       answer: ixion.sh4.local
       enabled: true
     - domain: ixion.sh4.local
-      answer: 172.20.13.21
+      answer: 172.21.2.10
       enabled: true
     - domain: ixion.local
       answer: ixion.sh4.local
@@ -430,26 +430,26 @@ filtering:
       answer: ixion.sh4.local
       enabled: true
     # shodnenskaya5 (22)
-    - domain: mts.sh5.external
+    - domain: mts.sh5.ecto
       answer: 192.168.1.1
       enabled: true
-    - domain: router.sh5.internal
-      answer: haumea.sh5.internal
+    - domain: router.sh5.local
+      answer: haumea.sh5.local
       enabled: true
-    - domain: haumea.sh5.internal
+    - domain: haumea.sh5.local
       answer: 172.22.0.1
       enabled: true
-    - domain: '*.app.sh5.internal'
-      answer: makemake.sh5.internal
+    - domain: '*.app.sh5.local'
+      answer: makemake.sh5.local
       enabled: true
-    - domain: makemake.sh5.internal
+    - domain: makemake.sh5.local
       answer: 172.22.2.10
       enabled: true
-    - domain: makemake.internal
-      answer: makemake.sh5.internal
+    - domain: makemake.local
+      answer: makemake.sh5.local
       enabled: true
-    - domain: '*.makemake.sh5.internal'
-      answer: makemake.sh5.internal
+    - domain: '*.makemake.sh5.local'
+      answer: makemake.sh5.local
       enabled: true
     # web
     - domain: proxima.web.ecto

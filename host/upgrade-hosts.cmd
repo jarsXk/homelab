@@ -4,20 +4,21 @@ setlocal enabledelayedexpansion
 
 REM Запрос списка хостов
 dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
-  Terra         "terra.local       null" on ^
-  Moon          ""                       off ^
-  "  Hina"      "hina.local        null" off ^
-  "  Luna"      "lina.local        null" off ^
-  "  Selena"    "selena.local      null" off ^
-  "    Phaeton" "phaeton.local     null" on ^
-  Inky          "inky.local        null" off ^
-  Io            "io.local          vasilkovo" on ^
-  Europa        "europa.local      vasilkovo" on ^
-  Mimas         "mimas.internal    chanovo" off ^
-  Ariel         "ariel.local       yasenevof" on ^
-  Ixion         "ixion.local       shodnenskaya4" off ^
-  Makemake      "makemake.internal shodnenskaya5" off ^
-  Proxima       "proxima.ecto      web" on ^
+  Terra         "terra.local    null" on ^
+  Moon          "" off ^
+  "  Mani"      "mani.local     null" off ^
+  "  Luna"      "lina.local     null" off ^
+  "  Selena"    "selena.local   null" off ^
+  "  Hina"      "hina.local     null" off ^
+  "    Phaeton" "phaeton.local  null" on ^
+  Inky          "inky.local     null" off ^
+  Io            "io.local       vasilkovo" on ^
+  Europa        "europa.local   vasilkovo" on ^
+  Mimas         "mimas.internal chanovo" off ^
+  Ariel         "ariel.local    yasenevof" on ^
+  Ixion         "ixion.local    shodnenskaya4" off ^
+  Makemake      "makemake.local shodnenskaya5" off ^
+  Proxima       "proxima.ecto   web" on ^
   2> dialogresult.bak
 cls
 REM Получение и очистка результата
