@@ -15,9 +15,9 @@ log_message INFO "Initial setup for Alpine Metal, VM & LXC"
 
 . <(wget -qO- ${INIT_REPO}/host/linux/lib/lib-checkroot.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-env.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-env-alpine.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-packages-alpine.sh)
-#. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-serverrole.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/alpine/lib-init-env-alpine.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/alpine/lib-init-packages-alpine.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-serverrole.sh)
 
 #. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-groups-base-debian.sh)
 #. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-groups.sh)
