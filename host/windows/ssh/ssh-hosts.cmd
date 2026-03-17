@@ -7,23 +7,23 @@ if "x%USER%" == "x" (
 )
 
 dialog --ascii-lines --begin 5 5  --menu "Server to login (user: %USER%)" -1 0 0 ^
-   Terra         "terra.local    null" ^
+   Terra         "terra.lan    null" ^
    Moon "" ^
-   "  Mani"      "               null" ^
-   "  Luna"      "luna.local     null" ^
-   "  Selena"    "selena.local   null" ^
-   "  Hina"      "               null" ^
-   "    Phaeton" "phaeton.local  null" ^
-   Inky          "inky.local     null" ^
-   Io            "io.local       vasilkovo" ^
-   Europa        "europa.local   vasilkovo" ^
-   Mimas         "mimas.internal chanovo" ^
-   Ariel         "ariel.local    yasenevof" ^
-   Ixion@yaf     "172.20.13.21   yasenevof" ^
-   Makemake@yaf  "172.20.13.22   yasenevof" ^
-   Ixion         "ixion.local    shodnenskaya4" ^
-   Makemake      "makemake.local shodnenskaya5" ^
-   Proxima       "proxima.ecto   web" ^
+   "  Mani"      "             null" ^
+   "  Luna"      "luna.lan     null" ^
+   "  Selena"    "selena.lan   null" ^
+   "  Hina"      "             null" ^
+   "    Phaeton" "phaeton.lan  null" ^
+   Inky          "inky.lan     null" ^
+   Io            "io.lan       vasilkovo" ^
+   Europa        "europa.lan   vasilkovo" ^
+   Mimas         "mimas.lan    chanovo" ^
+   Ariel         "ariel.lan    yasenevof" ^
+   Ixion@yaf     "172.20.13.21 yasenevof" ^
+   Makemake@yaf  "172.20.13.22 yasenevof" ^
+   Ixion         "ixion.lan    shodnenskaya4" ^
+   Makemake      "makemake.lan shodnenskaya5" ^
+   Proxima       "proxima.wan  web" ^
    2> dialogresult.bak
 set /p RESULT=<dialogresult.bak
 del dialogresult.bak           
@@ -32,21 +32,21 @@ set TRIMRESULT=%RESULT: =%
 cls
 
 if not "x%TRIMRESULT%" == "x" (
-  if "%TRIMRESULT%" == "Terra" ssh %USER%@terra.local
-  if "%TRIMRESULT%" == "Phaeton" ssh %USER%@phaeton.local
-  if "%TRIMRESULT%" == "Hina" ssh %USER%@hina.local
-  if "%TRIMRESULT%" == "Luna" ssh %USER%@luna.local
-  if "%TRIMRESULT%" == "Selena" ssh %USER%@selena.local
-  if "%TRIMRESULT%" == "Inky" ssh %USER%@inky.local
-  if "%TRIMRESULT%" == "Io" ssh %USER%@io.local
-  if "%TRIMRESULT%" == "Europa" ssh %USER%@europa.local
-  if "%TRIMRESULT%" == "Mimas" ssh %USER%@mimas.internal
-  if "%TRIMRESULT%" == "Ariel" ssh %USER%@ariel.local
+  if "%TRIMRESULT%" == "Terra" ssh %USER%@terra.lan
+  if "%TRIMRESULT%" == "Phaeton" ssh %USER%@phaeton.lan
+  if "%TRIMRESULT%" == "Hina" ssh %USER%@hina.lan
+  if "%TRIMRESULT%" == "Luna" ssh %USER%@luna.lan
+  if "%TRIMRESULT%" == "Selena" ssh %USER%@selena.lan
+  if "%TRIMRESULT%" == "Inky" ssh %USER%@inky.lan
+  if "%TRIMRESULT%" == "Io" ssh %USER%@io.lan
+  if "%TRIMRESULT%" == "Europa" ssh %USER%@europa.lan
+  if "%TRIMRESULT%" == "Mimas" ssh %USER%@mimas.lan
+  if "%TRIMRESULT%" == "Ariel" ssh %USER%@ariel.lan
   if "%TRIMRESULT%" == "Ixion@yaf" ssh %USER%@172.20.13.21
   if "%TRIMRESULT%" == "Makemake@yaf" ssh %USER%@172.20.13.22
-  if "%TRIMRESULT%" == "Ixion" ssh %USER%@ixion.local
-  if "%TRIMRESULT%" == "Makemake" ssh %USER%@makemake.internal
-  if "%TRIMRESULT%" == "Proxima" ssh %USER%@proxima.ecto
+  if "%TRIMRESULT%" == "Ixion" ssh %USER%@ixion.lan
+  if "%TRIMRESULT%" == "Makemake" ssh %USER%@makemake.lan
+  if "%TRIMRESULT%" == "Proxima" ssh %USER%@proxima.wan
 )
 
 @echo on

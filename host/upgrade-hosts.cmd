@@ -4,21 +4,21 @@ setlocal enabledelayedexpansion
 
 REM Запрос списка хостов
 dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
-  Terra         "terra.local    null" on ^
+  Terra         "terra.lan    null" on ^
   Moon          "" off ^
-  "  Mani"      "mani.local     null" off ^
-  "  Luna"      "lina.local     null" off ^
-  "  Selena"    "selena.local   null" off ^
-  "  Hina"      "hina.local     null" off ^
-  "    Phaeton" "phaeton.local  null" on ^
-  Inky          "inky.local     null" off ^
-  Io            "io.local       vasilkovo" on ^
-  Europa        "europa.local   vasilkovo" on ^
-  Mimas         "mimas.internal chanovo" off ^
-  Ariel         "ariel.local    yasenevof" on ^
-  Ixion         "ixion.local    shodnenskaya4" off ^
-  Makemake      "makemake.local shodnenskaya5" off ^
-  Proxima       "proxima.ecto   web" on ^
+  "  Mani"      "mani.lan     null" off ^
+  "  Luna"      "lina.lan     null" off ^
+  "  Selena"    "selena.lan   null" off ^
+  "  Hina"      "hina.lan     null" off ^
+  "    Phaeton" "phaeton.lan  null" on ^
+  Inky          "inky.lan     null" off ^
+  Io            "io.lan       vasilkovo" on ^
+  Europa        "europa.lan   vasilkovo" on ^
+  Mimas         "mimas.lan    chanovo" off ^
+  Ariel         "ariel.lan    yasenevof" on ^
+  Ixion         "ixion.lan    shodnenskaya4" off ^
+  Makemake      "makemake.lan shodnenskaya5" off ^
+  Proxima       "proxima.wan  web" on ^
   2> dialogresult.bak
 cls
 REM Получение и очистка результата
@@ -52,61 +52,61 @@ for %%G in (%RESULT%) do (
   REM Определение списка команд
   if %%G == Terra (
     set UNI_UPG=yes
-    set DOMAIN=local
+    set DOMAIN=lan
     set PASS=%LINUXPASS%
   )
 
   if %%G == Phaeton (
     set UNI_UPG=yes
-    set DOMAIN=local
+    set DOMAIN=lan
     set PASS=%LINUXPASS%
   )
 
   if %%G == Inky (
     set UNI_UPG=yes
-    set DOMAIN=local
+    set DOMAIN=lan
     set PASS=%LINUXPASS%
   )
 
   if %%G == Io (
     set UNI_UPG=yes
-    set DOMAIN=local
+    set DOMAIN=lan
     set PASS=%LINUXPASS%
   )
 
   if %%G == Europa (
     set UNI_UPG=yes
-    set DOMAIN=local
+    set DOMAIN=lan
     set PASS=%LINUXPASS%
   )
 
   if %%G == Mimas (
     set UNI_UPG=yes
-    set DOMAIN=internal
+    set DOMAIN=lan
     set PASS=%LINUXPASS%
   )
 
   if %%G == Ariel (
     set UNI_UPG=yes
-    set DOMAIN=local
+    set DOMAIN=lan
     set PASS=%LINUXPASS%
   )
 
   if %%G == Ixion (
     set UNI_UPG=yes
-    set DOMAIN=local
+    set DOMAIN=lan
     set PASS=%LINUXPASS%
   )
 
   if %%G == Makemake (
     set UNI_UPG=yes
-    set DOMAIN=local
+    set DOMAIN=lan
     set PASS=%LINUXPASS%
   )
   
   if %%G == Proxima (
     set UNI_UPG=yes
-    set DOMAIN=ecto
+    set DOMAIN=wan
     set PASS=%PROXIMAPASS%
   )
 

@@ -109,361 +109,361 @@ user_rules:
 filtering:
   rewrites:
     # null (16)
-    - domain: wired.nul.ecto
+    - domain: wired.nul.wan
       answer: reserved
       enabled: false
-    - domain: mobile.nul.ecto
+    - domain: mobile.nul.wan
       answer: reserved
       enabled: false
-    - domain: router.nul.local
-      answer: sun.nul.local
+    - domain: router.nul.lan
+      answer: sun.nul.lan
       enabled: false
-    - domain: sun.nul.local
+    - domain: sun.nul.lan
       answer: reserved
       enabled: false
-    - domain: nemesis.nul.local
+    - domain: nemesis.nul.lan
       answer: reserved
       enabled: false
-    - domain: '*.app.nul.local'
-      answer: terra.nul.local
+    - domain: '*.app.nul.lan'
+      answer: terra.nul.lan
       enabled: false
-    - domain: terra.nul.local
+    - domain: terra.nul.lan
       answer: reserved
       enabled: false
-    - domain: terra.local
-      answer: terra.yaf.local
+    - domain: terra.lan
+      answer: terra.yaf.lan
       enabled: true
-    - domain: '*.terra.nul.local'
-      answer: terra.nul.local
+    - domain: '*.terra.nul.lan'
+      answer: terra.nul.lan
       enabled: false
-    - domain: hina.nul.local
+    - domain: hina.nul.lan
       answer: reserved
       enabled: false
-    - domain: hina.local
-      answer: hina.yaf.local
+    - domain: hina.lan
+      answer: hina.yaf.lan
       enabled: true
-    - domain: luna.nul.local
+    - domain: luna.nul.lan
       answer: reserved
       enabled: false
-    - domain: luna.local
-      answer: luna.yaf.local
+    - domain: luna.lan
+      answer: luna.yaf.lan
       enabled: true
-    - domain: selena.nul.local
+    - domain: selena.nul.lan
       answer: reserved
       enabled: false
-    - domain: selena.local
-      answer: selena.yaf.local
+    - domain: selena.lan
+      answer: selena.yaf.lan
       enabled: true
-    - domain: chandra.nul.local
+    - domain: chandra.nul.lan
       answer: reserved
       enabled: false
-    - domain: chandra.local
-      answer: chandra.yaf.local
+    - domain: chandra.lan
+      answer: chandra.yaf.lan
       enabled: true
-    - domain: phaeton.nul.local
+    - domain: phaeton.nul.lan
       answer: reserved
       enabled: false
-    - domain: phaeton.local
-      answer: phaeton.yaf.local
+    - domain: phaeton.lan
+      answer: phaeton.yaf.lan
       enabled: true
-    - domain: vesta.nul.local
+    - domain: vesta.nul.lan
       answer: reserved
       enabled: false
-    - domain: vesta.local
-      answer: vesta.nul.local
+    - domain: vesta.lan
+      answer: vesta.nul.lan
       enabled: false
-    - domain: '*.vesta.nul.local'
-      answer: vesta.nul.local
+    - domain: '*.vesta.nul.lan'
+      answer: vesta.nul.lan
       enabled: false
-    - domain: victoria.nul.local
+    - domain: victoria.nul.lan
       answer: reserved
       enabled: false
-    - domain: victoria.local
-      answer: victoria.nul.local
+    - domain: victoria.lan
+      answer: victoria.nul.lan
       enabled: false
-    - domain: '*.victoria.nul.local'
-      answer: victoria.nul.local
+    - domain: '*.victoria.nul.lan'
+      answer: victoria.nul.lan
       enabled: false
-    - domain: jupiter.nul.local
+    - domain: jupiter.nul.lan
       answer: reserved
       enabled: false
-    - domain: mars.nul.local
+    - domain: mars.nul.lan
       answer: reserved
       enabled: false
-    - domain: saturn.nul.local
+    - domain: saturn.nul.lan
       answer: reserved
       enabled: false
-    - domain: uranus.nul.local
+    - domain: uranus.nul.lan
       answer: reserved
       enabled: false
-    - domain: eris.nul.local
+    - domain: eris.nul.lan
       answer: reserved
       enabled: false
-    - domain: hygiea.nul.local
+    - domain: hygiea.nul.lan
       answer: reserved
       enabled: false
-    - domain: hebe.nul.local
+    - domain: hebe.nul.lan
       answer: reserved
       enabled: false
-    - domain: inky.nul.local
+    - domain: inky.nul.lan
       answer: reserved
       enabled: false
-    - domain: inky.local
-      answer: inky.yaf.local
+    - domain: inky.lan
+      answer: inky.yaf.lan
       enabled: true
     # vasilkovo (17)
-    - domain: point.vas.ecto
+    - domain: point.vas.wan
       answer: 192.168.1.1
       enabled: true
-    - domain: yota.vas.ecto
+    - domain: yota.vas.wan
       answer: 192.168.8.1
       enabled: true
-    - domain: router.vas.local
-      answer: ganymede.vas.local
+    - domain: router.vas.lan
+      answer: ganymede.vas.lan
       enabled: true
-    - domain: ganymede.vas.local
+    - domain: ganymede.vas.lan
       answer: 172.17.0.1
       enabled: true
-    - domain: callisto.vas.local
+    - domain: callisto.vas.lan
       answer: 172.17.0.2
       enabled: true
-    - domain: himalia.vas.local
+    - domain: himalia.vas.lan
       answer: 172.17.0.20
       enabled: true
-    - domain: thebe.vas.local
+    - domain: thebe.vas.lan
       answer: 172.17.0.21
       enabled: true
-    - domain: amalthea.vas.local
+    - domain: amalthea.vas.lan
       answer: 172.17.0.4
       enabled: true
-    - domain: '*.app.vas.local'
-      answer: io.vas.local
+    - domain: '*.app.vas.lan'
+      answer: io.vas.lan
       enabled: true
-    - domain: io.vas.local
+    - domain: io.vas.lan
       answer: 172.17.2.10
       enabled: true
-    - domain: io.local
-      answer: io.vas.local
+    - domain: io.lan
+      answer: io.vas.lan
       enabled: true
-    - domain: '*.io.vas.local'
-      answer: io.vas.local
+    - domain: '*.io.vas.lan'
+      answer: io.vas.lan
       enabled: true
-    - domain: europa.vas.local
+    - domain: europa.vas.lan
       answer: 172.17.2.11
       enabled: true
-    - domain: europa.local
-      answer: europa.vas.local
+    - domain: europa.lan
+      answer: europa.vas.lan
       enabled: true
-    - domain: '*.europa.vas.local'
-      answer: europa.vas.local
+    - domain: '*.europa.vas.lan'
+      answer: europa.vas.lan
       enabled: true
-    - domain: elara.vas.local
+    - domain: elara.vas.lan
       answer: 172.17.4.12
       enabled: true
-    - domain: leda.yaf.local
+    - domain: leda.yaf.lan
       answer: 172.17.4.110
       enabled: true
-    - domain: ananke.yaf.local
+    - domain: ananke.yaf.lan
       answer: 172.17.4.11
       enabled: true
     # chanovo (18)
-    - domain: router.cha.internal
-      answer: titan.cha.internal
+    - domain: router.cha.lan
+      answer: titan.cha.lan
       enabled: true
-    - domain: titan.cha.internal
+    - domain: titan.cha.lan
       answer: 172.18.0.1
       enabled: true
-    - domain: rhea.cha.internal
+    - domain: rhea.cha.lan
       answer: 172.18.0.2
       enabled: true
-    - domain: dione.cha.internal
+    - domain: dione.cha.lan
       answer: 172.18.0.3
       enabled: true
-    - domain: '*.app.cha.internal'
-      answer: mimas.cha.internal
+    - domain: '*.app.cha.lan'
+      answer: mimas.cha.lan
       enabled: true
-    - domain: mimas.cha.internal
+    - domain: mimas.cha.lan
       answer: 172.20.13.18
       enabled: true
-    - domain: mimas.internal
-      answer: mimas.cha.internal
+    - domain: mimas.lan
+      answer: mimas.cha.lan
       enabled: true
-    - domain: '*.mimas.cha.internal'
-      answer: mimas.cha.internal
+    - domain: '*.mimas.cha.lan'
+      answer: mimas.cha.lan
       enabled: true
     # yasenevod (19)
-    - domain: mts.yad.ecto
+    - domain: mts.yad.wan
       answer: 192.168.1.1
       enabled: true
-    - domain: router.yad.local
-      answer: phobos.yad.local
+    - domain: router.yad.lan
+      answer: phobos.yad.lan
       enabled: true
-    - domain: phobos.yad.local
+    - domain: phobos.yad.lan
       answer: 172.21.0.1
       enabled: true
     # yasenevof (20)
-    - domain: mts.yaf.ecto
+    - domain: mts.yaf.wan
       answer: 192.168.1.1
       enabled: true
-    - domain: yota.yaf.ecto
+    - domain: yota.yaf.wan
       answer: 192.168.0.1
       enabled: true
-    - domain: router.yaf.local
-      answer: titania.yaf.local
+    - domain: router.yaf.lan
+      answer: titania.yaf.lan
       enabled: true
-    - domain: titania.yaf.local
+    - domain: titania.yaf.lan
       answer: 172.20.0.1
       enabled: true
-    - domain: oberon.yaf.local
+    - domain: oberon.yaf.lan
       answer: 172.20.0.2
       enabled: true
-    - domain: ariel.yaf.local
+    - domain: ariel.yaf.lan
       answer: 172.20.2.10
       enabled: true
-    - domain: ariel.local
-      answer: ariel.yaf.local
+    - domain: ariel.lan
+      answer: ariel.yaf.lan
       enabled: true
-    - domain: '*.ariel.yaf.local'
+    - domain: '*.ariel.yaf.lan'
       answer: 172.20.2.10
       enabled: true
-    - domain: '*.app.yaf.local'
+    - domain: '*.app.yaf.lan'
       answer: 172.20.2.10
       enabled: true
-    - domain: terra.yaf.local
+    - domain: terra.yaf.lan
       answer: 172.20.2.12
       enabled: true
-    - domain: hina.yaf.local
+    - domain: hina.yaf.lan
       answer: 172.20.2.20
       enabled: true
-    - domain: luna.yaf.local
+    - domain: luna.yaf.lan
       answer: 172.20.2.21
       enabled: true
-    - domain: selena.yaf.local
+    - domain: selena.yaf.lan
       answer: 172.20.2.22
       enabled: true
-    - domain: chandra.yaf.local
+    - domain: chandra.yaf.lan
       answer: 172.20.2.23
       enabled: true
-    - domain: '*.terra.yaf.local'
+    - domain: '*.terra.yaf.lan'
       answer: 172.20.2.12
       enabled: true
-    - domain: phaeton.yaf.local
+    - domain: phaeton.yaf.lan
       answer: 172.20.2.201
       enabled: true
-    - domain: vaultwarden.app.yaf.local
+    - domain: vaultwarden.app.yaf.lan
       answer: 172.20.2.12
       enabled: true
-    - domain: nextcloud.app.yaf.local
+    - domain: nextcloud.app.yaf.lan
       answer: 172.20.2.12
       enabled: true
-    - domain: calibre.app.yaf.local
+    - domain: calibre.app.yaf.lan
       answer: 172.20.2.12
       enabled: true
-    - domain: qbittorrent.app.yaf.local
+    - domain: qbittorrent.app.yaf.lan
       answer: 172.20.2.12
       enabled: true
-    - domain: resilio.app.yaf.local
+    - domain: resilio.app.yaf.lan
       answer: 172.20.2.12
       enabled: true
-    - domain: hplip.app.yaf.local
+    - domain: hplip.app.yaf.lan
       answer: 172.20.2.12
       enabled: true
-    - domain: jellyfin.app.yaf.local
+    - domain: jellyfin.app.yaf.lan
       answer: 172.20.2.12
       enabled: true
-    - domain: radarr.app.yaf.local
+    - domain: radarr.app.yaf.lan
       answer: 172.20.2.12
       enabled: true
-    - domain: sonarr.app.yaf.local
+    - domain: sonarr.app.yaf.lan
       answer: 172.20.2.12
       enabled: true
-    - domain: jackett.app.yaf.local
+    - domain: jackett.app.yaf.lan
       answer: 172.20.2.12
       enabled: true
-    - domain: jupiter.yaf.local
+    - domain: jupiter.yaf.lan
       answer: 172.20.4.10
       enabled: true
-    - domain: mars.yaf.local
+    - domain: mars.yaf.lan
       answer: 172.20.4.111
       enabled: true
-    - domain: saturn.yaf.local
+    - domain: saturn.yaf.lan
       answer: 172.20.4.112
       enabled: true
-    - domain: uranus.yaf.local
+    - domain: uranus.yaf.lan
       answer: 172.20.4.13
       enabled: true
-    - domain: eris.yaf.local
+    - domain: eris.yaf.lan
       answer: 172.20.4.14
       enabled: true
-    - domain: leda.yaf.local
+    - domain: leda.yaf.lan
       answer: 172.20.4.115
       enabled: true
-    - domain: ananke.yaf.local
+    - domain: ananke.yaf.lan
       answer: 172.20.4.16
       enabled: true
-    - domain: inky.yaf.local
+    - domain: inky.yaf.lan
       answer: 172.20.6.50
       enabled: true
     # shodnenskaya4 (21)
-    - domain: mts.sh4.ecto
+    - domain: mts.sh4.wan
       answer: 192.168.1.1
       enabled: true
-    - domain: router.sh4.local
-      answer: pluto.sh4.local
+    - domain: router.sh4.lan
+      answer: pluto.sh4.lan
       enabled: true
-    - domain: pluto.sh4.local
+    - domain: pluto.sh4.lan
       answer: 172.21.1.1
       enabled: true
-    - domain: pluto.local
-      answer: pluto.sh4.local
+    - domain: pluto.lan
+      answer: pluto.sh4.lan
       enabled: true
-    - domain: '*.app.sh4.local'
-      answer: ixion.sh4.local
+    - domain: '*.app.sh4.lan'
+      answer: ixion.sh4.lan
       enabled: true
-    - domain: ixion.sh4.local
+    - domain: ixion.sh4.lan
       answer: 172.21.2.10
       enabled: true
-    - domain: ixion.local
-      answer: ixion.sh4.local
+    - domain: ixion.lan
+      answer: ixion.sh4.lan
       enabled: true
-    - domain: '*.ixion.sh4.local'
-      answer: ixion.sh4.local
+    - domain: '*.ixion.sh4.lan'
+      answer: ixion.sh4.lan
       enabled: true
     # shodnenskaya5 (22)
-    - domain: mts.sh5.ecto
+    - domain: mts.sh5.wan
       answer: 192.168.1.1
       enabled: true
-    - domain: router.sh5.local
-      answer: haumea.sh5.local
+    - domain: router.sh5.lan
+      answer: haumea.sh5.lan
       enabled: true
-    - domain: haumea.sh5.local
+    - domain: haumea.sh5.lan
       answer: 172.22.0.1
       enabled: true
-    - domain: '*.app.sh5.local'
-      answer: makemake.sh5.local
+    - domain: '*.app.sh5.lan'
+      answer: makemake.sh5.lan
       enabled: true
-    - domain: makemake.sh5.local
+    - domain: makemake.sh5.lan
       answer: 172.22.2.10
       enabled: true
-    - domain: makemake.local
-      answer: makemake.sh5.local
+    - domain: makemake.lan
+      answer: makemake.sh5.lan
       enabled: true
-    - domain: '*.makemake.sh5.local'
-      answer: makemake.sh5.local
+    - domain: '*.makemake.sh5.lan'
+      answer: makemake.sh5.lan
       enabled: true
     # web
-    - domain: proxima.web.ecto
+    - domain: proxima.web.wan
       answer: 208.92.227.11
       enabled: true
-    - domain: proxima.ecto
-      answer: proxima.web.ecto
+    - domain: proxima.wan
+      answer: proxima.web.wan
       enabled: true
-    - domain: adguard.app.web.ecto
+    - domain: adguard.app.web.wan
       answer: 172.29.172.100
       enabled: true
-    - domain: share.app.web.ecto
+    - domain: share.app.web.wan
       answer: 172.29.172.101
       enabled: true
-    - domain: webdav.app.web.ecto
+    - domain: webdav.app.web.wan
       answer: 172.29.172.102
       enabled: true
