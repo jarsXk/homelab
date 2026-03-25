@@ -161,6 +161,8 @@ CLUSTER_JSON=$RESSTR
 while [ true ]; do
   clear
 
+  echo $(tput cols)$(tput lines)
+
   # Line 1 (header)
   tput smacs
   echo -n 'lqqqqq'

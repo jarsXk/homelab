@@ -136,11 +136,11 @@ filtering:
     - domain: '*.terra.nul.lan'
       answer: terra.nul.lan
       enabled: false
-    - domain: hina.nul.lan
+    - domain: mani.nul.lan
       answer: reserved
       enabled: false
-    - domain: hina.lan
-      answer: hina.yaf.lan
+    - domain: mani.lan
+      answer: mani.yaf.lan
       enabled: true
     - domain: luna.nul.lan
       answer: reserved
@@ -153,6 +153,12 @@ filtering:
       enabled: false
     - domain: selena.lan
       answer: selena.yaf.lan
+      enabled: true
+    - domain: hina.nul.lan
+      answer: reserved
+      enabled: false
+    - domain: hina.lan
+      answer: hina.yaf.lan
       enabled: true
     - domain: chandra.nul.lan
       answer: reserved
@@ -332,7 +338,7 @@ filtering:
     - domain: terra.yaf.lan
       answer: 172.20.2.12
       enabled: true
-    - domain: hina.yaf.lan
+    - domain: mani.yaf.lan
       answer: 172.20.2.20
       enabled: true
     - domain: luna.yaf.lan
@@ -341,8 +347,11 @@ filtering:
     - domain: selena.yaf.lan
       answer: 172.20.2.22
       enabled: true
+    - domain: hina.yaf.lan
+      answer: reserved
+      enabled: true
     - domain: chandra.yaf.lan
-      answer: 172.20.2.23
+      answer: reserved
       enabled: true
     - domain: '*.terra.yaf.lan'
       answer: 172.20.2.12

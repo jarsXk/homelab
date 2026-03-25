@@ -9,7 +9,7 @@ if "x%USER%" == "x" (
 dialog --ascii-lines --begin 5 5  --menu "Server to login (user: %USER%)" -1 0 0 ^
    Terra         "terra.lan    null" ^
    Moon "" ^
-   "  Mani"      "             null" ^
+   "  Mani"      "mani.lan     null" ^
    "  Luna"      "luna.lan     null" ^
    "  Selena"    "selena.lan   null" ^
    "  Hina"      "             null" ^
@@ -33,10 +33,10 @@ cls
 
 if not "x%TRIMRESULT%" == "x" (
   if "%TRIMRESULT%" == "Terra" ssh %USER%@terra.lan
-  if "%TRIMRESULT%" == "Phaeton" ssh %USER%@phaeton.lan
-  if "%TRIMRESULT%" == "Hina" ssh %USER%@hina.lan
+  if "%TRIMRESULT%" == "Mani" ssh %USER%@mani.lan
   if "%TRIMRESULT%" == "Luna" ssh %USER%@luna.lan
   if "%TRIMRESULT%" == "Selena" ssh %USER%@selena.lan
+  if "%TRIMRESULT%" == "Phaeton" ssh %USER%@phaeton.lanfar
   if "%TRIMRESULT%" == "Inky" ssh %USER%@inky.lan
   if "%TRIMRESULT%" == "Io" ssh %USER%@io.lan
   if "%TRIMRESULT%" == "Europa" ssh %USER%@europa.lan
