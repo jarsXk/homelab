@@ -1,19 +1,20 @@
 #!/bin/bash
 
-COLOR_RED='\033[0;31m'
-COLOR_GREEN='\033[0;32m'
-COLOR_RESET='\033[0m'
+COLOR_RED="\e[31m"
+COLOR_GREEN="\e[32m"
+COLOR_YELLOW="\e[33m"
+COLOR_WHITE="\e[37m"
+COLOR_RESET="\e[0m"
 
-HEALTH_GOOD='\U1F7E2'
-HEALTH_WARN='\U1F7E1'
-HEALTH_BAD='\U1F534'
-HEALTH_UNKNOWN='\U26AA'
-MOON='\U1F319'
+HEALTH_GOOD="${COLOR_GREEN}00${COLOR_RESET}"
+HEALTH_WARN="${COLOR_YELLOW}00${COLOR_RESET}"
+HEALTH_BAD="${COLOR_RED}00${COLOR_RESET}"
+HEALTH_UNKNOWN="${COLOR_WHITE}00${COLOR_RESET}"
 
-GUEST_LINES=10
+GUEST_LINES=5
 
-MAX_LINES=10
-MAX_COLS=80
+MAX_LINES=7
+MAX_COLS=$(tput cols)
 LEFT_COLS=$((MAX_COLS / 2 - 2))
 RIGHT_COLS=$((MAX_COLS / 2 - 3))
 if [ $((MAX_COLS % 2)) -eq 1 ]; then
@@ -66,39 +67,41 @@ fill() {
 get() {
   local ENDPOINT="$1"
 
-  RESSTR=$(curl -ksH 'Authorization: PVEAPIToken=monitor@pam!view=40bc90f1-837c-4731-b068-c2b7589a7384' https://172.20.2.20:8006/api2/json$ENDPOINT)
+  RESSTR=$(curl -ksH 'Authorization: PVEAPIToken=monitor@pam!view=40bc90f1-837c-4731-b068-c2b7589a7384' https://172.20.2.21:8006/api2/json$ENDPOINT)
 }
 
 left_row ()  {
   if [ $1 -eq 1 ]; then
+  
     # Line 1 (cluster header)
     tput smacs
-    echo -n 'q'
+    echo -n "q"
     tput rmacs
-    echo -n ' Cluster '
+    echo -n " Cluster "
     tput smacs
-    fill "q" "$((LEFT_COLS - 10))"
+    fill "q" "$(($2 - 10))"
     echo -n "$RESSTR"
     tput rmacs
   elif [ $1 -eq 2 ]; then
+  
     # Line 2 (cluster health)
-
     if [ "$(echo $CLUSTER_JSON | jq '.data.[] | select(.type == "cluster")' | jq '.quorate')" -eq "1" ]; then
       TMP_HEALTH=$HEALTH_GOOD
     else
       TMP_HEALTH=$HEALTH_BAD
-    fi
-    
+    fi  
     tput smacs
-    echo -en $TMP_HEALTH
+    echo -en "$TMP_HEALTH"
     tput rmacs
-    echo -n ' quorum (Srv: 0/4 Mem:  0/ 0GB)     '
+    echo -n " quorum (Srv 0/4 Mem  0/ 0G)"
+    fill " " "$(($2 - 30))"
+    echo -n "$RESSTR"
   elif [ $1 -eq 3 ]; then
     # Line 3 (ceph health)
     tput smacs
     echo -en $HEALTH_UNKNOWN
     tput rmacs
-    echo -n ' ceph (Mon: 0/4 OSD: 0/2)           '
+    echo -n ' ceph (Mon 0/3 OSD 0/2)           '
   elif [ $1 -eq 4 ]; then
     # Line 4 (hosts header)
     tput smacs
@@ -125,7 +128,7 @@ left_row ()  {
     echo -en $HEALTH_UNKNOWN' '
     tput rmacs
     substr "$HOSTNAME" 7
-    echo -n "$RESSTR (CPU:  0/100% Mem:  0/ 0GB)"
+    echo -n "$RESSTR (C:  0/100% M:  0/ 0GB)"
   else
     fill " " "$LEFT_COLS"
     echo -n "$RESSTR"
@@ -136,37 +139,40 @@ right_row ()  {
   if [ $1 -eq 1 ]; then
     # Line 1 (guests header) 
     tput smacs
-    echo -n 'q '
+    echo -n "q"
     tput rmacs
-    echo -n 'Guests'
+    echo -n " Guests "
     tput smacs
-    echo -n ' qqqqqqqqqqqqqqqqqqqqqqqqqqqq'
+    fill "q" "$(($2 - 9))"
+    echo -n "$RESSTR"
     tput rmacs
   else
-    echo -n 'guest'$1
-    if [ $1 -lt 10 ]; then
-      echo -n ' '
-    fi 
     tput smacs
-    echo -en ' '$HEALTH_UNKNOWN
+    echo -en "$HEALTH_UNKNOWN "
     tput rmacs
-    echo -n ' (CPU:  0/100% Mem: 0/0GB) '
+    TMP_NAME="guest$1"
+    if [ $1 -lt 10 ]; then
+      TMP_NAME="$TMP_NAME "
+    fi 
+    echo -n "$TMP_NAME (C  0/100% M  0/ 0G)  "
+    fill " " "$(($2 - 33))"
+        echo -n "$RESSTR"
   fi
 } 
 
 
-echo $(tput cols)$(tput lines)
+echo $(tput cols)x$(tput lines)
 
 get "/cluster/status"
 CLUSTER_JSON=$RESSTR
 
 # Line 1 (header)
 tput smacs
-echo -n 'lqqqqq'
+echo -n "lqqqqq"
 tput rmacs
-echo -en ' '$MOON' Moon '
+echo -en " Moon "
 tput smacs
-fill "q" "$((MAX_COLS - 16))"
+fill "q" "$((MAX_COLS - 13))"
 echo -n "$RESSTR"
 echo 'k'
 tput rmacs
@@ -177,9 +183,9 @@ until [ $i -gt $MAX_LINES ]; do
   tput smacs
   echo -n 'x '
   tput rmacs 
-  left_row $i $MAX_COLS
+  left_row $i $LEFT_COLS
   echo -n ' '
-  right_row $i $MAX_COLS
+  right_row $i $RIGHT_COLS
   tput smacs
   echo -n ' x'
   tput rmacs
