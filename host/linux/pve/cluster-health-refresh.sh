@@ -11,10 +11,12 @@ HEALTH_WARN="${COLOR_YELLOW}00${COLOR_RESET}"
 HEALTH_BAD="${COLOR_RED}00${COLOR_RESET}"
 HEALTH_UNKNOWN="${COLOR_WHITE}00${COLOR_RESET}"
 
-GUEST_LINES=5
+SERVER_LIST=("luna.lan" "selena.lan")
+APITOKEN="monitor@pam!view=40bc90f1-837c-4731-b068-c2b7589a7384"
 
-MAX_LINES=7
-MAX_COLS=$(tput cols)
+MAX_LINES=10
+#MAX_COLS=$(tput cols)
+MAX_COLS=72
 LEFT_COLS=$((MAX_COLS / 2 - 2))
 RIGHT_COLS=$((MAX_COLS / 2 - 3))
 if [ $((MAX_COLS % 2)) -eq 1 ]; then
@@ -66,8 +68,16 @@ fill() {
 
 get() {
   local ENDPOINT="$1"
+  local SERVER=""
 
-  RESSTR=$(curl -ksH 'Authorization: PVEAPIToken=monitor@pam!view=40bc90f1-837c-4731-b068-c2b7589a7384' https://172.20.2.21:8006/api2/json$ENDPOINT)
+  for i in "${SERVER_LIST[@]}"; do
+    if ping -c 1 $i &> /dev/null; then 
+      SERVER="$i"
+      break
+    fi
+  done
+  
+  RESSTR=$(curl -ksH "Authorization: PVEAPIToken=$APITOKEN" https://$SERVER:8006/api2/json$ENDPOINT)
 }
 
 left_row ()  {
@@ -93,45 +103,54 @@ left_row ()  {
     tput smacs
     echo -en "$TMP_HEALTH"
     tput rmacs
-    echo -n " quorum (Srv 0/4 Mem  0/ 0G)"
-    fill " " "$(($2 - 30))"
+    echo -n " quorum"
+    fill " " "$(($2 - 29))"
     echo -n "$RESSTR"
+    echo -n "(Srv 0/4 Mem  0/ 0G)"
   elif [ $1 -eq 3 ]; then
+
     # Line 3 (ceph health)
     tput smacs
     echo -en $HEALTH_UNKNOWN
     tput rmacs
-    echo -n ' ceph (Mon 0/3 OSD 0/2)           '
-  elif [ $1 -eq 4 ]; then
-    # Line 4 (hosts header)
+    echo -n " ceph"
+    fill " " "$(($2 - 27))"
+    echo -n "$RESSTR"
+    echo -n "(Mon 0/2 OSD  0/2  )"
+  elif [ $1 -eq 5 ]; then
+  
+    # Line 4 (servers header)
     tput smacs
-    echo -n 'q '
+    echo -n "q"
     tput rmacs
-    echo -n 'Servers'
+    echo -n " Servers "
     tput smacs
-    echo -n ' qqqqqqqqqqqqqqqqqqqqqqqqqqqq'
+    fill "q" "$(($2 - 10))"
+    echo -n "$RESSTR"
     tput rmacs
-  elif [ $1 -ge 5 ] && [ $1 -le 8 ]; then
+  elif [ $1 -eq 4 ] || [ $1 -ge 6 ]; then
     # Line N (hosts)
-    if [ $1 -eq 5 ]; then
-      HOSTNAME="hina"
-    elif [ $1 -eq 6 ]; then
+    if [ $1 -eq 6 ]; then
       HOSTNAME="luna"
     elif [ $1 -eq 7 ]; then
       HOSTNAME="selena"
-    elif [ $1 -eq 8 ]; then
-      HOSTNAME="chandra"
+    # elif [ $1 -eq 7 ]; then
+    #   HOSTNAME="hina"  
+    # elif [ $1 -eq 8 ]; then
+    #   HOSTNAME="chandra"
     else
-      HOSTNAME="unidentified"
+      HOSTNAME="null"
     fi
-    tput smacs
-    echo -en $HEALTH_UNKNOWN' '
-    tput rmacs
-    substr "$HOSTNAME" 7
-    echo -n "$RESSTR (C:  0/100% M:  0/ 0GB)"
-  else
-    fill " " "$LEFT_COLS"
-    echo -n "$RESSTR"
+    if [ "$HOSTNAME" != "null" ]; then
+      tput smacs
+      echo -en $HEALTH_UNKNOWN" "
+      tput rmacs
+      substr "$HOSTNAME" 9
+      echo -n "$RESSTR (C   0/100% M  0/ 0G)"
+    else
+      fill " " "$LEFT_COLS"
+      echo -n "$RESSTR"
+    fi
   fi
 } 
 
@@ -154,9 +173,8 @@ right_row ()  {
     if [ $1 -lt 10 ]; then
       TMP_NAME="$TMP_NAME "
     fi 
-    echo -n "$TMP_NAME (C  0/100% M  0/ 0G)  "
-    fill " " "$(($2 - 33))"
-        echo -n "$RESSTR"
+    substr "guest$1" 8
+    echo -n "$RESSTR (C   0/100% M  0/ 0G)"
   fi
 } 
 
