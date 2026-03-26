@@ -5,5 +5,5 @@ while [ true ]; do
 
   . ./cluster-health-refresh.sh
 
-  sleep 30s
+  sleep 60s
 done

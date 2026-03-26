@@ -25,10 +25,11 @@ fi
 
 RESSTR=""
 
-# substr строка длина
+# substr строка длина добавлять_в_начало
 substr() {
   local INSTRING="$1"
   local INMAXLENGTH="$2"
+  local INLEFT="$3"
 
   # ensure LENGTH is integer >= 0
   if ! [[ "$INMAXLENGTH" =~ ^[0-9]+$ ]]; then
@@ -43,7 +44,12 @@ substr() {
     RESSTR="${INSTRING:0:INMAXLENGTH}"
   else
     local SPACES=$(printf '%*s' $((INMAXLENGTH - STRINGLENGTH)) '')
-    RESSTR="${INSTRING}${SPACES}"
+    if [ "$#" = "2" ]; then
+      RESSTR="${INSTRING}${SPACES}"
+    else 
+      RESSTR="${SPACES}${INSTRING}"
+    fi
+    
   fi
 }
 
@@ -95,18 +101,40 @@ left_row ()  {
   elif [ $1 -eq 2 ]; then
   
     # Line 2 (cluster health)
-    if [ "$(echo $CLUSTER_JSON | jq '.data.[] | select(.type == "cluster")' | jq '.quorate')" -eq "1" ]; then
-      TMP_HEALTH=$HEALTH_GOOD
+    local CLUSTER_QUORATE="$(echo $CLUSTER_JSON | jq '.data.[] | select(.type == "cluster")' | jq '.quorate')"
+    local CLUSTER_NODES="$(echo $CLUSTER_JSON | jq '.data.[] | select(.type == "cluster")' | jq '.nodes')"
+    local CLUSTER_QUORUM=$(($CLUSTER_NODES / 2 + 1))
+    local CLUSTER_NODESONLINE="$(echo $CLUSTER_JSON | jq '[ .data.[] | select(.type == "node") | select (.online == 1) ] | length')"
+    
+    local TMPVAL="$(echo $RESOURCES_JSON | jq '[ .data[] | select(.type == "node") | .maxcpu ] | add ')"
+    substr "$TMPVAL" 2 yes
+    local CLUSTER_CORES=$RESSTR
+    
+    local TMPVAL="$(echo $RESOURCES_JSON | jq '[ .data[] | select(.type == "node") | .maxmem ] | add ')"
+    local TMPVAL=$(($TMPVAL / 1000000000))
+    substr "$TMPVAL" 2 yes
+    local CLUSTER_RAM=$RESSTR
+    local TMPVAL="$(echo $RESOURCES_JSON | jq '[ .data[] | select(.type == "node") | .mem ] | add ')"
+    local TMPVAL=$(($TMPVAL / 1000000000))
+    substr "$TMPVAL" 2 yes
+    local CLUSTER_RAMUSED=$RESSTR
+
+    if [ "$CLUSTER_QUORATE" -eq "1" ]; then
+      if [ $CLUSTER_NODESONLINE -eq $CLUSTER_NODES ]; then
+        TMP_HEALTH=$HEALTH_GOOD
+      elif [ $CLUSTER_NODESONLINE -ge $CLUSTER_QUORUM ]; then
+        TMP_HEALTH=$HEALTH_WARN
+      fi
     else
       TMP_HEALTH=$HEALTH_BAD
     fi  
     tput smacs
     echo -en "$TMP_HEALTH"
     tput rmacs
-    echo -n " quorum"
-    fill " " "$(($2 - 29))"
+    echo -n " nodes"
+    fill " " "$(($2 - 31))"
     echo -n "$RESSTR"
-    echo -n "(Srv 0/4 Mem  0/ 0G)"
+    echo -n "(N ${CLUSTER_NODESONLINE}/${CLUSTER_NODES} C ${CLUSTER_CORES} Mem ${CLUSTER_RAMUSED}/${CLUSTER_RAM}G)"
   elif [ $1 -eq 3 ]; then
 
     # Line 3 (ceph health)
@@ -123,9 +151,9 @@ left_row ()  {
     tput smacs
     echo -n "q"
     tput rmacs
-    echo -n " Servers "
+    echo -n " Nodes "
     tput smacs
-    fill "q" "$(($2 - 10))"
+    fill "q" "$(($2 - 8))"
     echo -n "$RESSTR"
     tput rmacs
   elif [ $1 -eq 4 ] || [ $1 -ge 6 ]; then
@@ -146,7 +174,7 @@ left_row ()  {
       echo -en $HEALTH_UNKNOWN" "
       tput rmacs
       substr "$HOSTNAME" 9
-      echo -n "$RESSTR (C   0/100% M  0/ 0G)"
+      echo -n "$RESSTR (L   0/100% M  0/ 0G)"
     else
       fill " " "$LEFT_COLS"
       echo -n "$RESSTR"
@@ -174,7 +202,7 @@ right_row ()  {
       TMP_NAME="$TMP_NAME "
     fi 
     substr "guest$1" 8
-    echo -n "$RESSTR (C   0/100% M  0/ 0G)"
+    echo -n "$RESSTR (L   0/100% M  0/ 0G)"
   fi
 } 
 
@@ -183,6 +211,10 @@ echo $(tput cols)x$(tput lines)
 
 get "/cluster/status"
 CLUSTER_JSON=$RESSTR
+get "/cluster/ceph/status"
+CEPH_JSON=$RESSTR
+get "/cluster/resources"
+RESOURCES_JSON=$RESSTR
 
 # Line 1 (header)
 tput smacs
