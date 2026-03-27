@@ -30,6 +30,7 @@ substr() {
   local INSTRING="$1"
   local INMAXLENGTH="$2"
   local INLEFT="$3"
+  RESSTR=""
 
   # ensure LENGTH is integer >= 0
   if ! [[ "$INMAXLENGTH" =~ ^[0-9]+$ ]]; then
@@ -57,6 +58,7 @@ substr() {
 fill() {
   local INSYMBOL="$1"
   local INLENGTH="$2"
+  RESSTR=""
 
   # ensure LENGTH is integer >= 0
   if ! [[ "$INLENGTH" =~ ^[0-9]+$ ]]; then
@@ -75,6 +77,7 @@ fill() {
 get() {
   local ENDPOINT="$1"
   local SERVER=""
+  RESSTR=""
 
   for i in "${SERVER_LIST[@]}"; do
     if ping -c 1 $i &> /dev/null; then 
@@ -101,33 +104,37 @@ left_row ()  {
   elif [ $1 -eq 2 ]; then
   
     # Line 2 (cluster health)
-    local CLUSTER_QUORATE="$(echo $CLUSTER_JSON | jq '.data.[] | select(.type == "cluster")' | jq '.quorate')"
-    local CLUSTER_NODES="$(echo $CLUSTER_JSON | jq '.data.[] | select(.type == "cluster")' | jq '.nodes')"
-    local CLUSTER_QUORUM=$(($CLUSTER_NODES / 2 + 1))
-    local CLUSTER_NODESONLINE="$(echo $CLUSTER_JSON | jq '[ .data.[] | select(.type == "node") | select (.online == 1) ] | length')"
-    
-    local TMPVAL="$(echo $RESOURCES_JSON | jq '[ .data[] | select(.type == "node") | .maxcpu ] | add ')"
-    substr "$TMPVAL" 2 yes
-    local CLUSTER_CORES=$RESSTR
-    
-    local TMPVAL="$(echo $RESOURCES_JSON | jq '[ .data[] | select(.type == "node") | .maxmem ] | add ')"
-    local TMPVAL=$(($TMPVAL / 1000000000))
-    substr "$TMPVAL" 2 yes
-    local CLUSTER_RAM=$RESSTR
-    local TMPVAL="$(echo $RESOURCES_JSON | jq '[ .data[] | select(.type == "node") | .mem ] | add ')"
-    local TMPVAL=$(($TMPVAL / 1000000000))
-    substr "$TMPVAL" 2 yes
-    local CLUSTER_RAMUSED=$RESSTR
-
-    if [ "$CLUSTER_QUORATE" -eq "1" ]; then
-      if [ $CLUSTER_NODESONLINE -eq $CLUSTER_NODES ]; then
-        TMP_HEALTH=$HEALTH_GOOD
-      elif [ $CLUSTER_NODESONLINE -ge $CLUSTER_QUORUM ]; then
-        TMP_HEALTH=$HEALTH_WARN
-      fi
-    else
+    if [ ${#CLUSTER_JSON} -eq 0 ]; then
       TMP_HEALTH=$HEALTH_BAD
-    fi  
+    else
+      local CLUSTER_QUORATE="$(echo $CLUSTER_JSON | jq '.data.[] | select(.type == "cluster")' | jq '.quorate')"
+      local CLUSTER_NODES="$(echo $CLUSTER_JSON | jq '.data.[] | select(.type == "cluster")' | jq '.nodes')"
+      local CLUSTER_QUORUM=$(($CLUSTER_NODES / 2 + 1))
+      local CLUSTER_NODESONLINE="$(echo $CLUSTER_JSON | jq '[ .data.[] | select(.type == "node") | select (.online == 1) ] | length')"
+     
+      local TMPVAL="$(echo $RESOURCES_JSON | jq '[ .data[] | select(.type == "node") | .maxcpu ] | add ')"
+      substr "$TMPVAL" 2 yes
+      local CLUSTER_CORES=$RESSTR
+     
+      local TMPVAL="$(echo $RESOURCES_JSON | jq '[ .data[] | select(.type == "node") | .maxmem ] | add ')"
+      local TMPVAL=$(($TMPVAL / 1000000000))
+      substr "$TMPVAL" 2 yes
+      local CLUSTER_RAM=$RESSTR
+      local TMPVAL="$(echo $RESOURCES_JSON | jq '[ .data[] | select(.type == "node") | .mem ] | add ')"
+      local TMPVAL=$(($TMPVAL / 1000000000))
+      substr "$TMPVAL" 2 yes
+      local CLUSTER_RAMUSED=$RESSTR
+
+      if [ "$CLUSTER_QUORATE" -eq "1" ]; then
+        if [ $CLUSTER_NODESONLINE -eq $CLUSTER_NODES ]; then
+          TMP_HEALTH=$HEALTH_GOOD
+        elif [ $CLUSTER_NODESONLINE -ge $CLUSTER_QUORUM ]; then
+          TMP_HEALTH=$HEALTH_WARN
+        fi
+      else
+        TMP_HEALTH=$HEALTH_BAD
+      fi  
+    fi
     tput smacs
     echo -en "$TMP_HEALTH"
     tput rmacs
@@ -138,13 +145,21 @@ left_row ()  {
   elif [ $1 -eq 3 ]; then
 
     # Line 3 (ceph health)
+    if [ ${#CEPH_JSON} -eq 0 ]; then
+      TMP_HEALTH=$HEALTH_BAD
+    else
+      TMP_HEALTH=$HEALTH_GOOD
+      TMPVAL="$(echo $CEPH_JSON | jq '.data.monmap.mons | length')"
+      substr "$TMPVAL" 1 yes
+      CEPH_MONS=$RESSTR
+    fi
     tput smacs
-    echo -en $HEALTH_UNKNOWN
+    echo -en $TMP_HEALTH
     tput rmacs
     echo -n " ceph"
     fill " " "$(($2 - 27))"
     echo -n "$RESSTR"
-    echo -n "(Mon 0/2 OSD  0/2  )"
+    echo -n "(Mon ${CEPH_MONS}/${CEPH_MONS} OSD  0/2  )"
   elif [ $1 -eq 5 ]; then
   
     # Line 4 (servers header)
