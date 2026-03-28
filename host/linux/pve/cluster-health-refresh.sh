@@ -104,9 +104,13 @@ left_row ()  {
   elif [ $1 -eq 2 ]; then
   
     # Line 2 (cluster health)
-    if [ ${#CLUSTER_JSON} -eq 0 ]; then
-      TMP_HEALTH=$HEALTH_BAD
-    else
+    TMP_HEALTH=$HEALTH_BAD
+    local CLUSTER_CORES=0
+    local CLUSTER_RAM=0
+    local CLUSTER_RAMUSED=0
+    local CLUSTER_NODES=0
+    local CLUSTER_NODESONLINE=0
+    if [ ${#CLUSTER_JSON} -ne 0 ]; then
       local CLUSTER_QUORATE="$(echo $CLUSTER_JSON | jq '.data.[] | select(.type == "cluster")' | jq '.quorate')"
       local CLUSTER_NODES="$(echo $CLUSTER_JSON | jq '.data.[] | select(.type == "cluster")' | jq '.nodes')"
       local CLUSTER_QUORUM=$(($CLUSTER_NODES / 2 + 1))
@@ -145,13 +149,29 @@ left_row ()  {
   elif [ $1 -eq 3 ]; then
 
     # Line 3 (ceph health)
-    if [ ${#CEPH_JSON} -eq 0 ]; then
-      TMP_HEALTH=$HEALTH_BAD
-    else
-      TMP_HEALTH=$HEALTH_GOOD
+    TMP_HEALTH=$HEALTH_BAD
+    local CEPH_MONS=0
+    local CEPH_OSD=0
+    local CEPH_OSDONLINE=0
+    if [ ${#CEPH_JSON} -ne 0 ]; then
+      TMPVAL="$(echo $CEPH_JSON | jq '.data.health.status')"
+      TMPVAL=${TMPVAL#\"}
+      TMPVAL=${TMPVAL%\"}
+      if [ "$TMPVAL" = "HEALTH_OK" ]; then
+        TMP_HEALTH=$HEALTH_GOOD
+      else
+        TMP_HEALTH=$HEALTH_BAD
+      fi
       TMPVAL="$(echo $CEPH_JSON | jq '.data.monmap.mons | length')"
       substr "$TMPVAL" 1 yes
-      CEPH_MONS=$RESSTR
+      local CEPH_MONS=$RESSTR
+
+      TMPVAL="$(echo $CEPH_JSON | jq '.data.osdmap.num_osds')"
+      substr "$TMPVAL" 1 yes
+      local CEPH_OSD=$RESSTR
+      TMPVAL="$(echo $CEPH_JSON | jq '.data.osdmap.num_up_osds')"
+      substr "$TMPVAL" 1 yes
+      local CEPH_OSDONLINE=$RESSTR
     fi
     tput smacs
     echo -en $TMP_HEALTH
@@ -159,7 +179,7 @@ left_row ()  {
     echo -n " ceph"
     fill " " "$(($2 - 27))"
     echo -n "$RESSTR"
-    echo -n "(Mon ${CEPH_MONS}/${CEPH_MONS} OSD  0/2  )"
+    echo -n "(Mon ${CEPH_MONS}/${CEPH_MONS} OSD  ${CEPH_OSD}/${CEPH_OSDONLINE}  )"
   elif [ $1 -eq 5 ]; then
   
     # Line 4 (servers header)
