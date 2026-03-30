@@ -15,6 +15,7 @@ SERVER_LIST=("luna.lan" "selena.lan")
 APITOKEN=$(cat ./cluster-health.token)
 
 MAX_LINES=$(tput lines)
+MAX_LINES=$(($MAX_LINES - 3))
 MAX_COLS=$(tput cols)
 
 if [ "$DEBUG" = "yes" ]; then
