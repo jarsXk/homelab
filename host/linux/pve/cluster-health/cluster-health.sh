@@ -1,9 +1,11 @@
 #!/bin/bash
 
+DEBUG=no
+
 while [ true ]; do
   clear
 
   . ./cluster-health-refresh.sh
 
-  sleep 60s
+  sleep 2m
 done

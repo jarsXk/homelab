@@ -12,11 +12,22 @@ HEALTH_BAD="${COLOR_RED}00${COLOR_RESET}"
 HEALTH_UNKNOWN="${COLOR_WHITE}00${COLOR_RESET}"
 
 SERVER_LIST=("luna.lan" "selena.lan")
-APITOKEN="monitor@pam!view=40bc90f1-837c-4731-b068-c2b7589a7384"
+APITOKEN=$(cat ./cluster-health.token)
 
-MAX_LINES=10
-#MAX_COLS=$(tput cols)
-MAX_COLS=72
+MAX_LINES=$(tput lines)
+MAX_COLS=$(tput cols)
+
+if [ "$DEBUG" = "yes" ]; then
+  MAX_LINES=15
+  MAX_COLS=72
+
+  echo $(tput cols)x$(tput lines)
+  echo '+ , - . 0 ` a f g h i j k l m n o p q r s t u v w y x z { | } ~'
+  tput smacs
+  echo '+ , - . 0 ` a f g h i j k l m n o p q r s t u v w y x z { | } ~'
+  tput rmacs
+fi
+
 LEFT_COLS=$((MAX_COLS / 2 - 2))
 RIGHT_COLS=$((MAX_COLS / 2 - 3))
 if [ $((MAX_COLS % 2)) -eq 1 ]; then
@@ -104,15 +115,15 @@ left_row ()  {
   elif [ $1 -eq 2 ]; then
   
     # Line 2 (cluster health)
-    TMP_HEALTH=$HEALTH_BAD
+    local CLUSTER_HEALTH=$HEALTH_BAD
     local CLUSTER_CORES=0
     local CLUSTER_RAM=0
     local CLUSTER_RAMUSED=0
-    local CLUSTER_NODES=0
+    CLUSTER_NODES=0
     local CLUSTER_NODESONLINE=0
     if [ ${#CLUSTER_JSON} -ne 0 ]; then
       local CLUSTER_QUORATE="$(echo $CLUSTER_JSON | jq '.data.[] | select(.type == "cluster")' | jq '.quorate')"
-      local CLUSTER_NODES="$(echo $CLUSTER_JSON | jq '.data.[] | select(.type == "cluster")' | jq '.nodes')"
+      CLUSTER_NODES="$(echo $CLUSTER_JSON | jq '.data.[] | select(.type == "cluster")' | jq '.nodes')"
       local CLUSTER_QUORUM=$(($CLUSTER_NODES / 2 + 1))
       local CLUSTER_NODESONLINE="$(echo $CLUSTER_JSON | jq '[ .data.[] | select(.type == "node") | select (.online == 1) ] | length')"
      
@@ -131,16 +142,16 @@ left_row ()  {
 
       if [ "$CLUSTER_QUORATE" -eq "1" ]; then
         if [ $CLUSTER_NODESONLINE -eq $CLUSTER_NODES ]; then
-          TMP_HEALTH=$HEALTH_GOOD
+          CLUSTER_HEALTH=$HEALTH_GOOD
         elif [ $CLUSTER_NODESONLINE -ge $CLUSTER_QUORUM ]; then
-          TMP_HEALTH=$HEALTH_WARN
+          CLUSTER_HEALTH=$HEALTH_WARN
         fi
       else
-        TMP_HEALTH=$HEALTH_BAD
+        CLUSTER_HEALTH=$HEALTH_BAD
       fi  
     fi
     tput smacs
-    echo -en "$TMP_HEALTH"
+    echo -en "$CLUSTER_HEALTH"
     tput rmacs
     echo -n " nodes"
     fill " " "$(($2 - 31))"
@@ -149,39 +160,44 @@ left_row ()  {
   elif [ $1 -eq 3 ]; then
 
     # Line 3 (ceph health)
-    TMP_HEALTH=$HEALTH_BAD
+    local CEPH_HEALTH=$HEALTH_BAD
     local CEPH_MONS=0
     local CEPH_OSD=0
     local CEPH_OSDONLINE=0
     if [ ${#CEPH_JSON} -ne 0 ]; then
-      TMPVAL="$(echo $CEPH_JSON | jq '.data.health.status')"
-      TMPVAL=${TMPVAL#\"}
-      TMPVAL=${TMPVAL%\"}
+      local TMPVAL="$(echo $CEPH_JSON | jq '.data.health.status')"
+      local TMPVAL=${TMPVAL#\"}
+      local TMPVAL=${TMPVAL%\"}
       if [ "$TMPVAL" = "HEALTH_OK" ]; then
-        TMP_HEALTH=$HEALTH_GOOD
+        CEPH_HEALTH=$HEALTH_GOOD
       else
-        TMP_HEALTH=$HEALTH_BAD
+        CEPH_HEALTH=$HEALTH_BAD
       fi
-      TMPVAL="$(echo $CEPH_JSON | jq '.data.monmap.mons | length')"
+      local TMPVAL="$(echo $CEPH_JSON | jq '.data.monmap.mons | length')"
       substr "$TMPVAL" 1 yes
       local CEPH_MONS=$RESSTR
 
       TMPVAL="$(echo $CEPH_JSON | jq '.data.osdmap.num_osds')"
       substr "$TMPVAL" 1 yes
       local CEPH_OSD=$RESSTR
-      TMPVAL="$(echo $CEPH_JSON | jq '.data.osdmap.num_up_osds')"
+      local TMPVAL="$(echo $CEPH_JSON | jq '.data.osdmap.num_up_osds')"
       substr "$TMPVAL" 1 yes
       local CEPH_OSDONLINE=$RESSTR
     fi
     tput smacs
-    echo -en $TMP_HEALTH
+    echo -en $CEPH_HEALTH
     tput rmacs
     echo -n " ceph"
     fill " " "$(($2 - 27))"
     echo -n "$RESSTR"
     echo -n "(Mon ${CEPH_MONS}/${CEPH_MONS} OSD  ${CEPH_OSD}/${CEPH_OSDONLINE}  )"
-  elif [ $1 -eq 5 ]; then
-  
+
+  elif [ $1 -eq 4 ]; then
+    # Line 4 empty
+    fill " " "$LEFT_COLS"
+    echo -n "$RESSTR"
+
+  elif [ $1 -eq 5 ]; then  
     # Line 4 (nodes header)
     tput smacs
     echo -n "q"
@@ -190,39 +206,51 @@ left_row ()  {
     tput smacs
     fill "q" "$(($2 - 8))"
     echo -n "$RESSTR"
-    tput rmacs
-  elif [ $1 -eq 4 ] || [ $1 -ge 6 ]; then
-
-    # Line 4 empty
-    fill " " "$LEFT_COLS"
-    echo -n "$RESSTR"
-      
-  elif [ $1 -ge 6 ]; then       
-         
+    tput rmacs      
+    
+  elif [ $1 -ge 6 ]; then            
     # Line N (hosts)
     local CUR_ENTRY=$(( $1 - 6 ))
     if [ $CUR_ENTRY -lt $CLUSTER_NODES ]; then
+      local NODE_HEALTH=$HEALTH_BAD
+      local NODE_JSON="$(echo $RESOURCES_JSON | jq '[ .data[] | select(.type == "node") ]' | jq '.['$CUR_ENTRY']')"      
+      local TMPVAL="$(echo $NODE_JSON | jq '.status')"
+      local TMPVAL=${TMPVAL#\"}
+      local TMPVAL=${TMPVAL%\"}
+      if [ "$TMPVAL" = "online" ]; then
+        local NODE_HEALTH=$HEALTH_GOOD
+      else
+        local NODE_HEALTH=$HEALTH_BAD
+      fi
+
+      local TMPVAL="$(echo $NODE_JSON | jq '.node')"
+      local TMPVAL=${TMPVAL#\"}
+      local TMPVAL=${TMPVAL%\"}
+      substr "$TMPVAL" 9
+      local NODE_NAME=$RESSTR
+
+      local TMPVAL="$(echo $NODE_JSON | jq '.cpu')"
+      local TMPVAL=$(echo "scale=0; $TMPVAL * 100 / 1" | bc)
+      substr "$TMPVAL" 3 yes
+      local NODE_CPU=$RESSTR
+
+      local TMPVAL="$(echo $NODE_JSON | jq '.maxmem')"
+      local TMPVAL=$(($TMPVAL / 1000000000))
+      substr "$TMPVAL" 2 yes
+      local NODE_RAM=$RESSTR
+      local TMPVAL="$(echo $NODE_JSON | jq '.mem')"
+      local TMPVAL=$(($TMPVAL / 1000000000))
+      substr "$TMPVAL" 2 yes
+      local NODE_RAMUSED=$RESSTR
+      
+      tput smacs
+      echo -en $NODE_HEALTH" "
+      tput rmacs
+      echo -n "$NODE_NAME (L ${NODE_CPU}/100% M ${NODE_RAMUSED}/${NODE_RAM}G)"
     else
       fill " " "$LEFT_COLS"
       echo -n "$RESSTR"
     fi
-
-
-
-    if [ $1 -eq 6 ]; then
-      HOSTNAME="luna"
-    elif [ $1 -eq 7 ]; then
-      HOSTNAME="selena"
-    else
-      HOSTNAME="null"
-    fi
-    if [ "$HOSTNAME" != "null" ]; then
-      tput smacs
-      echo -en $HEALTH_UNKNOWN" "
-      tput rmacs
-      substr "$HOSTNAME" 9
-      echo -n "$RESSTR (L   0/100% M  0/ 0G)"
-    
   fi
 } 
 
@@ -249,9 +277,6 @@ right_row ()  {
     echo -n "$RESSTR (L   0/100% M  0/ 0G)"
   fi
 } 
-
-
-echo $(tput cols)x$(tput lines)
 
 get "/cluster/status"
 CLUSTER_JSON=$RESSTR
@@ -294,14 +319,4 @@ echo -n 'm'
 fill "q" "$((MAX_COLS - 2))"
 echo -n "$RESSTR"
 echo 'j'
-tput rmacs
-
-
-
-
-
-echo
-echo '+ , - . 0 ` a f g h i j k l m n o p q r s t u v w y x z { | } ~'
-tput smacs
-echo '+ , - . 0 ` a f g h i j k l m n o p q r s t u v w y x z { | } ~'
 tput rmacs
