@@ -182,7 +182,7 @@ left_row ()  {
     echo -n "(Mon ${CEPH_MONS}/${CEPH_MONS} OSD  ${CEPH_OSD}/${CEPH_OSDONLINE}  )"
   elif [ $1 -eq 5 ]; then
   
-    # Line 4 (servers header)
+    # Line 4 (nodes header)
     tput smacs
     echo -n "q"
     tput rmacs
@@ -192,15 +192,27 @@ left_row ()  {
     echo -n "$RESSTR"
     tput rmacs
   elif [ $1 -eq 4 ] || [ $1 -ge 6 ]; then
+
+    # Line 4 empty
+    fill " " "$LEFT_COLS"
+    echo -n "$RESSTR"
+      
+  elif [ $1 -ge 6 ]; then       
+         
     # Line N (hosts)
+    local CUR_ENTRY=$(( $1 - 6 ))
+    if [ $CUR_ENTRY -lt $CLUSTER_NODES ]; then
+    else
+      fill " " "$LEFT_COLS"
+      echo -n "$RESSTR"
+    fi
+
+
+
     if [ $1 -eq 6 ]; then
       HOSTNAME="luna"
     elif [ $1 -eq 7 ]; then
       HOSTNAME="selena"
-    # elif [ $1 -eq 7 ]; then
-    #   HOSTNAME="hina"  
-    # elif [ $1 -eq 8 ]; then
-    #   HOSTNAME="chandra"
     else
       HOSTNAME="null"
     fi
@@ -210,10 +222,7 @@ left_row ()  {
       tput rmacs
       substr "$HOSTNAME" 9
       echo -n "$RESSTR (L   0/100% M  0/ 0G)"
-    else
-      fill " " "$LEFT_COLS"
-      echo -n "$RESSTR"
-    fi
+    
   fi
 } 
 
