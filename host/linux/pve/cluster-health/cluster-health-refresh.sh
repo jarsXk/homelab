@@ -15,7 +15,7 @@ SERVER_LIST=("luna.lan" "selena.lan")
 APITOKEN=$(cat ./cluster-health.token)
 
 MAX_LINES=$(tput lines)
-MAX_LINES=$(($MAX_LINES - 3))
+MAX_LINES=$(($MAX_LINES - 2))
 MAX_COLS=$(tput cols)
 
 if [ "$DEBUG" = "yes" ]; then
@@ -314,10 +314,10 @@ until [ $i -gt $MAX_LINES ]; do
   i=$((i+1))
 done
 
-# Line End (header)
+# Line End (footer)
 tput smacs
 echo -n 'm'
 fill "q" "$((MAX_COLS - 2))"
 echo -n "$RESSTR"
-echo 'j'
+#echo 'j'
 tput rmacs
