@@ -29,11 +29,11 @@ if [ "$DEBUG" = "yes" ]; then
   tput rmacs
 fi
 
-LEFT_COLS=$((MAX_COLS / 2 - 2))
-RIGHT_COLS=$((MAX_COLS / 2 - 3))
+LEFT_COLS=$((MAX_COLS / 2 - 3))
 if [ $((MAX_COLS % 2)) -eq 1 ]; then
-    RIGHT_COLS=$((RIGHT_COLS + 1))
+    LEFT_COLS=$((LEFT_COLS + 1))
 fi
+RIGHT_COLS=$((MAX_COLS / 2 - 2))
 
 RESSTR=""
 
@@ -227,7 +227,7 @@ left_row ()  {
       local TMPVAL="$(echo $NODE_JSON | jq '.node')"
       local TMPVAL=${TMPVAL#\"}
       local TMPVAL=${TMPVAL%\"}
-      substr "$TMPVAL" 9
+      substr "$TMPVAL" 8
       local NODE_NAME=$RESSTR
 
       local TMPVAL="$(echo $NODE_JSON | jq '.cpu')"
@@ -266,16 +266,58 @@ right_row ()  {
     fill "q" "$(($2 - 9))"
     echo -n "$RESSTR"
     tput rmacs
-  else
-    tput smacs
-    echo -en "$HEALTH_UNKNOWN "
-    tput rmacs
-    TMP_NAME="guest$1"
-    if [ $1 -lt 10 ]; then
-      TMP_NAME="$TMP_NAME "
-    fi 
-    substr "guest$1" 8
-    echo -n "$RESSTR (L   0/100% M  0/ 0G)"
+
+  elif [ $1 -ge 2 ]; then
+    # Line M (guest)
+    local CUR_ENTRY=$(( $1 - 2 ))
+    local CLUSTER_GUESTS="$(echo $GUESTS_JSON | jq '. | length')"
+    if [ $CUR_ENTRY -lt $CLUSTER_GUESTS ]; then
+
+      local GUEST_HEALTH=$HEALTH_UNKNOWN
+      local GUEST_JSON="$(echo $GUESTS_JSON | jq '. | sort_by(.vmid)' | jq '.['$CUR_ENTRY']')"      
+
+      local TMPVAL="$(echo $GUEST_JSON | jq '.status')"
+      local TMPVAL=${TMPVAL#\"}
+      local TMPVAL=${TMPVAL%\"}
+      if [ "$TMPVAL" = "running" ]; then
+        local GUEST_HEALTH=$HEALTH_GOOD
+      elif [ "$TMPVAL" = "stopped" ]; then
+        local GUEST_HEALTH=$HEALTH_UNKNOWN
+      else
+        local GUEST_HEALTH=$HEALTH_BAD
+      fi
+      
+      local TMPVAL="$(echo $GUEST_JSON | jq '.name')"
+      local TMPVAL=${TMPVAL#\"}
+      local TMPVAL=${TMPVAL%\"}
+      substr "$TMPVAL" 9
+      local GUEST_NAME=$RESSTR
+
+      local TMPVAL="$(echo $GUEST_JSON | jq '.cpu')"
+      local TMPVAL=$(echo "scale=0; $TMPVAL * 100 / 1" | bc)
+      substr "$TMPVAL" 3 yes
+      local GUEST_CPU=$RESSTR
+
+      local TMPVAL="$(echo $GUEST_JSON | jq '.maxmem')"
+      local TMPVAL=$(($TMPVAL / 1000000000))
+      substr "$TMPVAL" 2 yes
+      local GUEST_RAM=$RESSTR
+      if [ $GUEST_RAM -eq 0 ]; then
+        local GUEST_RAM=" 1"
+      fi
+      local TMPVAL="$(echo $GUEST_JSON | jq '.mem')"
+      local TMPVAL=$(($TMPVAL / 1000000000))
+      substr "$TMPVAL" 2 yes
+      local GUEST_RAMUSED=$RESSTR
+
+      tput smacs
+      echo -en "$GUEST_HEALTH "
+      tput rmacs
+      echo -n "$GUEST_NAME (L ${GUEST_CPU}/100% M ${GUEST_RAMUSED}/${GUEST_RAM}G)"
+    else
+      fill " " "$RIGHT_COLS"
+      echo -n "$RESSTR"
+    fi
   fi
 } 
 
@@ -285,6 +327,7 @@ get "/cluster/ceph/status"
 CEPH_JSON=$RESSTR
 get "/cluster/resources"
 RESOURCES_JSON=$RESSTR
+GUESTS_JSON="$(echo $RESOURCES_JSON | jq '[ .data[] | select(.type == "qemu") | select(.template == 0) ]')"
 
 # Line 1 (header)
 tput smacs
