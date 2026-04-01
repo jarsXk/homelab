@@ -227,7 +227,7 @@ left_row ()  {
       local TMPVAL="$(echo $NODE_JSON | jq '.node')"
       local TMPVAL=${TMPVAL#\"}
       local TMPVAL=${TMPVAL%\"}
-      substr "$TMPVAL" 8
+      substr "$TMPVAL" 12
       local NODE_NAME=$RESSTR
 
       local TMPVAL="$(echo $NODE_JSON | jq '.cpu')"
@@ -247,7 +247,7 @@ left_row ()  {
       tput smacs
       echo -en $NODE_HEALTH" "
       tput rmacs
-      echo -n "$NODE_NAME (L ${NODE_CPU}/100% M ${NODE_RAMUSED}/${NODE_RAM}G)"
+      echo -n "$NODE_NAME (L ${NODE_CPU}% M ${NODE_RAMUSED}/${NODE_RAM}G)"
     else
       fill " " "$LEFT_COLS"
       echo -n "$RESSTR"
@@ -267,7 +267,7 @@ right_row ()  {
     echo -n "$RESSTR"
     tput rmacs
 
-  elif [ $1 -ge 2 ]; then
+  elif [ $1 -ge 2 ] && [ $1 -lt $(($MAX_LINES - 1)) ]; then
     # Line M (guest)
     local CUR_ENTRY=$(( $1 - 2 ))
     local CLUSTER_GUESTS="$(echo $GUESTS_JSON | jq '. | length')"
@@ -290,7 +290,7 @@ right_row ()  {
       local TMPVAL="$(echo $GUEST_JSON | jq '.name')"
       local TMPVAL=${TMPVAL#\"}
       local TMPVAL=${TMPVAL%\"}
-      substr "$TMPVAL" 9
+      substr "$TMPVAL" 13
       local GUEST_NAME=$RESSTR
 
       local TMPVAL="$(echo $GUEST_JSON | jq '.cpu')"
@@ -313,11 +313,29 @@ right_row ()  {
       tput smacs
       echo -en "$GUEST_HEALTH "
       tput rmacs
-      echo -n "$GUEST_NAME (L ${GUEST_CPU}/100% M ${GUEST_RAMUSED}/${GUEST_RAM}G)"
+      echo -n "$GUEST_NAME (L ${GUEST_CPU}% M ${GUEST_RAMUSED}/${GUEST_RAM}G)"
     else
       fill " " "$RIGHT_COLS"
       echo -n "$RESSTR"
     fi
+    
+  elif [ $1 -eq $(($MAX_LINES - 1)) ]; then
+    # Line MAX - 2 (services header) 
+    tput smacs
+    echo -n "q"
+    tput rmacs
+    echo -n " Services "
+    tput smacs
+    fill "q" "$(($2 - 11))"
+    echo -n "$RESSTR"
+    tput rmacs
+    
+  elif [ $1 -gt $(($MAX_LINES - 1)) ]; then
+    # Line MAX - 1 (service)
+    tput smacs
+    echo -en "$HEALTH_UNKNOWN "
+    tput rmacs
+    echo -n "dns                            "
   fi
 } 
 
