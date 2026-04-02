@@ -33,6 +33,7 @@ log_message INFO "Initial setup for Alpine Metal, VM & LXC"
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-micro.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-aliases.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-mc.sh)
+#. <(wget -qO- ${INIT_REPO}/host/linux/init/alpine/lib-init-sudo-alpine.sh)
 # usbmount not needed
 
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-cleaning-alpine.sh)
