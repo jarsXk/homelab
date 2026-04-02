@@ -29,7 +29,7 @@ create_user() {
   if [ $7 = yes ]; then
     COMMAND="$COMMAND -S"
   fi
-  COMMAND="$COMMAND $1"  
+  COMMAND="$COMMAND $1 $3"  
   run_command "$COMMAND" "Error adding user $1"
 
   local GROUPS="$3"
@@ -45,7 +45,8 @@ create_user() {
     run_command "addgroup $1 $I" "Error adding user $1 to group $I"
   done
 
-  run_command "usermod --uid $2 $1" "Error modifying user $1 UID to $2"
+  #run_command "usermod --uid $2 $1" "Error modifying user $1 UID to $2"
+  #run_command "groupdel  $2 $1" "Error modifying user $1 UID to $2"
   
   log_message READ "Set password for user <$1>"
   run_command "passwd $1" "Error adding user $1"
