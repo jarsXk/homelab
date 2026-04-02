@@ -22,7 +22,7 @@ create_user() {
     run_command "deluser $1" "Error modifying user $1"
   fi
 
-  COMMAND="adduser -u $2 -D -s $5"
+  COMMAND="adduser -D -s $5"
   if [ $6 != yes ]; then
     COMMAND="$COMMAND -H"
   fi
@@ -45,6 +45,8 @@ create_user() {
     run_command "addgroup $1 $I" "Error adding user $1 to group $I"
   done
 
+  run_command "usermod --uid $2 $1" "Error modifying user $1 UID to $2"
+  
   log_message READ "Set password for user <$1>"
   run_command "passwd $1" "Error adding user $1"
   log_message INFO "User <$1 ($(cat /etc/passwd | grep "$1"))>"
