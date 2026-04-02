@@ -22,26 +22,30 @@ create_user() {
     run_command "deluser $1" "Error modifying user $1"
   fi
 
-  COMMAND="adduser -u $2 -D"
-  if [ $# -gt 7 ] || [ $4 = yes ]; then
-    if [ $# -gt 7 ] && [ $4 = no ]; then
-      COMMAND="$COMMAND -G $8"
-    elif [ $# -gt 7 ] && [ $4 = yes ]; then
-      COMMAND="$COMMAND -G $8,wheel"
-    elif [ $# -eq 7 ] && [ $4 = yes ]; then
-      COMMAND="$COMMAND -G wheel"
-    fi
-  fi
-  COMMAND="$COMMAND -s $5"
+  COMMAND="adduser -u $2 -D -s $5"
   if [ $6 != yes ]; then
     COMMAND="$COMMAND -H"
   fi
   if [ $7 = yes ]; then
     COMMAND="$COMMAND -S"
   fi
-  COMMAND="$COMMAND $1 $3"
-  
+  COMMAND="$COMMAND $1 $3"  
   run_command "$COMMAND" "Error adding user $1"
+
+  if [ $# -gt 7 ] || [ $4 = yes ]; then
+    if [ $# -gt 7 ] && [ $4 = no ]; then
+      local GROUPS="$8"
+    elif [ $# -gt 7 ] && [ $4 = yes ]; then
+      local GROUPS="$8,wheel"
+    elif [ $# -eq 7 ] && [ $4 = yes ]; then
+      local GROUPS="wheel"
+    fi
+  fi
+  local GROUPS=${$GROUPS//,/ }
+  log_message DEBUG "User groups: <$GROUPS>"
+  for I in $GROUPS; do 
+    run_command "addgroup $1 $I" "Error adding user $1 to group $I"
+  done
 
   log_message READ "Set password for user <$1>"
   run_command "passwd $1" "Error adding user $1"
