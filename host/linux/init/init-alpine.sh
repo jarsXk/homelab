@@ -39,4 +39,8 @@ log_message INFO "Initial setup for Alpine Metal, VM & LXC"
 log_message INFO "Initial setup finished"
 run_command "/etc/update-motd.d/70-custom-motd.sh" "Error"
 
+if [ $DOCKER = yes ]; then
+  log_message INFO "!!! Restart is required !!!"
+fi
+
 exit 0

@@ -37,6 +37,8 @@ if [ $DOCKER != no ]; then
   run_command "rc-update add docker default" "Error installing docker"
   run_command "service docker start" "Error installing docker"
   sleep 2s
+  PREV_IGNORE_ERRORS=$IGNORE_ERRORS
+  IGNORE_ERRORS=yes
   run_command "docker version" "Error installing docker"
-
+  IGNORE_ERRORS=$PREV_IGNORE_ERRORS
 fi
