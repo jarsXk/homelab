@@ -1,6 +1,6 @@
 
 # Add community repo
-run_command "setup-apkrepos -c" "Error adding community repo"
+run_command "setup-apkrepos -c2" "Error adding community repo"
 
 # Uninstalling packages
 
