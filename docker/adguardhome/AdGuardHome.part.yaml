@@ -166,6 +166,18 @@ filtering:
     - domain: chandra.lan
       answer: chandra.yaf.lan
       enabled: true
+    - domain: moon-admin.nul.lan
+      answer: reserved
+      enabled: false
+    - domain: moon-admin.lan
+      answer: moon-admin.yaf.lan
+      enabled: true
+    - domain: moon-dns.nul.lan
+      answer: reserved
+      enabled: false
+    - domain: moon-dns.lan
+      answer: moon-dns.yaf.lan
+      enabled: true
     - domain: phaeton.nul.lan
       answer: reserved
       enabled: false
@@ -352,6 +364,12 @@ filtering:
       enabled: true
     - domain: chandra.yaf.lan
       answer: reserved
+      enabled: true
+    - domain: moon-admin.yaf.lan
+      answer: 172.20.2.210
+      enabled: true
+    - domain: moon-dns.yaf.lan
+      answer: 172.20.2.250
       enabled: true
     - domain: '*.terra.yaf.lan'
       answer: 172.20.2.12
