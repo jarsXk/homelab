@@ -20,10 +20,11 @@ log_message INFO "Initial setup for Alpine Metal, VM & LXC"
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-serverrole.sh)
 
 . <(wget -qO- ${INIT_REPO}/host/linux/init/alpine/lib-init-groupsusers-base-alpine.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-ssh.sh)
+
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-groups.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-users.sh)
 
-. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-ssh.sh)
 # timezone already set
 . <(wget -qO- ${INIT_REPO}/host/linux/init/alpine/lib-init-docker-alpine.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-locale-alpine.sh)

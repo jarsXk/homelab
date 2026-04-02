@@ -20,6 +20,8 @@ log_message INFO "Initial setup for Debian Metal, VM & LXC"
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-serverrole.sh)
 
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-groupsusers-base-debian.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-ssh.sh)
+
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-groups.sh)
 # Deleting group "lesha"
 if [ $(getent group lesha) ]; then
@@ -27,7 +29,6 @@ if [ $(getent group lesha) ]; then
 fi
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-users.sh)
 
-. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-ssh.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-timezone-debian.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-docker-debian.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-locale-debian.sh)

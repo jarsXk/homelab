@@ -20,10 +20,11 @@ log_message INFO "Initial setup for Debian Metal, VM & LXC"
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-serverrole.sh)
 
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-groupsusers-base-debian.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-ssh.sh)
+
 # no user groups creation
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-users.sh)
 
-. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-ssh.sh)
 # no timezone set
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-docker-debian.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-locale-debian.sh)
