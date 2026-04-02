@@ -32,21 +32,18 @@ create_user() {
   COMMAND="$COMMAND $1 $3"  
   run_command "$COMMAND" "Error adding user $1"
 
-  local GROUPS="$3"
+  LOCAL_GROUPS="$3"
   if [ $4 = yes ]; then
-     local GROUPS="$GROUPS,wheel"
+     LOCAL_GROUPS="$LOCAL_GROUPS,wheel"
   fi
   if [ $# -gt 7 ]; then
-    local GROUPS="$GROUPS,$8"
+    LOCAL_GROUPS="$LOCAL_GROUPS,$8"
   fi
-  local GROUPS=${$GROUPS//,/ }
-  log_message DEBUG "User groups: <$GROUPS>"
-  for I in $GROUPS; do 
+  LOCAL_GROUPS=${$LOCAL_GROUPS//,/ }
+  log_message DEBUG "User groups: <$LOCAL_GROUPS>"
+  for I in "$LOCAL_GROUPS"; do 
     run_command "addgroup $1 $I" "Error adding user $1 to group $I"
   done
-
-  #run_command "usermod --uid $2 $1" "Error modifying user $1 UID to $2"
-  #run_command "groupdel  $2 $1" "Error modifying user $1 UID to $2"
   
   log_message READ "Set password for user <$1>"
   run_command "passwd $1" "Error adding user $1"
