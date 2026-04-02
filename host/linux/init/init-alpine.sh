@@ -28,13 +28,13 @@ log_message INFO "Initial setup for Alpine Metal, VM & LXC"
 . <(wget -qO- ${INIT_REPO}/host/linux/init/alpine/lib-init-docker-alpine.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-locale-alpine.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-motd.sh)
-#. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-micro.sh)
-#. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-aliases.sh)
-#. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-mc.sh)
-#. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-usbmount-debian.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-micro.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-aliases.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-mc.sh)
+# usbmount not needed
 
-#. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-cleaning-debian.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-cleaning-debian.sh)
 log_message INFO "Initial setup finished"
-#run_command "/etc/update-motd.d/70-custom-motd" "Error"
+run_command "/etc/update-motd.d/70-custom-motd.sh" "Error"
 
 exit 0
