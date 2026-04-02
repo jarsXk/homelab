@@ -41,8 +41,8 @@ create_user() {
   fi
   LOCAL_GROUPS=${LOCAL_GROUPS//,/ }
   log_message DEBUG "User groups: <$LOCAL_GROUPS>"
-  for I in "$LOCAL_GROUPS"; do 
-    run_command "addgroup $1 $I" "Error adding user $1 to group $I"
+  for i in $LOCAL_GROUPS; do 
+    run_command "addgroup $1 $i" "Error adding user $1 to group $I"
   done
   
   log_message READ "Set password for user <$1>"
