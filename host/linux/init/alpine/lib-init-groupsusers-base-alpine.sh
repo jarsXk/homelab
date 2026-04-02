@@ -29,17 +29,15 @@ create_user() {
   if [ $7 = yes ]; then
     COMMAND="$COMMAND -S"
   fi
-  COMMAND="$COMMAND $1 $3"  
+  COMMAND="$COMMAND $1"  
   run_command "$COMMAND" "Error adding user $1"
 
-  if [ $# -gt 7 ] || [ $4 = yes ]; then
-    if [ $# -gt 7 ] && [ $4 = no ]; then
-      local GROUPS="$8"
-    elif [ $# -gt 7 ] && [ $4 = yes ]; then
-      local GROUPS="$8,wheel"
-    elif [ $# -eq 7 ] && [ $4 = yes ]; then
-      local GROUPS="wheel"
-    fi
+  local GROUPS="$3"
+  if [ $4 = yes ]; then
+     local GROUPS="$GROUPS,wheel"
+  fi
+  if [ $# -gt 7 ]; then
+    local GROUPS="$GROUPS,$8"
   fi
   local GROUPS=${$GROUPS//,/ }
   log_message DEBUG "User groups: <$GROUPS>"
