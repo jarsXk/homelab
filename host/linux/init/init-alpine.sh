@@ -5,8 +5,8 @@ INIT_REPO=https://raw.githubusercontent.com/jarsXk/homelab/main
 
 . <(wget -qO- ${INIT_REPO}/host/linux/lib/lib-base.sh)
 
-LOG_LEVEL=5
-DRY_RUN=yes
+LOG_LEVEL=3
+DRY_RUN=no
 IGNORE_ERRORS=no
 LOG_NAME="./init.log"
 SERVER_ROLE=""
@@ -28,8 +28,8 @@ log_message INFO "Initial setup for Alpine Metal, VM & LXC"
 # timezone already set
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-sshkey.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/alpine/lib-init-docker-alpine.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-locale-alpine.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-motd.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/alpine/lib-init-locale-alpine.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-motd.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-micro.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-aliases.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-mc.sh)
@@ -37,7 +37,7 @@ log_message INFO "Initial setup for Alpine Metal, VM & LXC"
 
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-cleaning-alpine.sh)
 log_message INFO "Initial setup finished"
-run_command "/etc/update-motd.d/70-custom-motd.sh" "Error"
+run_command "/etc/profile.d/70-custom-motd.sh" "Error"
 
 if [ $DOCKER = yes ]; then
   log_message INFO "!!! Restart is required !!!"
