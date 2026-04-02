@@ -2,8 +2,6 @@
 # Add community repo
 run_command "setup-apkrepos -o" "Error adding community repo"
 
-# Uninstalling packages
-
 # Updating
 log_message INFO "Updating packages"
 run_command "apk update" "Error updating"
