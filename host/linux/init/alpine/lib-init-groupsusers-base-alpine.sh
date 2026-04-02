@@ -39,7 +39,7 @@ create_user() {
   if [ $# -gt 7 ]; then
     LOCAL_GROUPS="$LOCAL_GROUPS,$8"
   fi
-  LOCAL_GROUPS=${$LOCAL_GROUPS//,/ }
+  LOCAL_GROUPS=${LOCAL_GROUPS//,/ }
   log_message DEBUG "User groups: <$LOCAL_GROUPS>"
   for I in "$LOCAL_GROUPS"; do 
     run_command "addgroup $1 $I" "Error adding user $1 to group $I"
