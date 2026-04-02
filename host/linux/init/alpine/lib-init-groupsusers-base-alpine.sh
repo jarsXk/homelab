@@ -27,9 +27,9 @@ create_user() {
     if [ $# -gt 7 ] && [ $4 = no ]; then
       COMMAND="$COMMAND -G $8"
     elif [ $# -gt 7 ] && [ $4 = yes ]; then
-      COMMAND="$COMMAND -G $8,sudo"
+      COMMAND="$COMMAND -G $8,wheel"
     elif [ $# -eq 7 ] && [ $4 = yes ]; then
-      COMMAND="$COMMAND -G sudo"
+      COMMAND="$COMMAND -G wheel"
     fi
   fi
   COMMAND="$COMMAND -s $5"
