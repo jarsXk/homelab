@@ -27,7 +27,7 @@ log_message INFO "Initial setup for Debian Metal, VM & LXC"
 # no timezone set
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-docker-debian.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-locale-debian.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-motd-debian.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-motd.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-micro.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-aliases.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-mc.sh)

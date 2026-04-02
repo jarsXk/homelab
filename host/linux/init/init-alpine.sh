@@ -27,7 +27,7 @@ log_message INFO "Initial setup for Alpine Metal, VM & LXC"
 # timezone already set
 . <(wget -qO- ${INIT_REPO}/host/linux/init/alpine/lib-init-docker-alpine.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-locale-alpine.sh)
-#. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-motd-debian.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-motd.sh)
 #. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-micro.sh)
 #. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-aliases.sh)
 #. <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-mc.sh)
