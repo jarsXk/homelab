@@ -4,21 +4,23 @@ setlocal enabledelayedexpansion
 
 REM Запрос списка хостов
 dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
-  Terra         "terra.lan    null" on ^
-  Moon          "" off ^
-  "  Mani"      "mani.lan     null" off ^
-  "  Luna"      "lina.lan     null" off ^
-  "  Selena"    "selena.lan   null" off ^
-  "  Hina"      "hina.lan     null" off ^
-  "    Phaeton" "phaeton.lan  null" on ^
-  Inky          "inky.lan     null" off ^
-  Io            "io.lan       vasilkovo" on ^
-  Europa        "europa.lan   vasilkovo" on ^
-  Mimas         "mimas.lan    chanovo" off ^
-  Ariel         "ariel.lan    yasenevof" on ^
-  Ixion         "ixion.lan    shodnenskaya4" off ^
-  Makemake      "makemake.lan shodnenskaya5" off ^
-  Proxima       "proxima.wan  web" on ^
+  Terra            "terra.lan      null" on ^
+  Moon             ""                    off ^
+  "  Mani"         "mani.lan       null" off ^
+  "  Luna"         "luna.lan       null" off ^
+  "  Selena"       "selena.lan     null" off ^
+  "  Hina"         "               null" off ^
+  "    Phaeton"    "phaeton.lan    null" on ^
+  "    Moon-Admin" "moon-admin.lan null" on ^
+  "    Moon-DNS"   "moon-dns.lan   null" on ^
+  Inky             "inky.lan       null" off ^
+  Io               "io.lan         vasilkovo" on ^
+  Europa           "europa.lan     vasilkovo" on ^
+  Mimas            "mimas.lan      chanovo" off ^
+  Ariel            "ariel.lan      yasenevof" on ^
+  Ixion            "ixion.lan      shodnenskaya4" off ^
+  Makemake         "makemake.lan   shodnenskaya5" off ^
+  Proxima          "proxima.wan    web" on ^
   2> dialogresult.bak
 cls
 REM Получение и очистка результата
@@ -36,7 +38,16 @@ REM Запрос паролей
     set /P "LINUXPASS=Linux password (): "
   )
   set TMPSTR=!RESULT!
-  if not "x!TMPST:Proxima=!" == "x!TMPSTR!" (
+  if not "x!TMPSTR:Luna=!" == "x!TMPSTR!" (
+    set /P "PROXMOXPASS=Proxmox password (): "
+  )
+  if not "x!PROXMOXPASS!" == "x" (
+    if not "x!TMPSTR:Selena=!" == "x!TMPSTR!" (
+      set /P "PROXMOXPASS=Proxmox password (): "
+    )  
+  )
+  set TMPSTR=!RESULT!
+  if not "x!TMPSTR:Proxima=!" == "x!TMPSTR!" (
     set /P "PROXIMAPASS=Proxima password (): "
   )
 )
@@ -56,13 +67,43 @@ for %%G in (%RESULT%) do (
     set PASS=%LINUXPASS%
   )
 
+  if %%G == Mani (
+    set UNI_UPG=yes
+    set DOMAIN=lan
+    set PASS=%LINUXPASS%
+  )
+
+  if %%G == Luna (
+    set UNI_UPG=yes
+    set DOMAIN=lan
+    set PASS=%LINUXPASS%
+  )
+
+  if %%G == Selena (
+    set UNI_UPG=yes
+    set DOMAIN=lan
+    set PASS=%LINUXPASS%
+  )
+
   if %%G == Phaeton (
     set UNI_UPG=yes
     set DOMAIN=lan
     set PASS=%LINUXPASS%
   )
 
-  if %%G == Inky (
+  if %%G == Selena (
+    set UNI_UPG=yes
+    set DOMAIN=lan
+    set PASS=%LINUXPASS%
+  )  
+
+  if %%G == Moon-Admin (
+    set UNI_UPG=yes
+    set DOMAIN=lan
+    set PASS=%LINUXPASS%
+  )
+
+  if %%G == Moon-DNS (
     set UNI_UPG=yes
     set DOMAIN=lan
     set PASS=%LINUXPASS%
