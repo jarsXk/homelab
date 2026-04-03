@@ -41,7 +41,7 @@ REM Запрос паролей
   if not "x!TMPSTR:Luna=!" == "x!TMPSTR!" (
     set /P "PROXMOXPASS=Proxmox password (): "
   )
-  if not "x!PROXMOXPASS!" == "x" (
+  if "x!PROXMOXPASS!" == "x" (
     if not "x!TMPSTR:Selena=!" == "x!TMPSTR!" (
       set /P "PROXMOXPASS=Proxmox password (): "
     )  
