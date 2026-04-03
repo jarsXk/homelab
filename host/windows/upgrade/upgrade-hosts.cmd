@@ -76,13 +76,13 @@ for %%G in (%RESULT%) do (
   if %%G == Luna (
     set UNI_UPG=yes
     set DOMAIN=lan
-    set PASS=%LINUXPASS%
+    set PASS=%PROXMOXPASS%
   )
 
   if %%G == Selena (
     set UNI_UPG=yes
     set DOMAIN=lan
-    set PASS=%LINUXPASS%
+    set PASS=%PROXMOXPASS%
   )
 
   if %%G == Phaeton (
