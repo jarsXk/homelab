@@ -231,7 +231,11 @@ left_row ()  {
       local NODE_NAME=$RESSTR
 
       local TMPVAL="$(echo $NODE_JSON | jq '.cpu')"
-      local TMPVAL=$(echo "scale=0; $TMPVAL * 100 / 1" | bc)
+      if (( $(echo "$TMPVAL < 0.01" | bc -l) )); then
+        local TMPVAL=$(echo "scale=1; $TMPVAL * 100 / 1" | bc)
+      else
+        local TMPVAL=$(echo "scale=0; $TMPVAL * 100 / 1" | bc)
+      fi
       substr "$TMPVAL" 3 yes
       local NODE_CPU=$RESSTR
 
@@ -240,7 +244,12 @@ left_row ()  {
       substr "$TMPVAL" 2 yes
       local NODE_RAM=$RESSTR
       local TMPVAL="$(echo $NODE_JSON | jq '.mem')"
-      local TMPVAL=$(($TMPVAL / 1000000000))
+
+      if (( $(echo "$TMPVAL < 1000000000" | bc -l) )); then
+        local TMPVAL=$(echo "scale=1; $TMPVAL / 1000000000" | bc)
+      else
+        local TMPVAL=$(($TMPVAL / 1000000000))
+      fi
       substr "$TMPVAL" 2 yes
       local NODE_RAMUSED=$RESSTR
       
@@ -299,14 +308,19 @@ right_row ()  {
       local GUEST_CPU=$RESSTR
 
       local TMPVAL="$(echo $GUEST_JSON | jq '.maxmem')"
-      local TMPVAL=$(($TMPVAL / 1000000000))
+      if (( $(echo "$TMPVAL < 1000000000" | bc -l) )); then
+        local TMPVAL=$(echo "scale=1; $TMPVAL / 1000000000" | bc)
+      else
+        local TMPVAL=$(($TMPVAL / 1000000000))
+      fi
       substr "$TMPVAL" 2 yes
       local GUEST_RAM=$RESSTR
-      if [ $GUEST_RAM -eq 0 ]; then
-        local GUEST_RAM=" 1"
-      fi
       local TMPVAL="$(echo $GUEST_JSON | jq '.mem')"
-      local TMPVAL=$(($TMPVAL / 1000000000))
+      if (( $(echo "$TMPVAL < 1000000000" | bc -l) )); then
+        local TMPVAL=$(echo "scale=1; $TMPVAL / 1000000000" | bc)
+      else
+        local TMPVAL=$(($TMPVAL / 1000000000))
+      fi
       substr "$TMPVAL" 2 yes
       local GUEST_RAMUSED=$RESSTR
 
