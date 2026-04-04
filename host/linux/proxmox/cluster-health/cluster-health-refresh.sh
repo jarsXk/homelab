@@ -12,7 +12,8 @@ HEALTH_BAD="${COLOR_RED}00${COLOR_RESET}"
 HEALTH_UNKNOWN="${COLOR_WHITE}00${COLOR_RESET}"
 
 SERVER_LIST=("luna.lan" "selena.lan")
-APITOKEN=$(cat ./cluster-health.token)
+APITOKEN=$(cat ./cluster-health-token)
+DNSCREDENTIALS=$(cat ./cluster-health-dns-credentials)
 
 MAX_LINES=$(tput lines)
 MAX_LINES=$(($MAX_LINES - 2))
@@ -346,10 +347,19 @@ right_row ()  {
     
   elif [ $1 -gt $(($MAX_LINES - 1)) ]; then
     # Line MAX - 1 (service)
+    local DNS_HEALTH=$HEALTH_UNKNOWN
+    local TMPVAL="$(curl -ks -u "$DNSCREDENTIALS" https://moon-dns.lan/control/status | jq '.running')"
+    if [ "$TMPVAL" = "true" ]; then
+      local DNS_HEALTH=$HEALTH_GOOD
+    else
+      local DNS_HEALTH=$HEALTH_BAD
+    fi
+
     tput smacs
-    echo -en "$HEALTH_UNKNOWN "
+    echo -en "$DNS_HEALTH "
     tput rmacs
-    echo -n "dns                            "
+    substr "dns" $(( $RIGHT_COLS - 3 ))
+    echo -n "$RESSTR"
   fi
 } 
 
