@@ -1,0 +1,30 @@
+
+volumes:
+  data:
+  letsencrypt:
+
+services:
+  nginxproxymanager:
+    container_name: nginxproxymanager
+    hostname: nginxproxymanager
+    image: jc21/nginx-proxy-manager:latest
+    ports:
+      - 81:81
+      - 80:80
+      - 443:443
+    volumes:
+      - data:/data
+      - letsencrypt:/etc/letsencrypt
+    network_mode: host
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:81"]
+      interval: 30s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
