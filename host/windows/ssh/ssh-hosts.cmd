@@ -16,6 +16,7 @@ dialog --ascii-lines --begin 5 5  --menu "Server to login (user: %USER%)" -1 0 0
    "    Phaeton"    "phaeton.lan    null" ^
    "    Moon-Admin" "moon-admin.lan null" ^
    "    Moon-DNS"   "moon-dns.lan   null" ^
+   "    Moon-Proxy" "moon-proxy.lan null" ^
    Inky             "inky.lan       null" ^
    Io               "io.lan         vasilkovo" ^
    Europa           "europa.lan     vasilkovo" ^
@@ -41,6 +42,7 @@ if not "x%TRIMRESULT%" == "x" (
   if "%TRIMRESULT%" == "Phaeton" ssh %USER%@phaeton.lan
   if "%TRIMRESULT%" == "Moon-Admin" ssh %USER%@moon-admin.lan
   if "%TRIMRESULT%" == "Moon-DNS" ssh %USER%@moon-dns.lan
+  if "%TRIMRESULT%" == "Moon-Proxy" ssh %USER%@moon-proxy.lan
   if "%TRIMRESULT%" == "Inky" ssh %USER%@inky.lan
   if "%TRIMRESULT%" == "Io" ssh %USER%@io.lan
   if "%TRIMRESULT%" == "Europa" ssh %USER%@europa.lan

@@ -13,6 +13,7 @@ dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
   "    Phaeton"    "phaeton.lan    null" on ^
   "    Moon-Admin" "moon-admin.lan null" on ^
   "    Moon-DNS"   "moon-dns.lan   null" on ^
+  "    Moon-Proxy" "moon-proxy.lan null" on ^
   Inky             "inky.lan       null" off ^
   Io               "io.lan         vasilkovo" on ^
   Europa           "europa.lan     vasilkovo" on ^
@@ -104,6 +105,12 @@ for %%G in (%RESULT%) do (
   )
 
   if %%G == Moon-DNS (
+    set UNI_UPG=yes
+    set DOMAIN=lan
+    set PASS=%LINUXPASS%
+  )
+
+  if %%G == Moon-Proxy (
     set UNI_UPG=yes
     set DOMAIN=lan
     set PASS=%LINUXPASS%

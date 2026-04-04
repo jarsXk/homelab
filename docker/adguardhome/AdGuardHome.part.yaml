@@ -148,24 +148,39 @@ filtering:
     - domain: luna.lan
       answer: luna.yaf.lan
       enabled: true
+    - domain: '*.luna.nul.lan'
+      answer: reserved
+      enabled: false
     - domain: selena.nul.lan
       answer: reserved
       enabled: false
     - domain: selena.lan
       answer: selena.yaf.lan
       enabled: true
+    - domain: '*.selena.nul.lan'
+      answer: reserved
+      enabled: false
     - domain: hina.nul.lan
       answer: reserved
       enabled: false
     - domain: hina.lan
       answer: hina.yaf.lan
       enabled: true
+    - domain: '*.hina.nul.lan'
+      answer: reserved
+      enabled: false
     - domain: chandra.nul.lan
       answer: reserved
       enabled: false
     - domain: chandra.lan
       answer: chandra.yaf.lan
       enabled: true
+    - domain: '*.chandra.nul.lan'
+      answer: reserved
+      enabled: false
+    - domain: '*.moon.nul.lan'
+      answer: reserved
+      enabled: false
     - domain: moon-admin.nul.lan
       answer: reserved
       enabled: false
@@ -362,14 +377,29 @@ filtering:
     - domain: luna.yaf.lan
       answer: 172.20.2.21
       enabled: true
+    - domain: '*.luna.yaf.lan'
+      answer: moon-proxy.yaf.lan
+      enabled: true
     - domain: selena.yaf.lan
       answer: 172.20.2.22
+      enabled: true
+    - domain: '*.selena.yaf.lan'
+      answer: moon-proxy.yaf.lan
       enabled: true
     - domain: hina.yaf.lan
       answer: reserved
       enabled: true
+    - domain: '*.hina.yaf.lan'
+      answer: moon-proxy.yaf.lan
+      enabled: true
     - domain: chandra.yaf.lan
       answer: reserved
+      enabled: false
+    - domain: '*.chandra.yaf.lan'
+      answer: moon-proxy.lan
+      enabled: false
+    - domain: '*.moon.yaf.lan'
+      answer: moon-proxy.yaf.lan
       enabled: true
     - domain: moon-admin.yaf.lan
       answer: 172.20.2.210
