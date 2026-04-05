@@ -280,7 +280,7 @@ right_row ()  {
     echo -n "$RESSTR"
     tput rmacs
 
-  elif [ $1 -ge 2 ] && [ $1 -lt $(($MAX_LINES - 1)) ]; then
+  elif [ $1 -ge 2 ] && [ $1 -lt $SERVICES_OFFSET ]; then
     # Line M (guest)
     local CUR_ENTRY=$(( $1 - 2 ))
     local CLUSTER_GUESTS="$(echo $GUESTS_JSON | jq '. | length')"
