@@ -36,6 +36,9 @@ if [ $((MAX_COLS % 2)) -eq 1 ]; then
 fi
 RIGHT_COLS=$((MAX_COLS / 2 - 2))
 
+SERVICES_NUM=2
+SERVICES_OFFSET=$((MAX_LINES - SERVICES_NUM))
+
 RESSTR=""
 
 # substr строка длина добавлять_в_начало
@@ -334,8 +337,8 @@ right_row ()  {
       echo -n "$RESSTR"
     fi
     
-  elif [ $1 -eq $(($MAX_LINES - 1)) ]; then
-    # Line MAX - 2 (services header) 
+  elif [ $1 -eq $SERVICES_OFFSET ]; then
+    # Line Services (services header) 
     tput smacs
     echo -n "q"
     tput rmacs
@@ -345,8 +348,8 @@ right_row ()  {
     echo -n "$RESSTR"
     tput rmacs
     
-  elif [ $1 -gt $(($MAX_LINES - 1)) ]; then
-    # Line MAX - 1 (service)
+  elif [ $1 -eq $((SERVICES_OFFSET + 1)) ]; then
+    # Line Services + 1 (dns)
     local DNS_HEALTH=$HEALTH_UNKNOWN
     local TMPVAL="$(curl -ks -u "$DNSCREDENTIALS" https://moon-dns.lan/control/status | jq '.running')"
     if [ "$TMPVAL" = "true" ]; then
@@ -354,11 +357,27 @@ right_row ()  {
     else
       local DNS_HEALTH=$HEALTH_BAD
     fi
-
     tput smacs
     echo -en "$DNS_HEALTH "
     tput rmacs
     substr "dns" $(( $RIGHT_COLS - 3 ))
+    echo -n "$RESSTR"
+
+  elif [ $1 -eq $((SERVICES_OFFSET + 2)) ]; then
+    # Line Services + 1 (dns)
+    local PROXY_HEALTH=$HEALTH_UNKNOWN
+    local TMPVAL="$(curl -s http://moon-proxy.lan:30320/api/ | jq '.status')"
+    local TMPVAL=${TMPVAL#\"}
+    local TMPVAL=${TMPVAL%\"}
+    if [ "$TMPVAL" = "OK" ]; then
+      local PROXY_HEALTH=$HEALTH_GOOD
+    else
+      local PROXY_HEALTH=$HEALTH_BAD
+    fi
+    tput smacs
+    echo -en "$PROXY_HEALTH "
+    tput rmacs
+    substr "proxy" $(( $RIGHT_COLS - 3 ))
     echo -n "$RESSTR"
   fi
 } 
