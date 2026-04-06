@@ -14,12 +14,12 @@ services:
     hostname: wetty
     image: wettyoss/wetty
     environment:
-      - COMMAND="sh /root/autorun/ssh-autorun.sh"
+      - COMMAND="sh /usr/local/bin/autorun/ssh-autorun.sh"
       - BASE=/
     ports:
       - 30520:3000
     volumes:
-      - autorun:/root/autorun/
+      - autorun:/usr/local/bin/autorun
     networks:
       net:
         ipv4_address: 198.19.5.2
