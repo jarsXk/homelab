@@ -1,0 +1,39 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.5.0/24
+          gateway: 198.19.5.1
+
+volumes:
+  autorun:          
+
+services:
+  wetty:
+    container_name: wetty
+    hostname: wetty
+    image: wettyoss/wetty
+    environment:
+      - COMMAND="sh /root/autorun/ssh-autorun.sh"
+      - BASE=/
+    ports:
+      - 30520:3000
+    volumes:
+      - autorun:/root/autorun/
+    networks:
+      net:
+        ipv4_address: 198.19.5.2
+    healthcheck:
+        test: ["CMD", "wget", "--spider", "--timeout=10", "http://198.19.5.2:3000"]
+        interval: 30s
+        timeout: 10s
+        start_period: 10s
+        retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: always
+    
+    
