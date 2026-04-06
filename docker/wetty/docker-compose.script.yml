@@ -14,7 +14,7 @@ services:
     hostname: wetty
     image: wettyoss/wetty
     environment:
-      - COMMAND="sh /usr/local/bin/autorun/ssh-autorun.sh"
+      - COMMAND=/usr/local/bin/autorun/ssh-autorun.sh
       - BASE=/
     ports:
       - 30520:3000
