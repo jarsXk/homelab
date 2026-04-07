@@ -187,6 +187,12 @@ filtering:
     - domain: moon-admin.lan
       answer: moon-admin.yaf.lan
       enabled: true
+    - domain: moon-media.nul.lan
+      answer: reserved
+      enabled: false
+    - domain: moon-media.lan
+      answer: moon-media.yaf.lan
+      enabled: true
     - domain: moon-dns.nul.lan
       answer: reserved
       enabled: false
@@ -403,6 +409,9 @@ filtering:
       enabled: true
     - domain: moon-admin.yaf.lan
       answer: 172.20.2.210
+      enabled: true
+    - domain: moon-media.yaf.lan
+      answer: 172.20.2.212
       enabled: true
     - domain: moon-dns.yaf.lan
       answer: 172.20.2.250
