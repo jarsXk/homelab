@@ -351,7 +351,7 @@ right_row ()  {
   elif [ $1 -eq $((SERVICES_OFFSET + 1)) ]; then
     # Line Services + 1 (dns)
     local DNS_HEALTH=$HEALTH_UNKNOWN
-    local TMPVAL="$(curl -ks -u "$DNSCREDENTIALS" https://moon-dns.lan/control/status | jq '.running')"
+    local TMPVAL="$(curl -ks -u "$DNSCREDENTIALS" https://moondns.lan/control/status | jq '.running')"
     if [ "$TMPVAL" = "true" ]; then
       local DNS_HEALTH=$HEALTH_GOOD
     else
@@ -366,7 +366,7 @@ right_row ()  {
   elif [ $1 -eq $((SERVICES_OFFSET + 2)) ]; then
     # Line Services + 1 (dns)
     local PROXY_HEALTH=$HEALTH_UNKNOWN
-    local TMPVAL="$(curl -s http://moon-proxy.lan:30320/api/ | jq '.status')"
+    local TMPVAL="$(curl -s http://moonproxy.lan:30320/api/ | jq '.status')"
     local TMPVAL=${TMPVAL#\"}
     local TMPVAL=${TMPVAL%\"}
     if [ "$TMPVAL" = "OK" ]; then

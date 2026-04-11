@@ -4,24 +4,25 @@ setlocal enabledelayedexpansion
 
 REM Запрос списка хостов
 dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
-  Terra            "terra.lan      null" on ^
-  Moon             ""                    off ^
-  "  Mani"         "mani.lan       null" off ^
-  "  Luna"         "luna.lan       null" off ^
-  "  Selena"       "selena.lan     null" off ^
-  "  Hina"         "               null" off ^
-  "    Phaeton"    "phaeton.lan    null" on ^
-  "    Moon-Admin" "moon-admin.lan null" on ^
-  "    Moon-DNS"   "moon-dns.lan   null" on ^
-  "    Moon-Proxy" "moon-proxy.lan null" on ^
-  Inky             "inky.lan       null" off ^
-  Io               "io.lan         vasilkovo" on ^
-  Europa           "europa.lan     vasilkovo" on ^
-  Mimas            "mimas.lan      chanovo" off ^
-  Ariel            "ariel.lan      yasenevof" on ^
-  Ixion            "ixion.lan      shodnenskaya4" off ^
-  Makemake         "makemake.lan   shodnenskaya5" off ^
-  Proxima          "proxima.wan    web" on ^
+  Terra           "terra.lan     null" on ^
+  Moon            ""                   off ^
+  "  Mani"        "mani.lan      null" off ^
+  "  Luna"        "luna.lan      null" off ^
+  "  Selena"      "selena.lan    null" off ^
+  "  Hina"        "              null" off ^
+  "    Phaeton"   "phaeton.lan   null" on ^
+  "    MoonAdmin" "moonadmin.lan null" on ^
+  "    MoonMedia" "moonmedia.lan null" on ^
+  "    MoonDNS"   "moondns.lan   null" on ^
+  "    MoonProxy" "moonproxy.lan null" on ^
+  Inky            "inky.lan      null" off ^
+  Io              "io.lan        vasilkovo" on ^
+  Europa          "europa.lan    vasilkovo" on ^
+  Mimas           "mimas.lan     chanovo" off ^
+  Ariel           "ariel.lan     yasenevof" on ^
+  Ixion           "ixion.lan     shodnenskaya4" off ^
+  Makemake        "makemake.lan  shodnenskaya5" off ^
+  Proxima         "proxima.wan   web" on ^
   2> dialogresult.bak
 cls
 REM Получение и очистка результата
@@ -98,19 +99,25 @@ for %%G in (%RESULT%) do (
     set PASS=%LINUXPASS%
   )  
 
-  if %%G == Moon-Admin (
+  if %%G == MoonAdmin (
     set UNI_UPG=yes
     set DOMAIN=lan
     set PASS=%LINUXPASS%
   )
 
-  if %%G == Moon-DNS (
+  if %%G == MoonMedia (
     set UNI_UPG=yes
     set DOMAIN=lan
     set PASS=%LINUXPASS%
   )
 
-  if %%G == Moon-Proxy (
+  if %%G == MoonDNS (
+    set UNI_UPG=yes
+    set DOMAIN=lan
+    set PASS=%LINUXPASS%
+  )
+
+  if %%G == MoonProxy (
     set UNI_UPG=yes
     set DOMAIN=lan
     set PASS=%LINUXPASS%

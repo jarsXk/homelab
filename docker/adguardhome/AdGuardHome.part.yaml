@@ -109,150 +109,36 @@ user_rules:
 filtering:
   rewrites:
     # null (16)
-    - domain: wired.nul.wan
-      answer: reserved
-      enabled: false
-    - domain: mobile.nul.wan
-      answer: reserved
-      enabled: false
-    - domain: router.nul.lan
-      answer: sun.nul.lan
-      enabled: false
-    - domain: sun.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: nemesis.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: '*.app.nul.lan'
-      answer: terra.nul.lan
-      enabled: false
-    - domain: terra.nul.lan
-      answer: reserved
-      enabled: false
     - domain: terra.lan
       answer: terra.yaf.lan
       enabled: true
-    - domain: '*.terra.nul.lan'
-      answer: terra.nul.lan
-      enabled: false
-    - domain: mani.nul.lan
-      answer: reserved
-      enabled: false
     - domain: mani.lan
       answer: mani.yaf.lan
       enabled: true
-    - domain: luna.nul.lan
-      answer: reserved
-      enabled: false
     - domain: luna.lan
       answer: luna.yaf.lan
       enabled: true
-    - domain: '*.luna.nul.lan'
-      answer: reserved
-      enabled: false
-    - domain: selena.nul.lan
-      answer: reserved
-      enabled: false
     - domain: selena.lan
       answer: selena.yaf.lan
       enabled: true
-    - domain: '*.selena.nul.lan'
-      answer: reserved
-      enabled: false
-    - domain: hina.nul.lan
-      answer: reserved
-      enabled: false
     - domain: hina.lan
       answer: hina.yaf.lan
       enabled: true
-    - domain: '*.hina.nul.lan'
-      answer: reserved
-      enabled: false
-    - domain: chandra.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: chandra.lan
-      answer: chandra.yaf.lan
-      enabled: true
-    - domain: '*.chandra.nul.lan'
-      answer: reserved
-      enabled: false
-    - domain: '*.moon.nul.lan'
-      answer: reserved
-      enabled: false
-    - domain: moon-admin.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: moon-admin.lan
-      answer: moon-admin.yaf.lan
-      enabled: true
-    - domain: moon-media.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: moon-media.lan
-      answer: moon-media.yaf.lan
-      enabled: true
-    - domain: moon-dns.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: moon-dns.lan
-      answer: moon-dns.yaf.lan
-      enabled: true
-    - domain: moon-proxy.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: moon-proxy.lan
-      answer: moon-proxy.yaf.lan
-      enabled: true
-    - domain: phaeton.nul.lan
-      answer: reserved
-      enabled: false
     - domain: phaeton.lan
       answer: phaeton.yaf.lan
       enabled: true
-    - domain: vesta.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: vesta.lan
-      answer: vesta.nul.lan
-      enabled: false
-    - domain: '*.vesta.nul.lan'
-      answer: vesta.nul.lan
-      enabled: false
-    - domain: victoria.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: victoria.lan
-      answer: victoria.nul.lan
-      enabled: false
-    - domain: '*.victoria.nul.lan'
-      answer: victoria.nul.lan
-      enabled: false
-    - domain: jupiter.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: mars.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: saturn.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: uranus.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: eris.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: hygiea.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: hebe.nul.lan
-      answer: reserved
-      enabled: false
-    - domain: inky.nul.lan
-      answer: reserved
-      enabled: false
+    - domain: moonadmin.lan
+      answer: moonadmin.yaf.lan
+      enabled: true
+    - domain: moonmedia.lan
+      answer: moonmedia.yaf.lan
+      enabled: true
+    - domain: moondns.lan
+      answer: moondns.yaf.lan
+      enabled: true
+    - domain: moonproxy.lan
+      answer: moonproxy.yaf.lan
+      enabled: true
     - domain: inky.lan
       answer: inky.yaf.lan
       enabled: true
@@ -369,13 +255,16 @@ filtering:
       answer: ariel.yaf.lan
       enabled: true
     - domain: '*.ariel.yaf.lan'
-      answer: 172.20.2.10
+      answer: ariel.yaf.lan
       enabled: true
     - domain: '*.app.yaf.lan'
-      answer: 172.20.2.10
+      answer: ariel.yaf.lan
       enabled: true
     - domain: terra.yaf.lan
       answer: 172.20.2.12
+      enabled: true
+    - domain: '*.terra.yaf.lan'
+      answer: terra.yaf.lan
       enabled: true
     - domain: mani.yaf.lan
       answer: 172.20.2.20
@@ -384,76 +273,49 @@ filtering:
       answer: 172.20.2.21
       enabled: true
     - domain: '*.luna.yaf.lan'
-      answer: moon-proxy.yaf.lan
+      answer: moonproxy.yaf.lan
       enabled: true
     - domain: selena.yaf.lan
       answer: 172.20.2.22
       enabled: true
     - domain: '*.selena.yaf.lan'
-      answer: moon-proxy.yaf.lan
+      answer: moonproxy.yaf.lan
       enabled: true
     - domain: hina.yaf.lan
       answer: reserved
-      enabled: true
+      enabled: false
     - domain: '*.hina.yaf.lan'
-      answer: moon-proxy.yaf.lan
-      enabled: true
-    - domain: chandra.yaf.lan
-      answer: reserved
+      answer: moonproxy.yaf.lan
       enabled: false
-    - domain: '*.chandra.yaf.lan'
-      answer: moon-proxy.lan
-      enabled: false
-    - domain: '*.moon.yaf.lan'
-      answer: moon-proxy.yaf.lan
-      enabled: true
-    - domain: moon-admin.yaf.lan
+    - domain: moonadmin.yaf.lan
       answer: 172.20.2.210
       enabled: true
-    - domain: moon-media.yaf.lan
+    - domain: '*.moonadmin.yaf.lan'
+      answer: moonproxy.yaf.lan
+      enabled: true
+    - domain: moonmedia.yaf.lan
       answer: 172.20.2.212
       enabled: true
-    - domain: moon-dns.yaf.lan
+    - domain: '*.moonmedia.yaf.lan'
+      answer: moonproxy.yaf.lan
+      enabled: true
+    - domain: moondns.yaf.lan
       answer: 172.20.2.250
       enabled: true
-    - domain: moon-proxy.yaf.lan
+    - domain: '*.moondns.yaf.lan'
+      answer: moonproxy.yaf.lan
+      enabled: true
+    - domain: moonproxy.yaf.lan
       answer: 172.20.2.254
       enabled: true
-    - domain: '*.terra.yaf.lan'
-      answer: 172.20.2.12
+    - domain: '*.moonproxy.yaf.lan'
+      answer: moonproxy.yaf.lan
       enabled: true
     - domain: phaeton.yaf.lan
       answer: 172.20.2.201
       enabled: true
-    - domain: vaultwarden.app.yaf.lan
-      answer: 172.20.2.12
-      enabled: true
-    - domain: nextcloud.app.yaf.lan
-      answer: 172.20.2.12
-      enabled: true
-    - domain: calibre.app.yaf.lan
-      answer: 172.20.2.12
-      enabled: true
-    - domain: qbittorrent.app.yaf.lan
-      answer: 172.20.2.12
-      enabled: true
-    - domain: resilio.app.yaf.lan
-      answer: 172.20.2.12
-      enabled: true
-    - domain: hplip.app.yaf.lan
-      answer: 172.20.2.12
-      enabled: true
-    - domain: jellyfin.app.yaf.lan
-      answer: 172.20.2.12
-      enabled: true
-    - domain: radarr.app.yaf.lan
-      answer: 172.20.2.12
-      enabled: true
-    - domain: sonarr.app.yaf.lan
-      answer: 172.20.2.12
-      enabled: true
-    - domain: jackett.app.yaf.lan
-      answer: 172.20.2.12
+    - domain: '*.appnul.yaf.lan'
+      answer: moonproxy.yaf.lan
       enabled: true
     - domain: jupiter.yaf.lan
       answer: 172.20.4.10
