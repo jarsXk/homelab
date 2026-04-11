@@ -1,94 +1,11 @@
 #!/bin/bash
 
-COLOR_RED="\e[31m"
-COLOR_GREEN="\e[32m"
-COLOR_YELLOW="\e[33m"
-COLOR_WHITE="\e[37m"
-COLOR_RESET="\e[0m"
-
-HEALTH_GOOD="${COLOR_GREEN}00${COLOR_RESET}"
-HEALTH_WARN="${COLOR_YELLOW}00${COLOR_RESET}"
-HEALTH_BAD="${COLOR_RED}00${COLOR_RESET}"
-HEALTH_UNKNOWN="${COLOR_WHITE}00${COLOR_RESET}"
-
 SERVER_LIST=("luna.lan" "selena.lan")
-APITOKEN=$(cat ./cluster-health-token)
-DNSCREDENTIALS=$(cat ./cluster-health-dns-credentials)
-
-MAX_LINES=$(tput lines)
-MAX_LINES=$(($MAX_LINES - 2))
-MAX_COLS=$(tput cols)
-
-if [ "$DEBUG" = "yes" ]; then
-  MAX_LINES=15
-  MAX_COLS=72
-
-  echo $(tput cols)x$(tput lines)
-  echo '+ , - . 0 ` a f g h i j k l m n o p q r s t u v w y x z { | } ~'
-  tput smacs
-  echo '+ , - . 0 ` a f g h i j k l m n o p q r s t u v w y x z { | } ~'
-  tput rmacs
-fi
-
-LEFT_COLS=$((MAX_COLS / 2 - 3))
-if [ $((MAX_COLS % 2)) -eq 1 ]; then
-    LEFT_COLS=$((LEFT_COLS + 1))
-fi
-RIGHT_COLS=$((MAX_COLS / 2 - 2))
+APITOKEN=$(cat /home/monitor/server-health/moon-token)
+DNSCREDENTIALS=$(cat /home/monitor/server-health/moondns-credentials)
 
 SERVICES_NUM=2
-SERVICES_OFFSET=$((MAX_LINES - SERVICES_NUM))
-
-RESSTR=""
-
-# substr строка длина добавлять_в_начало
-substr() {
-  local INSTRING="$1"
-  local INMAXLENGTH="$2"
-  local INLEFT="$3"
-  RESSTR=""
-
-  # ensure LENGTH is integer >= 0
-  if ! [[ "$INMAXLENGTH" =~ ^[0-9]+$ ]]; then
-    echo "Invalid length" >&2
-    return 1
-  fi
-
-  local STRINGLENGTH=${#INSTRING}
-  if (( STRINGLENGTH == INMAXLENGTH )); then
-    RESSTR="$INSTRING"
-  elif (( STRINGLENGTH > INMAXLENGTH )); then
-    RESSTR="${INSTRING:0:INMAXLENGTH}"
-  else
-    local SPACES=$(printf '%*s' $((INMAXLENGTH - STRINGLENGTH)) '')
-    if [ "$#" = "2" ]; then
-      RESSTR="${INSTRING}${SPACES}"
-    else 
-      RESSTR="${SPACES}${INSTRING}"
-    fi
-    
-  fi
-}
-
-# substr символ длина
-fill() {
-  local INSYMBOL="$1"
-  local INLENGTH="$2"
-  RESSTR=""
-
-  # ensure LENGTH is integer >= 0
-  if ! [[ "$INLENGTH" =~ ^[0-9]+$ ]]; then
-    echo "Invalid length" >&2
-    return 1
-  fi
-
-  INSYMBOL=${INSYMBOL:0:1}
-
-  RESSTR=""
-  for ((j=0;j<INLENGTH;j++)); do 
-    RESSTR=$RESSTR$INSYMBOL;
-  done
-}
+SERVICES_OFFSET=$((MOON_LINES -2 - SERVICES_NUM))
 
 get() {
   local ENDPOINT="$1"
@@ -104,6 +21,8 @@ get() {
   
   RESSTR=$(curl -ksH "Authorization: PVEAPIToken=$APITOKEN" https://$SERVER:8006/api2/json$ENDPOINT)
 }
+
+RESSTR=""
 
 left_row ()  {
   if [ $1 -eq 1 ]; then
@@ -403,7 +322,7 @@ tput rmacs
 
 # Line N (hosts-guests)
 i=1
-until [ $i -gt $MAX_LINES ]; do
+until [ $i -gt $((MOON_LINES - 2)) ]; do
   tput smacs
   echo -n 'x '
   tput rmacs 
