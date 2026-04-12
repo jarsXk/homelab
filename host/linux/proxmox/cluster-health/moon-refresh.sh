@@ -5,7 +5,7 @@ APITOKEN=$(cat /home/monitor/server-health/moon-token)
 DNSCREDENTIALS=$(cat /home/monitor/server-health/moondns-credentials)
 
 SERVICES_NUM=2
-SERVICES_OFFSET=$((MOON_LINES -2 - SERVICES_NUM))
+SERVICES_OFFSET=$((MOON_LINES - SERVICES_NUM))
 
 get() {
   local ENDPOINT="$1"
@@ -322,7 +322,7 @@ tput rmacs
 
 # Line N (hosts-guests)
 i=1
-until [ $i -gt $((MOON_LINES - 2)) ]; do
+until [ $i -gt $MOON_LINES ]; do
   tput smacs
   echo -n 'x '
   tput rmacs 
