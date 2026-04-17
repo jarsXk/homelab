@@ -20,9 +20,6 @@ if [ "$DEBUG" = "yes" ]; then
   MAX_COLS=72
 fi
 
-TERRA_LINES=3
-MOON_LINES=$((MAX_LINES - TERRA_LINES))
-
 LEFT_COLS=$((MAX_COLS / 2 - 3))
 if [ $((MAX_COLS % 2)) -eq 1 ]; then
     LEFT_COLS=$((LEFT_COLS + 1))

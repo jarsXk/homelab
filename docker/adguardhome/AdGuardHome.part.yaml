@@ -287,29 +287,20 @@ filtering:
     - domain: '*.hina.yaf.lan'
       answer: moonproxy.yaf.lan
       enabled: false
+    - domain: '*.moon.yaf.lan'
+      answer: moonproxy.yaf.lan
+      enabled: true
     - domain: moonadmin.yaf.lan
       answer: 172.20.2.210
-      enabled: true
-    - domain: '*.moonadmin.yaf.lan'
-      answer: moonproxy.yaf.lan
       enabled: true
     - domain: moonmedia.yaf.lan
       answer: 172.20.2.212
       enabled: true
-    - domain: '*.moonmedia.yaf.lan'
-      answer: moonproxy.yaf.lan
-      enabled: true
     - domain: moondns.yaf.lan
       answer: 172.20.2.250
       enabled: true
-    - domain: '*.moondns.yaf.lan'
-      answer: moonproxy.yaf.lan
-      enabled: true
     - domain: moonproxy.yaf.lan
       answer: 172.20.2.254
-      enabled: true
-    - domain: '*.moonproxy.yaf.lan'
-      answer: moonproxy.yaf.lan
       enabled: true
     - domain: phaeton.yaf.lan
       answer: 172.20.2.201

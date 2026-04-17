@@ -4,6 +4,8 @@ SERVER_LIST=("luna.lan" "selena.lan")
 APITOKEN=$(cat /home/monitor/server-health/moon-token)
 DNSCREDENTIALS=$(cat /home/monitor/server-health/moondns-credentials)
 
+MOON_LINES=$((MAX_LINES - TERRA_LINES))
+
 SERVICES_NUM=2
 SERVICES_OFFSET=$((MOON_LINES - SERVICES_NUM))
 
