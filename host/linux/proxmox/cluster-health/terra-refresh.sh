@@ -60,6 +60,9 @@ right_row ()  {
 
 
 HOST_JSON=$(ssh -qt monitor@terra.lan "top -b -n 1 -p 0 > ./top.txt && cat ./top.txt" | jc --top)
+if [ "$HOST_JSON" = "[]" ]; then
+  HOST_JSON=""
+fi
 
 # Line 1 (header)
 tput smacs

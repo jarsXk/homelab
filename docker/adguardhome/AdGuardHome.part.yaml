@@ -300,7 +300,7 @@ filtering:
       answer: 172.20.2.250
       enabled: true
     - domain: moonproxy.yaf.lan
-      answer: 172.20.2.254
+      answer: 172.20.2.252
       enabled: true
     - domain: phaeton.yaf.lan
       answer: 172.20.2.201
