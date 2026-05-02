@@ -24,4 +24,4 @@ up   route add 198.18.160.22 gw 172.20.2.22 dev eth0
           via: 172.20.2.22
           metric: 100
 ```
-- 
+- regenerate ssh keys https://www.cyberciti.biz/faq/howto-regenerate-openssh-host-keys/

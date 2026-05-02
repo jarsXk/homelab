@@ -133,6 +133,9 @@ filtering:
     - domain: moonmedia.lan
       answer: moonmedia.yaf.lan
       enabled: true
+    - domain: moondocs.lan
+      answer: moondocs.yaf.lan
+      enabled: true
     - domain: moondns.lan
       answer: moondns.yaf.lan
       enabled: true
@@ -296,6 +299,9 @@ filtering:
     - domain: moonmedia.yaf.lan
       answer: 172.20.2.212
       enabled: true
+    - domain: moondocs.yaf.lan
+      answer: 172.20.2.213
+      enabled: true  
     - domain: moondns.yaf.lan
       answer: 172.20.2.250
       enabled: true

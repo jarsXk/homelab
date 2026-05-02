@@ -6,13 +6,14 @@ REM Запрос списка хостов
 dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
   Terra           "terra.lan     null" on ^
   Moon            ""                   off ^
-  "  Mani"        "mani.lan      null" off ^
-  "  Luna"        "luna.lan      null" off ^
-  "  Selena"      "selena.lan    null" off ^
+  "  Mani"        "mani.lan      null" on ^
+  "  Luna"        "luna.lan      null" on ^
+  "  Selena"      "selena.lan    null" on ^
   "  Hina"        "              null" off ^
   "    Phaeton"   "phaeton.lan   null" on ^
   "    MoonAdmin" "moonadmin.lan null" on ^
   "    MoonMedia" "moonmedia.lan null" on ^
+  "    MoonDocs"  "moondocs.lan  null" on ^
   "    MoonDNS"   "moondns.lan   null" on ^
   "    MoonProxy" "moonproxy.lan null" on ^
   Inky            "inky.lan      null" off ^
@@ -21,7 +22,7 @@ dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
   Mimas           "mimas.lan     chanovo" off ^
   Ariel           "ariel.lan     yasenevof" on ^
   Ixion           "ixion.lan     shodnenskaya4" off ^
-  Makemake        "makemake.lan  shodnenskaya5" off ^
+  Makemake        "makemake.lan  shodnenskaya5" on ^
   Proxima         "proxima.wan   web" on ^
   2> dialogresult.bak
 cls
@@ -106,6 +107,12 @@ for %%G in (%RESULT%) do (
   )
 
   if %%G == MoonMedia (
+    set UNI_UPG=yes
+    set DOMAIN=lan
+    set PASS=%LINUXPASS%
+  )
+
+  if %%G == MoonDocs (
     set UNI_UPG=yes
     set DOMAIN=lan
     set PASS=%LINUXPASS%

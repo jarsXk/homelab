@@ -16,6 +16,7 @@ dialog --ascii-lines --begin 5 5  --menu "Server to login (user: %USER%)" -1 0 0
    "    Phaeton"   "phaeton.lan   null" ^
    "    MoonAdmin" "moonadmin.lan null" ^
    "    MoonMedia" "moonmedia.lan null" ^
+   "    MoonDocs"  "moondocs.lan  null" ^
    "    MoonDNS"   "moondns.lan   null" ^
    "    MoonProxy" "moonproxy.lan null" ^
    Inky            "inky.lan      null" ^
@@ -24,7 +25,6 @@ dialog --ascii-lines --begin 5 5  --menu "Server to login (user: %USER%)" -1 0 0
    Mimas           "mimas.lan     chanovo" ^
    Ariel           "ariel.lan     yasenevof" ^
    Ixion@yaf       "172.20.13.21  yasenevof" ^
-   Makemake@yaf    "172.20.13.22  yasenevof" ^
    Ixion           "ixion.lan     shodnenskaya4" ^
    Makemake        "makemake.lan  shodnenskaya5" ^
    Proxima         "proxima.wan   web" ^
@@ -44,6 +44,7 @@ if not "x%TRIMRESULT%" == "x" (
   if "%TRIMRESULT%" == "Phaeton" ssh %USER%@phaeton.lan
   if "%TRIMRESULT%" == "MoonAdmin" ssh %USER%@moonadmin.lan
   if "%TRIMRESULT%" == "MoonMedia" ssh %USER%@moonmedia.lan
+  if "%TRIMRESULT%" == "MoonDocs" ssh %USER%@moondocs.lan
   if "%TRIMRESULT%" == "MoonDNS" ssh %USER%@moondns.lan
   if "%TRIMRESULT%" == "MoonProxy" ssh %USER%@moonproxy.lan
   if "%TRIMRESULT%" == "Io" ssh %USER%@io.lan
@@ -51,7 +52,6 @@ if not "x%TRIMRESULT%" == "x" (
   if "%TRIMRESULT%" == "Mimas" ssh %USER%@mimas.lan
   if "%TRIMRESULT%" == "Ariel" ssh %USER%@ariel.lan
   if "%TRIMRESULT%" == "Ixion@yaf" ssh %USER%@172.20.13.21
-  if "%TRIMRESULT%" == "Makemake@yaf" ssh %USER%@172.20.13.22
   if "%TRIMRESULT%" == "Ixion" ssh %USER%@ixion.lan
   if "%TRIMRESULT%" == "Makemake" ssh %USER%@makemake.lan
   if "%TRIMRESULT%" == "Proxima" ssh %USER%@proxima.wan
