@@ -1,6 +1,6 @@
 services:
   watchtower_remote1:
-    container_name: watchtower
+    container_name: watchtower_remote1
     image: containrrr/watchtower
     volumes:
       - /etc/timezone:/etc/timezone:ro
