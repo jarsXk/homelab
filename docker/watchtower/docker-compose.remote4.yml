@@ -18,3 +18,4 @@ services:
         max-size: "2m"
         max-file: "10"
     restart: always
+    labels: [ "com.centurylinklabs.watchtower.scope=scope_${REMOTE4_NAME}" ]
