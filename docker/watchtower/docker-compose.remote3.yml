@@ -11,7 +11,7 @@ services:
       - DOCKER_HOST=${REMOTE3_URL}
     networks:
       net:
-        ipv4_address: 198.19.8.3
+        ipv4_address: 198.19.8.5
     logging:
       driver: "json-file"
       options:
