@@ -11,3 +11,12 @@ docker run \
 ```
 docker start watchtower
 ```
+## docker api 4 remote monitor
+`sudo systemctl edit docker.service`
+```
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H fd:// -H tcp://127.0.0.1:2375
+```
+`sudo systemctl daemon-reload`
+`sudo systemctl restart docker.service`

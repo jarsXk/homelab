@@ -1,6 +1,6 @@
 services:
-  watchtower_remote1:
-    container_name: watchtower_remote_${REMOTE1_NAME}
+  watchtower_remote5:
+    container_name: watchtower_remote_${REMOTE5_NAME}
     image: nickfedor/watchtower
     volumes:
       - /etc/timezone:/etc/timezone:ro
@@ -8,7 +8,7 @@ services:
       - WATCHTOWER_CLEANUP=true
       - WATCHTOWER_SCHEDULE=0 0 7 * * 6
       - WATCHTOWER_ROLLING_RESTART=true
-      - DOCKER_HOST=${REMOTE1_URL}
+      - DOCKER_HOST=${REMOTE5_URL}
     networks:
       net:
         ipv4_address: 198.19.8.3
