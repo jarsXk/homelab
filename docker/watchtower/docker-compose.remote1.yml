@@ -6,7 +6,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
     environment:
       - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_SCHEDULE=0 0 7 * * 6
+      - WATCHTOWER_SCHEDULE=0 5 7 * * 6
       - WATCHTOWER_ROLLING_RESTART=true
       - DOCKER_HOST=${REMOTE1_URL}
     networks:
