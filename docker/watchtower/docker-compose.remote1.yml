@@ -1,6 +1,6 @@
 services:
   watchtower_remote1:
-    container_name: watchtower_remote_${REMOTE1_NAME}
+    container_name: watchtower_${REMOTE1_NAME}
     image: nickfedor/watchtower
     volumes:
       - /etc/timezone:/etc/timezone:ro
@@ -12,9 +12,9 @@ services:
     networks:
       net:
         ipv4_address: 198.19.8.3
-#    depends_on:
-#      watchtower:
-#        condition: service_healthy
+    depends_on:
+      watchtower:
+        condition: service_healthy
     logging:
       driver: "json-file"
       options:
