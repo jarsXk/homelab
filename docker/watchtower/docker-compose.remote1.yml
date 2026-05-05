@@ -12,12 +12,13 @@ services:
     networks:
       net:
         ipv4_address: 198.19.8.3
-    depends_on:
-      watchtower:
-        condition: service_healthy
+#    depends_on:
+#      watchtower:
+#        condition: service_healthy
     logging:
       driver: "json-file"
       options:
         max-size: "2m"
         max-file: "10"
     restart: always
+    labels: [ "com.centurylinklabs.watchtower.scope=scope_${REMOTE1_NAME}" ]
