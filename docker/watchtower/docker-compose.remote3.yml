@@ -1,6 +1,6 @@
 services:
   watchtower_remote3:
-    container_name: watchtower_${REMOTE3_NAME}
+    container_name: watchtower-${REMOTE3_NAME}
     image: nickfedor/watchtower
     volumes:
       - /etc/timezone:/etc/timezone:ro
