@@ -1,7 +1,7 @@
 #!/bin/bash
 
-APP_LABEL=(D Px)
-APP_STATUS=(? ?)
+APP_LABEL=(D Px Vw Ca)
+APP_STATUS=(? ? ? ?)
 APP_LENGTH=${#APP_LABEL[@]}
 
 APPS_LINES=2
