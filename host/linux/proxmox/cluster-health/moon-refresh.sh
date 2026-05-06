@@ -3,7 +3,7 @@
 SERVER_LIST=("luna.lan" "selena.lan")
 APITOKEN=$(cat /home/monitor/server-health/moon-token)
 
-MOON_LINES=$((MAX_LINES - TERRA_LINES - 2))
+MOON_LINES=$((MAX_LINES - TERRA_LINES - 4))
 
 get() {
   local ENDPOINT="$1"
