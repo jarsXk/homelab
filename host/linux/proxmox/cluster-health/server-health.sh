@@ -88,6 +88,7 @@ while [ true ]; do
   
   . /home/monitor/server-health/terra-refresh.sh
   . /home/monitor/server-health/moon-refresh.sh
+  . /home/monitor/server-health/apps-refresh.sh
 
   sleep 2m
 done

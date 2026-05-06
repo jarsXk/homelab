@@ -2,12 +2,8 @@
 
 SERVER_LIST=("luna.lan" "selena.lan")
 APITOKEN=$(cat /home/monitor/server-health/moon-token)
-DNSCREDENTIALS=$(cat /home/monitor/server-health/moondns-credentials)
 
-MOON_LINES=$((MAX_LINES - TERRA_LINES))
-
-SERVICES_NUM=2
-SERVICES_OFFSET=$((MOON_LINES - SERVICES_NUM))
+MOON_LINES=$((MAX_LINES - TERRA_LINES - 2))
 
 get() {
   local ENDPOINT="$1"
@@ -201,7 +197,7 @@ right_row ()  {
     echo -n "$RESSTR"
     tput rmacs
 
-  elif [ $1 -ge 2 ] && [ $1 -lt $SERVICES_OFFSET ]; then
+  elif [ $1 -ge 2 ]; then
     # Line M (guest)
     local CUR_ENTRY=$(( $1 - 2 ))
     local CLUSTER_GUESTS="$(echo $GUESTS_JSON | jq '. | length')"
@@ -257,49 +253,6 @@ right_row ()  {
       fill " " "$RIGHT_COLS"
       echo -n "$RESSTR"
     fi
-    
-  elif [ $1 -eq $SERVICES_OFFSET ]; then
-    # Line Services (services header) 
-    tput smacs
-    echo -n "q"
-    tput rmacs
-    echo -n " Services "
-    tput smacs
-    fill "q" "$(($2 - 11))"
-    echo -n "$RESSTR"
-    tput rmacs
-    
-  elif [ $1 -eq $((SERVICES_OFFSET + 1)) ]; then
-    # Line Services + 1 (dns)
-    local DNS_HEALTH=$HEALTH_UNKNOWN
-    local TMPVAL="$(curl -ks -u "$DNSCREDENTIALS" https://moondns.lan/control/status | jq '.running')"
-    if [ "$TMPVAL" = "true" ]; then
-      local DNS_HEALTH=$HEALTH_GOOD
-    else
-      local DNS_HEALTH=$HEALTH_BAD
-    fi
-    tput smacs
-    echo -en "$DNS_HEALTH "
-    tput rmacs
-    substr "dns" $(( $RIGHT_COLS - 3 ))
-    echo -n "$RESSTR"
-
-  elif [ $1 -eq $((SERVICES_OFFSET + 2)) ]; then
-    # Line Services + 1 (dns)
-    local PROXY_HEALTH=$HEALTH_UNKNOWN
-    local TMPVAL="$(curl -s http://moonproxy.lan:30320/api/ | jq '.status')"
-    local TMPVAL=${TMPVAL#\"}
-    local TMPVAL=${TMPVAL%\"}
-    if [ "$TMPVAL" = "OK" ]; then
-      local PROXY_HEALTH=$HEALTH_GOOD
-    else
-      local PROXY_HEALTH=$HEALTH_BAD
-    fi
-    tput smacs
-    echo -en "$PROXY_HEALTH "
-    tput rmacs
-    substr "proxy" $(( $RIGHT_COLS - 3 ))
-    echo -n "$RESSTR"
   fi
 } 
 
@@ -344,5 +297,5 @@ tput smacs
 echo -n 'm'
 fill "q" "$((MAX_COLS - 2))"
 echo -n "$RESSTR"
-#echo 'j'
+echo 'j'
 tput rmacs
