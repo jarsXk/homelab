@@ -1,7 +1,7 @@
 #!/bin/bash
 
-APP_LABEL=(D Px Vw Ca)
-APP_STATUS=(? ? ? ?)
+APP_LABEL=(D Px Vw Ca Jf)
+APP_STATUS=(? ? ? ? ?)
 APP_LENGTH=${#APP_LABEL[@]}
 
 APPS_LINES=2
@@ -13,8 +13,7 @@ I=0
 for LABEL in "${APP_LABEL[@]}"; do
   # DNS
   if [ "$LABEL" = "D" ]; then
-    TMPVAL="$(curl -ks -u "$DNSCREDENTIALS" https://moondns.lan/control/status | jq '.running')"
-    if [ "$TMPVAL" = "true" ]; then
+    if [ $(dig mani.lan @moondns.lan | grep 172.20.2.20 | wc -c) -gt 0 ]; then
       APP_STATUS[$I]=Y
     else
       APP_STATUS[$I]=N
@@ -25,6 +24,23 @@ for LABEL in "${APP_LABEL[@]}"; do
     TMPVAL=${TMPVAL#\"}
     TMPVAL=${TMPVAL%\"}
     if [ "$TMPVAL" = "OK" ]; then
+      APP_STATUS[$I]=Y
+    else
+      APP_STATUS[$I]=Т
+    fi
+  # CalibreWeb
+  elif [ "$LABEL" = "Ca" ]; then
+    if [ "$(curl -si http://moonmedia.lan:31220 | grep Location: | wc -c)" -gt 0 ]; then
+      APP_STATUS[$I]=Y
+    else
+      APP_STATUS[$I]=Т
+    fi
+  # Jellyfin
+  elif [ "$LABEL" = "Jf" ]; then
+    TMPVAL="$(curl -s http://moonmedia.lan:31020/System/Ping)"
+    TMPVAL=${TMPVAL#\"}
+    TMPVAL=${TMPVAL%\"}
+    if [ "$TMPVAL" = "Jellyfin Server" ]; then
       APP_STATUS[$I]=Y
     else
       APP_STATUS[$I]=Т

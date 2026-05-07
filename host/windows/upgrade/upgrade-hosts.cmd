@@ -4,26 +4,26 @@ setlocal enabledelayedexpansion
 
 REM Запрос списка хостов
 dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
-  Terra           "terra.lan     null" on ^
+  Terra           "terra.lan     null" off ^
   Moon            ""                   off ^
-  "  Mani"        "mani.lan      null" on ^
-  "  Luna"        "luna.lan      null" on ^
-  "  Selena"      "selena.lan    null" on ^
+  "  Mani"        "mani.lan      null" off ^
+  "  Luna"        "luna.lan      null" off ^
+  "  Selena"      "selena.lan    null" off ^
   "  Hina"        "              null" off ^
-  "    Phaeton"   "phaeton.lan   null" on ^
-  "    MoonAdmin" "moonadmin.lan null" on ^
-  "    MoonMedia" "moonmedia.lan null" on ^
-  "    MoonDocs"  "moondocs.lan  null" on ^
-  "    MoonDNS"   "moondns.lan   null" on ^
-  "    MoonProxy" "moonproxy.lan null" on ^
+  "    Phaeton"   "phaeton.lan   null" off ^
+  "    MoonAdmin" "moonadmin.lan null" off ^
+  "    MoonMedia" "moonmedia.lan null" off ^
+  "    MoonDocs"  "moondocs.lan  null" off ^
+  "    MoonDNS"   "moondns.lan   null" off ^
+  "    MoonProxy" "moonproxy.lan null" off ^
   Inky            "inky.lan      null" off ^
-  Io              "io.lan        vasilkovo" on ^
-  Europa          "europa.lan    vasilkovo" on ^
+  Io              "io.lan        vasilkovo" off ^
+  Europa          "europa.lan    vasilkovo" off ^
   Mimas           "mimas.lan     chanovo" off ^
-  Ariel           "ariel.lan     yasenevof" on ^
+  Ariel           "ariel.lan     yasenevof" off ^
   Ixion           "ixion.lan     shodnenskaya4" off ^
-  Makemake        "makemake.lan  shodnenskaya5" on ^
-  Proxima         "proxima.wan   web" on ^
+  Makemake        "makemake.lan  shodnenskaya5" off ^
+  Proxima         "proxima.wan   web" off ^
   2> dialogresult.bak
 cls
 REM Получение и очистка результата
