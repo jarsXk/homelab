@@ -23,20 +23,8 @@ get() {
 RESSTR=""
 
 left_row ()  {
-  if [ $1 -eq 1 ]; then
-  
-    # Line 1 (cluster header)
-    tput smacs
-    echo -n "q"
-    tput rmacs
-    echo -n " Cluster "
-    tput smacs
-    fill "q" "$(($2 - 10))"
-    echo -n "$RESSTR"
-    tput rmacs
-  elif [ $1 -eq 2 ]; then
-  
-    # Line 2 (cluster health)
+  # Line 1 (cluster health)
+  if [ $1 -eq 1 ]; then  
     local CLUSTER_HEALTH=$HEALTH_BAD
     local CLUSTER_CORES=0
     local CLUSTER_RAM=0
@@ -79,9 +67,67 @@ left_row ()  {
     fill " " "$(($2 - 31))"
     echo -n "$RESSTR"
     echo -n "(N ${CLUSTER_NODESONLINE}/${CLUSTER_NODES} C ${CLUSTER_CORES} Mem ${CLUSTER_RAMUSED}/${CLUSTER_RAM}G)"
-  elif [ $1 -eq 3 ]; then
 
-    # Line 3 (ceph health)
+  # Line 2+HOSTS (hosts)
+  elif [ $1 -ge 2 ] && [ $1 -lt $((2 + CLUSTER_NODES)) ]; then
+    local CUR_ENTRY=$(( $1 - 2 ))
+    if [ $CUR_ENTRY -lt $CLUSTER_NODES ]; then
+      local NODE_HEALTH=$HEALTH_BAD
+      local NODE_JSON="$(echo $RESOURCES_JSON | jq '[ .data[] | select(.type == "node") ]' | jq '.['$CUR_ENTRY']')"      
+      local TMPVAL="$(echo $NODE_JSON | jq '.status')"
+      local TMPVAL=${TMPVAL#\"}
+      local TMPVAL=${TMPVAL%\"}
+      if [ "$TMPVAL" = "online" ]; then
+        local NODE_HEALTH=$HEALTH_GOOD
+      else
+        local NODE_HEALTH=$HEALTH_BAD
+      fi
+
+      local TMPVAL="$(echo $NODE_JSON | jq '.node')"
+      local TMPVAL=${TMPVAL#\"}
+      local TMPVAL=${TMPVAL%\"}
+      substr "$TMPVAL" 11
+      local NODE_NAME=$RESSTR
+
+      local TMPVAL="$(echo $NODE_JSON | jq '.cpu')"
+      if (( $(echo "$TMPVAL < 0.01" | bc -l) )); then
+        local TMPVAL=$(echo "scale=1; $TMPVAL * 100 / 1" | bc)
+      else
+        local TMPVAL=$(echo "scale=0; $TMPVAL * 100 / 1" | bc)
+      fi
+      substr "$TMPVAL" 3 yes
+      local NODE_CPU=$RESSTR
+
+      local TMPVAL="$(echo $NODE_JSON | jq '.maxmem')"
+      local TMPVAL=$(($TMPVAL / 1000000000))
+      substr "$TMPVAL" 2 yes
+      local NODE_RAM=$RESSTR
+      local TMPVAL="$(echo $NODE_JSON | jq '.mem')"
+
+      if (( $(echo "$TMPVAL < 1000000000" | bc -l) )); then
+        local TMPVAL=$(echo "scale=1; $TMPVAL / 1000000000" | bc)
+      else
+        local TMPVAL=$(($TMPVAL / 1000000000))
+      fi
+      substr "$TMPVAL" 2 yes
+      local NODE_RAMUSED=$RESSTR
+      
+      tput smacs
+      echo -en $NODE_HEALTH" "
+      tput rmacs
+      echo -n "  $NODE_NAME (L${NODE_CPU}% M ${NODE_RAMUSED}/${NODE_RAM}G)"
+    else
+      fill " " "$LEFT_COLS"
+      echo -n "$RESSTR"
+    fi
+  
+  # Line 2+HOSTS+1 empty
+  elif [ $1 -eq $((2 + CLUSTER_NODES)) ]; then
+    fill " " "$LEFT_COLS"
+    echo -n "$RESSTR"
+
+  # Line 2+HOSTS+2 (ceph health)
+  elif [ $1 -eq $((2 + CLUSTER_NODES + 1)) ]; then
     local CEPH_HEALTH=$HEALTH_BAD
     local CEPH_MONS=0
     local CEPH_OSD=0
@@ -114,92 +160,19 @@ left_row ()  {
     echo -n "$RESSTR"
     echo -n "(Mon ${CEPH_MONS}/${CEPH_MONS} OSD  ${CEPH_OSD}/${CEPH_OSDONLINE}  )"
 
-  elif [ $1 -eq 4 ]; then
-    # Line 4 empty
+  # Line 2+HOSTS+CEPH+1 empty
+  elif [ $1 -ge $((2 + CLUSTER_NODES + 2)) ]; then
     fill " " "$LEFT_COLS"
-    echo -n "$RESSTR"
-
-  elif [ $1 -eq 5 ]; then  
-    # Line 4 (nodes header)
-    tput smacs
-    echo -n "q"
-    tput rmacs
-    echo -n " Nodes "
-    tput smacs
-    fill "q" "$(($2 - 8))"
-    echo -n "$RESSTR"
-    tput rmacs      
-    
-  elif [ $1 -ge 6 ]; then            
-    # Line N (hosts)
-    local CUR_ENTRY=$(( $1 - 6 ))
-    if [ $CUR_ENTRY -lt $CLUSTER_NODES ]; then
-      local NODE_HEALTH=$HEALTH_BAD
-      local NODE_JSON="$(echo $RESOURCES_JSON | jq '[ .data[] | select(.type == "node") ]' | jq '.['$CUR_ENTRY']')"      
-      local TMPVAL="$(echo $NODE_JSON | jq '.status')"
-      local TMPVAL=${TMPVAL#\"}
-      local TMPVAL=${TMPVAL%\"}
-      if [ "$TMPVAL" = "online" ]; then
-        local NODE_HEALTH=$HEALTH_GOOD
-      else
-        local NODE_HEALTH=$HEALTH_BAD
-      fi
-
-      local TMPVAL="$(echo $NODE_JSON | jq '.node')"
-      local TMPVAL=${TMPVAL#\"}
-      local TMPVAL=${TMPVAL%\"}
-      substr "$TMPVAL" 12
-      local NODE_NAME=$RESSTR
-
-      local TMPVAL="$(echo $NODE_JSON | jq '.cpu')"
-      if (( $(echo "$TMPVAL < 0.01" | bc -l) )); then
-        local TMPVAL=$(echo "scale=1; $TMPVAL * 100 / 1" | bc)
-      else
-        local TMPVAL=$(echo "scale=0; $TMPVAL * 100 / 1" | bc)
-      fi
-      substr "$TMPVAL" 3 yes
-      local NODE_CPU=$RESSTR
-
-      local TMPVAL="$(echo $NODE_JSON | jq '.maxmem')"
-      local TMPVAL=$(($TMPVAL / 1000000000))
-      substr "$TMPVAL" 2 yes
-      local NODE_RAM=$RESSTR
-      local TMPVAL="$(echo $NODE_JSON | jq '.mem')"
-
-      if (( $(echo "$TMPVAL < 1000000000" | bc -l) )); then
-        local TMPVAL=$(echo "scale=1; $TMPVAL / 1000000000" | bc)
-      else
-        local TMPVAL=$(($TMPVAL / 1000000000))
-      fi
-      substr "$TMPVAL" 2 yes
-      local NODE_RAMUSED=$RESSTR
-      
-      tput smacs
-      echo -en $NODE_HEALTH" "
-      tput rmacs
-      echo -n "$NODE_NAME (L ${NODE_CPU}% M ${NODE_RAMUSED}/${NODE_RAM}G)"
-    else
-      fill " " "$LEFT_COLS"
-      echo -n "$RESSTR"
-    fi
+    echo -n "$RESSTR"  
+     
   fi
-} 
+}   
+  
 
 right_row ()  {
-  if [ $1 -eq 1 ]; then
-    # Line 1 (guests header) 
-    tput smacs
-    echo -n "q"
-    tput rmacs
-    echo -n " Guests "
-    tput smacs
-    fill "q" "$(($2 - 9))"
-    echo -n "$RESSTR"
-    tput rmacs
-
-  elif [ $1 -ge 2 ]; then
-    # Line M (guest)
-    local CUR_ENTRY=$(( $1 - 2 ))
+  # Line 1+GUEST (guest)  
+  if [ $1 -ge 1 ]; then
+    local CUR_ENTRY=$(( $1 - 1 ))
     local CLUSTER_GUESTS="$(echo $GUESTS_JSON | jq '. | length')"
     if [ $CUR_ENTRY -lt $CLUSTER_GUESTS ]; then
 
@@ -220,7 +193,7 @@ right_row ()  {
       local TMPVAL="$(echo $GUEST_JSON | jq '.name')"
       local TMPVAL=${TMPVAL#\"}
       local TMPVAL=${TMPVAL%\"}
-      substr "$TMPVAL" 13
+      substr "$TMPVAL" 14
       local GUEST_NAME=$RESSTR
 
       local TMPVAL="$(echo $GUEST_JSON | jq '.cpu')"
@@ -248,7 +221,7 @@ right_row ()  {
       tput smacs
       echo -en "$GUEST_HEALTH "
       tput rmacs
-      echo -n "$GUEST_NAME (L ${GUEST_CPU}% M ${GUEST_RAMUSED}/${GUEST_RAM}G)"
+      echo -n "$GUEST_NAME (L${GUEST_CPU}% M ${GUEST_RAMUSED}/${GUEST_RAM}G)"
     else
       fill " " "$RIGHT_COLS"
       echo -n "$RESSTR"
