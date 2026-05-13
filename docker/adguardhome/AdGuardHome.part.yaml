@@ -285,11 +285,11 @@ filtering:
       answer: moonproxy.yaf.lan
       enabled: true
     - domain: hina.yaf.lan
-      answer: reserved
-      enabled: false
+      answer: 172.20.2.23
+      enabled: true
     - domain: '*.hina.yaf.lan'
       answer: moonproxy.yaf.lan
-      enabled: false
+      enabled: true
     - domain: '*.moon.yaf.lan'
       answer: moonproxy.yaf.lan
       enabled: true

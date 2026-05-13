@@ -9,7 +9,7 @@ dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
   "  Mani"        "mani.lan      null" off ^
   "  Luna"        "luna.lan      null" off ^
   "  Selena"      "selena.lan    null" off ^
-  "  Hina"        "              null" off ^
+  "  Hina"        "hina.lan      null" off ^
   "    Phaeton"   "phaeton.lan   null" off ^
   "    MoonAdmin" "moonadmin.lan null" off ^
   "    MoonMedia" "moonmedia.lan null" off ^
@@ -83,6 +83,12 @@ for %%G in (%RESULT%) do (
   )
 
   if %%G == Selena (
+    set UNI_UPG=yes
+    set DOMAIN=lan
+    set PASS=%PROXMOXPASS%
+  )
+
+  if %%G == Hina (
     set UNI_UPG=yes
     set DOMAIN=lan
     set PASS=%PROXMOXPASS%

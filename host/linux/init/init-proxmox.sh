@@ -16,7 +16,7 @@ log_message INFO "Initial setup for Debian Metal, VM & LXC"
 . <(wget -qO- ${INIT_REPO}/host/linux/lib/lib-checkroot.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-env.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-env-debian.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-packages-proxmox.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/init/proxmox/lib-init-packages-proxmox.sh)
 . <(wget -qO- ${INIT_REPO}/host/linux/init/common/lib-init-serverrole.sh)
 
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-groupsusers-base-debian.sh)
@@ -37,6 +37,6 @@ log_message INFO "Initial setup for Debian Metal, VM & LXC"
 
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-cleaning-debian.sh)
 log_message INFO "Initial setup finished"
-run_command "/etc/update-motd.d/70-custom-motd" "Error"
+run_command "${MOTD_PATH}" "Error"
 
 exit 0

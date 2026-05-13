@@ -38,7 +38,7 @@ log_message INFO "Initial setup for Alpine Metal, VM & LXC"
 
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-cleaning-alpine.sh)
 log_message INFO "Initial setup finished"
-run_command "/etc/profile.d/70-custom-motd.sh" "Error"
+run_command "${MOTD_PATH}" "Error"
 
 if [ $DOCKER != no ]; then
   log_message INFO "!!! Restart is required !!!"

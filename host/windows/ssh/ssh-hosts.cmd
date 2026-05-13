@@ -12,7 +12,7 @@ dialog --ascii-lines --begin 5 5  --menu "Server to login (user: %USER%)" -1 0 0
    "  Mani"        "mani.lan      null" ^
    "  Luna"        "luna.lan      null" ^
    "  Selena"      "selena.lan    null" ^
-   "  Hina"        "              null" ^
+   "  Hina"        "hina.lan      null" ^
    "    Phaeton"   "phaeton.lan   null" ^
    "    MoonAdmin" "moonadmin.lan null" ^
    "    MoonMedia" "moonmedia.lan null" ^
@@ -40,6 +40,7 @@ if not "x%TRIMRESULT%" == "x" (
   if "%TRIMRESULT%" == "Mani" ssh %USER%@mani.lan
   if "%TRIMRESULT%" == "Luna" ssh %USER%@luna.lan
   if "%TRIMRESULT%" == "Selena" ssh %USER%@selena.lan
+  if "%TRIMRESULT%" == "Hina" ssh %USER%@hina.lan
   if "%TRIMRESULT%" == "Inky" ssh %USER%@inky.lan
   if "%TRIMRESULT%" == "Phaeton" ssh %USER%@phaeton.lan
   if "%TRIMRESULT%" == "MoonAdmin" ssh %USER%@moonadmin.lan

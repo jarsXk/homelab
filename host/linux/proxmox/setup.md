@@ -6,22 +6,22 @@
 - vm routes alpine
   /etc/network/interfaces
 ```c
-up   route add 198.18.160.20 gw 172.20.2.20 dev eth0
 up   route add 198.18.160.21 gw 172.20.2.21 dev eth0
 up   route add 198.18.160.22 gw 172.20.2.22 dev eth0
+up   route add 198.18.160.23 gw 172.20.2.23 dev eth0
 ```
 - vm routes debian13
   /etc/netplan/90-default.yaml
 ```c
-      routes:
-        - to: 198.18.160.20
-          via: 172.20.2.20
-          metric: 100
+      routes:        
         - to: 198.18.160.21
           via: 172.20.2.21
           metric: 100
         - to: 198.18.160.22
           via: 172.20.2.22
+          metric: 100
+        - to: 198.18.160.23
+          via: 172.20.2.23
           metric: 100
 ```
 - regenerate ssh keys https://www.cyberciti.biz/faq/howto-regenerate-openssh-host-keys/

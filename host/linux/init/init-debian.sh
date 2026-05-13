@@ -41,6 +41,6 @@ fi
 
 . <(wget -qO- ${INIT_REPO}/host/linux/init/debian/lib-init-cleaning-debian.sh)
 log_message INFO "Initial setup finished"
-run_command "/etc/update-motd.d/70-custom-motd" "Error"
+run_command "${MOTD_PATH}" "Error"
 
 exit 0

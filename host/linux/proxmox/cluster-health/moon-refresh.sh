@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SERVER_LIST=("luna.lan" "selena.lan")
+SERVER_LIST=("luna.lan" "selena.lan" "hina.lan")
 APITOKEN=$(cat /home/monitor/server-health/moon-token)
 
 MOON_LINES=$((MAX_LINES - TERRA_LINES - 4))
