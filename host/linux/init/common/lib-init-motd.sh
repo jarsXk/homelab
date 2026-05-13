@@ -8,7 +8,7 @@ run_command "mkdir -p /usr/share/figlet" "Error setting motd"
 run_command "wget -O /usr/share/figlet/Tmplr.flf https://raw.githubusercontent.com/patorjk/figlet.js/refs/heads/main/fonts/Tmplr.flf" "Error setting motd"
 
 if [ "$LINUX_DISTRO" = "debian" ]; then
-  MOTD_PATH=/etc/profile.d/70-custom-motd
+  MOTD_PATH=/etc/update-motd.d/70-custom-motd
 elif [ "$LINUX_DISTRO" = "alpine" ]; then
   MOTD_PATH=/etc/profile.d/70-custom-motd.sh
 fi
