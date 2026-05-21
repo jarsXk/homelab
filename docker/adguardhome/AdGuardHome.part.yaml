@@ -217,7 +217,7 @@ filtering:
       answer: mimas.cha.lan
       enabled: true
     - domain: mimas.cha.lan
-      answer: 172.20.13.18
+      answer: 172.18.2.10
       enabled: true
     - domain: mimas.lan
       answer: mimas.cha.lan
