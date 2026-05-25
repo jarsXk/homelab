@@ -26,14 +26,21 @@ for LABEL in "${APP_LABEL[@]}"; do
     if [ "$TMPVAL" = "OK" ]; then
       APP_STATUS[$I]=Y
     else
-      APP_STATUS[$I]=Т
+      APP_STATUS[$I]=N
+    fi
+  # VaultWarden
+  elif [ "$LABEL" = "Vw" ]; then
+    if [ "$(curl -si http://moondocs.lan:31720/api/version | wc -c)" -gt 0 ]; then
+      APP_STATUS[$I]=Y
+    else
+      APP_STATUS[$I]=N
     fi
   # CalibreWeb
   elif [ "$LABEL" = "Ca" ]; then
     if [ "$(curl -si http://moonmedia.lan:31220 | grep Location: | wc -c)" -gt 0 ]; then
       APP_STATUS[$I]=Y
     else
-      APP_STATUS[$I]=Т
+      APP_STATUS[$I]=N
     fi
   # Jellyfin
   elif [ "$LABEL" = "Jf" ]; then
@@ -43,7 +50,7 @@ for LABEL in "${APP_LABEL[@]}"; do
     if [ "$TMPVAL" = "Jellyfin Server" ]; then
       APP_STATUS[$I]=Y
     else
-      APP_STATUS[$I]=Т
+      APP_STATUS[$I]=N
     fi
   fi
   I=$((I + 1))
