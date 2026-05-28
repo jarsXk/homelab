@@ -13,6 +13,16 @@ pveum aclmod / -user <name>@pam -role PVEAuditor
 - thunderbolt net: https://gist.github.com/karubits/787632319e529066a81d1192d879834c
 - intel vgpu: https://github.com/strongtz/i915-sriov-dkms https://www.derekseaman.com/2024/07/proxmox-ve-8-2-windows-11-vgpu-vt-d-passthrough-with-intel-alder-lake.html
 - kernel clean: `bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/tools/pve/kernel-clean.sh)"`
+- ha state
+```
+ha-manager set vm:<vmid> --state disabled
+ha-manager set vm:<vmid> --state enabled
+```
+- maintainance mode
+```
+ha-manager crm-command node-maintenance enable <node-name>
+ha-manager crm-command node-maintenance disable <node-name>
+```
 
 # Guest
 - vm routes alpine
