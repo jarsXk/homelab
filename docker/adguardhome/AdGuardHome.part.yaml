@@ -147,10 +147,10 @@ filtering:
       enabled: true
     # vasilkovo (17)
     - domain: point.vas.wan
-      answer: 192.168.1.1
+      answer: 192.168.17.1
       enabled: true
     - domain: yota.vas.wan
-      answer: 192.168.8.1
+      answer: 192.168.117.1
       enabled: true
     - domain: router.vas.lan
       answer: ganymede.vas.lan
