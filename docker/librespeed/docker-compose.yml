@@ -1,0 +1,47 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.19.0/24
+          gateway: 198.19.19.1
+
+volumes:
+  config:
+
+services:
+  librespeed:
+    container_name: librespeed
+    image: lscr.io/linuxserver/librespeed:latest
+    hostname: librespeed
+    environment:
+      - PUID=1999
+      - PGID=1000
+      - TZ=Europe/Moscow
+      - PASSWORD=${PASSWORD}
+#      - CUSTOM_RESULTS=false #optional
+#      - DB_TYPE=sqlite #optional
+#      - DB_NAME=DB_NAME #optional
+#      - DB_HOSTNAME=DB_HOSTNAME #optional
+#      - DB_USERNAME=DB_USERNAME #optional
+#      - DB_PASSWORD=DB_PASSWORD #optional
+#      - DB_PORT=DB_PORT #optional
+#      - IPINFO_APIKEY=ACCESS_TOKEN #optional
+    volumes:
+      - config:/config
+    ports:
+      - 31980:80
+    networks:
+      net:
+        ipv4_address: 198.19.19.2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://198.19.19.2"]
+      interval: 30s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
