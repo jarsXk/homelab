@@ -1,13 +1,13 @@
 ## Linux
 
 ```javascript
-sudo mkdir -p /srv/data/proxima-junk
+sudo mkdir -p /mnt/proxima-junk
 ```
 
 ### fstab
 
 ```javascript
-/srv/remotemount/proxima                                                                /srv/data/proxima-junk                                      none    defaults,nofail,bind   
+/srv/remotemount/proxima                                                                /mnt/proxima-junk                                      none    defaults,nofail,bind   0 0
 ```
 
 ## Windows
