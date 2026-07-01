@@ -15,7 +15,7 @@ services:
     hostname: librespeed
     environment:
       - PUID=1999
-      - PGID=1000
+      - PGID=100
       - TZ=Europe/Moscow
       - PASSWORD=${PASSWORD}
 #      - CUSTOM_RESULTS=false #optional

@@ -12,6 +12,7 @@ dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
   "  Hina"        "hina.lan      null" off ^
   "    Phaeton"   "phaeton.lan   null" off ^
   "    MoonAdmin" "moonadmin.lan null" off ^
+  "    MoonLoad " "moonload.lan  null" off ^
   "    MoonMedia" "moonmedia.lan null" off ^
   "    MoonDocs"  "moondocs.lan  null" off ^
   "    MoonDNS"   "moondns.lan   null" off ^
@@ -107,6 +108,12 @@ for %%G in (%RESULT%) do (
   )  
 
   if %%G == MoonAdmin (
+    set UNI_UPG=yes
+    set DOMAIN=lan
+    set PASS=%LINUXPASS%
+  )
+
+  if %%G == MoonLoad (
     set UNI_UPG=yes
     set DOMAIN=lan
     set PASS=%LINUXPASS%

@@ -130,6 +130,9 @@ filtering:
     - domain: moonadmin.lan
       answer: moonadmin.yaf.lan
       enabled: true
+    - domain: moonload.lan
+      answer: moonload.yaf.lan
+      enabled: true
     - domain: moonmedia.lan
       answer: moonmedia.yaf.lan
       enabled: true
@@ -295,6 +298,9 @@ filtering:
       enabled: true
     - domain: moonadmin.yaf.lan
       answer: 172.20.2.210
+      enabled: true
+    - domain: moonload.yaf.lan
+      answer: 172.20.2.211
       enabled: true
     - domain: moonmedia.yaf.lan
       answer: 172.20.2.212
