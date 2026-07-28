@@ -30,14 +30,14 @@ del mediatab_setup.exe
 mkdir C:\Software\
 curl ^
     -H "Accept: application/vnd.github.v3.raw" ^
-    -o C:\Software\sshsel-kommunarka.cmd ^
+    -o C:\Software\ssh-hosts.cmd ^
     -L ^
-    https://api.github.com/repos/jarsXk/homelab/contents/host/windows/ssh/sshsel-kommunarka.cmd
+    https://api.github.com/repos/jarsXk/homelab/contents/host/windows/ssh/ssh-hosts.cmd
 curl ^
     -H "Accept: application/vnd.github.v3.raw" ^
-    -o C:\Software\sshsel-vasilkovo.cmd ^
+    -o C:\Software\upgrade-hosts.cmd ^
     -L ^
-    https://api.github.com/repos/jarsXk/homelab/contents/host/windows/ssh/sshsel-vasilkovo.cmd
+    https://api.github.com/repos/jarsXk/homelab/contents/host/windows/upgrade/upgrade-hosts.cmd
 
 curl ^
     -H "Accept: application/vnd.github.v3.raw" ^
