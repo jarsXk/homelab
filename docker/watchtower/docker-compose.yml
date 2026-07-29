@@ -16,6 +16,7 @@ services:
       - WATCHTOWER_CLEANUP=true
       - WATCHTOWER_SCHEDULE=0 0 7 * * 6
       - WATCHTOWER_ROLLING_RESTART=true
+      - WATCHTOWER_USE_COMPOSE_DEPENDS_ON=false
     networks:
       net:
         ipv4_address: 198.19.8.2
