@@ -1,0 +1,34 @@
+networks:
+  net:  
+    ipam:
+      config:
+        - subnet: 198.19.14.0/24
+          gateway: 198.19.14.1
+
+volumes:
+  data:
+
+services:
+  ollama:
+    container_name: ollama
+    hostname: ollama
+    image: ollama/ollama
+    volumes:
+      - data:/root/.ollama
+    ports:
+      - 11434:11434
+    networks:
+      net:
+        ipv4_address: 198.19.14.2
+    healthcheck:
+      test: ["CMD", "ollama", "ps"]
+      interval: 30s
+      timeout: 10s
+      start_period: 10s
+      retries: 3    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
