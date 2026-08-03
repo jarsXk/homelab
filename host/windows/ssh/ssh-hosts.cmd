@@ -49,7 +49,7 @@ if not "x%TRIMRESULT%" == "x" (
   if "%TRIMRESULT%" == "MoonLoad" ssh %USER%@moonload.lan  
   if "%TRIMRESULT%" == "MoonMedia" ssh %USER%@moonmedia.lan
   if "%TRIMRESULT%" == "MoonDocs" ssh %USER%@moondocs.lan
-  if "%TRIMRESULT%" == "MoonDocs" ssh %USER%@moonai.lan
+  if "%TRIMRESULT%" == "MoonAI" ssh %USER%@moonai.lan
   if "%TRIMRESULT%" == "MoonDNS" ssh %USER%@moondns.lan
   if "%TRIMRESULT%" == "MoonProxy" ssh %USER%@moonproxy.lan
   if "%TRIMRESULT%" == "Io" ssh %USER%@io.lan
