@@ -22,7 +22,6 @@ services:
       - OLLAMA_VULKAN=1
       - OLLAMA_MAX_LOADED_MODELS=1
       - OLLAMA_NUM_PARALLEL=1
-      - OLLAMA_NUM_CTX=4096
     devices:
       - /dev/dri:/dev/dri
     ports:
