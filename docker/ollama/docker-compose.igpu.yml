@@ -18,6 +18,7 @@ services:
     environment:
       - TZ="Europe/Moscow"
       - OLLAMA_ORIGINS=*
+      - OLLAMA_IGPU_ENABLE=1
       - OLLAMA_VULKAN=1
       - OLLAMA_MAX_LOADED_MODELS=1
       - OLLAMA_NUM_PARALLEL=1
