@@ -10,15 +10,15 @@ volumes:
 
 services:
   ollama-igpu:
-    container_name: ollama-igpu
-    hostname: ollama-igpu
-    image: uberchuckie/ollama-intel-gpu
+    container_name: ollama
+    hostname: ollama
+    image: ollama/ollama:latest
     volumes:
       - data:/root/.ollama
     environment:
       - TZ="Europe/Moscow"
       - OLLAMA_ORIGINS=*
-      - DEVICE=Arc
+      - OLLAMA_VULKAN=1
       - OLLAMA_MAX_LOADED_MODELS=1
       - OLLAMA_NUM_PARALLEL=1
       - OLLAMA_NUM_CTX=4096
