@@ -142,6 +142,9 @@ filtering:
     - domain: moonai.lan
       answer: moonai.yaf.lan
       enabled: true
+    - domain: moonprint.lan
+      answer: moonprint.yaf.lan
+      enabled: true
     - domain: moondns.lan
       answer: moondns.yaf.lan
       enabled: true
@@ -314,6 +317,9 @@ filtering:
     - domain: moonai.yaf.lan
       answer: 172.20.2.214
       enabled: true
+    - domain: moonprint.yaf.lan
+      answer: 172.20.2.218
+      enabled: true      
     - domain: moondns.yaf.lan
       answer: 172.20.2.250
       enabled: true

@@ -16,6 +16,7 @@ dialog --ascii-lines --begin 5 5 --checklist "Hosts to upgrade" -1 0 0 ^
   "    MoonMedia" "moonmedia.lan null" off ^
   "    MoonDocs"  "moondocs.lan  null" off ^
   "    MoonAI"    "moonai.lan    null" off ^
+  "    MoonPrint" "moonprint.lan null" off ^
   "    MoonDNS"   "moondns.lan   null" off ^
   "    MoonProxy" "moonproxy.lan null" off ^
   Inky            "inky.lan      null" off ^
@@ -133,6 +134,12 @@ for %%G in (%RESULT%) do (
   )
 
   if %%G == MoonAI (
+    set UNI_UPG=yes
+    set DOMAIN=lan
+    set PASS=%LINUXPASS%
+  )
+
+  if %%G == MoonPrint (
     set UNI_UPG=yes
     set DOMAIN=lan
     set PASS=%LINUXPASS%
