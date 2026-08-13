@@ -11,12 +11,14 @@ echo "  7 - moonadmin.lan"
 echo "  8 - moonload.lan"
 echo "  9 - moonmedia.lan"
 echo "  0 - moondocs.lan"
-echo "  - - moondns.lan"
-echo "  = - moonproxy.lan"
+echo "  - - moonai.lan"
+echo "  = - moonprint.lan"
+echo "  q - moondns.lan"
+echo "  w - moonproxy.lan"
 echo "  c - cancel"
 
 while [ "$HOST" = "" ]; do
-  read -rp "Host (1-9,0,-,=,c): " CHOICE
+  read -rp "Host (1-9,0,-,=,q,w,c): " CHOICE
 
   case "$CHOICE" in
     1) HOST="terra.lan"; break ;;
@@ -29,10 +31,12 @@ while [ "$HOST" = "" ]; do
     8) HOST="moonload.lan"; break ;;
     9) HOST="moonmedia.lan"; break ;;
     0) HOST="moondocs.lan"; break ;;
-    -) HOST="moondns.lan"; break ;;
-    =) HOST="moonproxy.lan"; break ;;
+    -) HOST="moonai.lan"; break ;;
+    =) HOST="moonprint.lan"; break ;;
+    q) HOST="moondns.lan"; break ;;
+    w) HOST="moonproxy.lan"; break ;;
     c) echo "Cancelled connection."; exit 1 ;;
-    *) echo "Incorrect input. Enter 1-3, 5-8 or c." ;;
+    *) echo "Incorrect input. Enter 1-9,0,-,=,q,w or c." ;;
   esac
 done
 
