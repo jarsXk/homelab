@@ -15,7 +15,7 @@ services:
     image: lscr.io/linuxserver/syncthing:latest
     environment:
       - PUID=1999
-      - PGID=100
+      - PGID=2000
       - TZ=Europe/Moscow
       - UMASK=002
     volumes:
