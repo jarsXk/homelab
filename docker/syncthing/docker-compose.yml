@@ -1,0 +1,47 @@
+networks:
+  net:   
+    ipam:
+      config:
+        - subnet: 198.19.20.0/24
+          gateway: 198.19.20.1
+
+volumes:
+  config:          
+
+services:
+  syncthing:
+    container_name: syncthing
+    hostname: syncthing
+    image: lscr.io/linuxserver/syncthing:latest
+    environment:
+      - PUID=1999
+      - PGID=100
+      - TZ=Europe/Moscow
+      - UMASK=002
+    volumes:
+      - config:/config
+      - ${DATA_DOCUMENTS_LESHA}:/sync/documents/lesha
+      - ${DATA_SAVES}:/sync/saves
+      - ${DATA_VIDEO}:/sync/video
+      - ${DATA_PHOTO}:/sync/photo
+      - ${DATA_EXCHANGE}:/sync/exchange
+    ports:
+      - 32020:8384
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
+    networks:
+      net:
+        ipv4_address: 198.19.20.2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://198.19.7.2:8384"]
+      interval: 30s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "10"
+    restart: unless-stopped
