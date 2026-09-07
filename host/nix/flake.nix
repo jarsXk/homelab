@@ -14,19 +14,6 @@
     {
       nixosConfigurations = {
 
-        test = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-
-          modules = [
-            disko.nixosModules.disko
-
-            ./common/configuration.nix
-            ./hosts/test/configuration.nix
-            ./hosts/test/hardware.nix
-            ./hosts/test/disko.nix
-          ];
-        };
-
         proxmoxvm = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
 
