@@ -1,9 +1,9 @@
 { config, pkgs, machineName, ... }:
 
 let
-  efiPartition = "/dev/disk/by-partlabel/${machineName}-EFI";
-  nixosPartition = "/dev/disk/by-partlabel/${machineName}-NIXOS";
-  swapPartition = "/dev/disk/by-partlabel/${machineName}-SWAP";
+  efiPartition = "/dev/disk/by-partlabel/${machineName^^}-EFI";
+  nixosPartition = "/dev/disk/by-partlabel/${machineName^^}-NIXOS";
+  swapPartition = "/dev/disk/by-partlabel/${machineName^^}-SWAP";
 in
 {
   fileSystems."/" = {

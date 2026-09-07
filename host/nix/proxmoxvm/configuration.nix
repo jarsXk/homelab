@@ -1,4 +1,4 @@
 {
-  machineName = "PROXMOXVM";
+  machineName = "proxmoxvm";
   desktopEnviroment = "mate";
 }

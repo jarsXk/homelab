@@ -2,7 +2,7 @@
 
 let
   # PROXMOXVM
-  host = import ./proxmoxvm/configuration.nix;
+  #host = import ./proxmoxvm/configuration.nix;
 in
 {
   imports = [
@@ -12,6 +12,7 @@ in
   ];
 
   _module.args.machineName = host.machineName;
+  _module.args.desktopEnviroment = host.desktopEnviroment;
 
-  system.stateVersion = "26.11";
+  system.stateVersion = "26.05";
 }

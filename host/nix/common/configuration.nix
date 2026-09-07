@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, machineName, desktopEnviroment, ... }:
 
 {
   boot.loader.systemd-boot.enable = true;
@@ -16,6 +16,7 @@
     micro
   ];
 
+  networking.hostName = machineName;
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Moscow";
