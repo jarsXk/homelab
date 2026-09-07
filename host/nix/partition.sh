@@ -38,12 +38,12 @@ fi
 # Machine name
 # ------------------------------------------------------------
 
-read -rp "Имя машины: " MACHINE_NAME
+read -rp "Host name: " MACHINE_NAME
 
 MACHINE_NAME="${MACHINE_NAME^^}"
 
 if [[ -z "$MACHINE_NAME" ]]; then
-    echo "Ошибка: имя машины не может быть пустым."
+    echo "Error: host name cannot be empty."
     exit 1
 fi
 
