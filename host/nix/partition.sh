@@ -35,6 +35,19 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # ------------------------------------------------------------
+# Machine name
+# ------------------------------------------------------------
+
+read -rp "Имя машины: " MACHINE_NAME
+
+MACHINE_NAME="${MACHINE_NAME^^}"
+
+if [[ -z "$MACHINE_NAME" ]]; then
+    echo "Ошибка: имя машины не может быть пустым."
+    exit 1
+fi
+
+# ------------------------------------------------------------
 # Select disk
 # ------------------------------------------------------------
 
@@ -178,13 +191,10 @@ echo "Creating GPT..."
 
 parted -s "$REAL_DISK" --script --align optimal \
     mklabel gpt \
-    mkpart EFI fat32 1MiB 1025MiB \
-    name 1 EFI \
+    mkpart "${MACHINE_NAME}-EFI" fat32 1MiB 1025MiB \
     set 1 esp on \
-    mkpart NIXOS btrfs 1025MiB "${SWAP_START_MIB}MiB" \
-    name 2 NIXOS \
-    mkpart SWAP linux-swap "${SWAP_START_MIB}MiB" 100% \
-    name 3 SWAP    
+    mkpart "${MACHINE_NAME}-NIXOS" btrfs 1025MiB "${SWAP_START_MIB}MiB" \
+    mkpart "${MACHINE_NAME}-SWAP" linux-swap "${SWAP_START_MIB}MiB" 100%
 
 partprobe "$REAL_DISK"
 udevadm settle
