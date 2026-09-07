@@ -1,9 +1,10 @@
-{ config, pkgs, machineName, ... }:
+{ config, pkgs, lib, machineName, ... }:
 
 let
-  efiPartition = "/dev/disk/by-partlabel/${machineName^^}-EFI";
-  nixosPartition = "/dev/disk/by-partlabel/${machineName^^}-NIXOS";
-  swapPartition = "/dev/disk/by-partlabel/${machineName^^}-SWAP";
+  machineUpper = lib.toUpper machineName;
+  efiPartition = "/dev/disk/by-partlabel/${machineUpper}-EFI";
+  nixosPartition = "/dev/disk/by-partlabel/${machineUpper}-NIXOS";
+  swapPartition = "/dev/disk/by-partlabel/${machineUpper}-SWAP";
 in
 {
   fileSystems."/" = {

@@ -4,12 +4,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  config = lib.mkIf (desktopEnviroment == "mate") {
-    imports = [
-      ./mate.nix
-    ];
-  };
-  
+  imports = [
+    ./mate.nix
+  ];
+
   environment.systemPackages = with pkgs; [
     mc
     htop

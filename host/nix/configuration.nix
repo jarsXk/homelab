@@ -11,8 +11,10 @@ in
     ./common/configuration.nix
   ];
 
-  _module.args.machineName = host.machineName;
-  _module.args.desktopEnviroment = host.desktopEnviroment;
+  _module.args = {
+    machineName = host.machineName;
+    desktopEnviroment = host.desktopEnviroment;
+  }
 
   system.stateVersion = "26.05";
 }

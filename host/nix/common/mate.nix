@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, desktopEnviroment, ... }:
 
 {
-  services.xserver.enable = true;
-  services.xserver.desktopManager.mate.enable = true;
-  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.enable = desktopEnviroment == "mate";
+  services.xserver.desktopManager.mate.enable = desktopEnviroment == "mate";
+  services.xserver.displayManager.lightdm.enable = desktopEnviroment == "mate";
 }
