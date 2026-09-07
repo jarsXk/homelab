@@ -1,14 +1,15 @@
 { config, pkgs, ... }:
 
 {
-
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  services.xserver.enable = true;
-  services.xserver.desktopManager.mate.enable = true;
-  services.xserver.displayManager.lightdm.enable = true;
-
+  config = lib.mkIf (desktopEnviroment == "mate") {
+    imports = [
+      ./mate.nix
+    ];
+  };
+  
   environment.systemPackages = with pkgs; [
     mc
     htop

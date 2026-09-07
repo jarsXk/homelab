@@ -1,3 +1,4 @@
 {
   machineName = "PROXMOXVM";
+  desktopEnviroment = "mate";
 }
