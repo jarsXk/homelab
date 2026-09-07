@@ -14,7 +14,7 @@ in
   _module.args = {
     machineName = host.machineName;
     desktopEnviroment = host.desktopEnviroment;
-  }
+  };
 
   system.stateVersion = "26.05";
 }
