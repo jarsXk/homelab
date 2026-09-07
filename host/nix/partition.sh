@@ -176,12 +176,15 @@ wipefs -af "$REAL_DISK"
 
 echo "Creating GPT..."
 
-parted -s "$REAL_DISK" \
+parted -s "$REAL_DISK" --script --align optimal \
     mklabel gpt \
-    mkpart ESP fat32 1MiB 1025MiB \
+    mkpart EFI fat32 1MiB 1025MiB \
+    name 1 EFI \
     set 1 esp on \
-    mkpart root btrfs 1025MiB "${SWAP_START_MIB}MiB" \
-    mkpart swap linux-swap "${SWAP_START_MIB}MiB" 100%
+    mkpart NIXOS btrfs 1025MiB "${SWAP_START_MIB}MiB" \
+    name 2 NIXOS \
+    mkpart SWAP linux-swap "${SWAP_START_MIB}MiB" 100% \
+    name 3 SWAP    
 
 partprobe "$REAL_DISK"
 udevadm settle
@@ -224,6 +227,9 @@ btrfs subvolume create /mnt/@games
 btrfs subvolume create /mnt/@nix
 
 umount /mnt
+
+
+
 
 # ------------------------------------------------------------
 # Mount root
