@@ -192,7 +192,7 @@ udevadm settle
 
 echo "Formatting EFI..."
 
-mkfs.fat -F32 -n EFI "$EFI"
+mkfs.fat -F32 -n efi "$EFI"
 
 # ------------------------------------------------------------
 # Format Btrfs
@@ -200,7 +200,7 @@ mkfs.fat -F32 -n EFI "$EFI"
 
 echo "Formatting Btrfs..."
 
-mkfs.btrfs -f -L NIXOS "$ROOT"
+mkfs.btrfs -f -L nixos "$ROOT"
 
 # ------------------------------------------------------------
 # Format swap
