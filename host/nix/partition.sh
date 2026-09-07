@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # ============================================================
-# NixOS disk partitioning
+# NixOS automatic partitioning
 #
 # Layout:
 #
@@ -14,20 +14,12 @@ set -euo pipefail
 #   │   ├── @home
 #   │   ├── @games
 #   │   └── @nix
-#   └── swap  <SWAP_SIZE> at the END of the disk
+#   └── swap  at the END of the disk
 #
-# Usage:
-#   ./partition.sh /dev/disk/by-id/nvme-XXX 40G
-#   ./partition.sh /dev/disk/by-id/ata-XXX 16G
-#
-# WARNING: EVERYTHING ON THE SELECTED DISK WILL BE DESTROYED.
+# No LUKS
+# No LVM
+# No Disko
 # ============================================================
-
-EFI_SIZE_MIB=1024
-EFI_START_MIB=1
-
-DISK="${1:-}"
-SWAP_SIZE="${2:-40G}"
 
 error() {
     echo
@@ -35,53 +27,50 @@ error() {
     exit 1
 }
 
-cleanup_mounts() {
-    swapoff -a 2>/dev/null || true
-    umount -R /mnt 2>/dev/null || true
-}
-
 # ------------------------------------------------------------
-# Convert G/M to MiB
+# Root check
 # ------------------------------------------------------------
 
-size_to_mib() {
-    local size="$1"
-
-    if [[ "$size" =~ ^([0-9]+)([Gg])$ ]]; then
-        echo $(( ${BASH_REMATCH[1]} * 1024 ))
-    elif [[ "$size" =~ ^([0-9]+)([Mm])$ ]]; then
-        echo "${BASH_REMATCH[1]}"
-    else
-        error "Invalid swap size '$size'. Use e.g. 16G, 32G or 40G."
-    fi
-}
+if [[ $EUID -ne 0 ]]; then
+    error "Run this script as root."
+fi
 
 # ------------------------------------------------------------
-# Arguments
+# Select disk
 # ------------------------------------------------------------
 
-[[ -n "$DISK" ]] || error \
-    "Usage: $0 /dev/disk/by-id/DEVICE 40G"
+echo
+echo "Available disks:"
+echo
 
-[[ -b "$DISK" ]] || error \
-    "'$DISK' is not a block device."
+lsblk -d -o NAME,SIZE,MODEL,SERIAL,TYPE
 
-[[ $EUID -eq 0 ]] || error \
-    "Run this script as root."
+echo
+read -rp "Enter disk (example: /dev/nvme0n1): " DISK
 
-SWAP_MIB="$(size_to_mib "$SWAP_SIZE")"
-
-# ------------------------------------------------------------
-# Resolve /dev/disk/by-id/...
-# ------------------------------------------------------------
+[[ -b "$DISK" ]] || error "$DISK is not a block device."
 
 REAL_DISK="$(readlink -f "$DISK")"
 
 echo
 echo "Selected disk:"
-echo "  $DISK"
-echo "  -> $REAL_DISK"
+lsblk -d -o NAME,SIZE,MODEL,SERIAL,TYPE "$REAL_DISK"
+
+# ------------------------------------------------------------
+# Select swap size
+# ------------------------------------------------------------
+
 echo
+read -rp "Swap size [40G]: " SWAP_SIZE
+SWAP_SIZE="${SWAP_SIZE:-40G}"
+
+if [[ "$SWAP_SIZE" =~ ^([0-9]+)(G|g)$ ]]; then
+    SWAP_MIB=$(( ${BASH_REMATCH[1]} * 1024 ))
+elif [[ "$SWAP_SIZE" =~ ^([0-9]+)(M|m)$ ]]; then
+    SWAP_MIB="${BASH_REMATCH[1]}"
+else
+    error "Invalid swap size. Use e.g. 16G, 32G or 40G."
+fi
 
 # ------------------------------------------------------------
 # Disk size
@@ -90,28 +79,12 @@ echo
 DISK_BYTES="$(blockdev --getsize64 "$REAL_DISK")"
 DISK_MIB=$((DISK_BYTES / 1024 / 1024))
 
-MIN_DISK_MIB=$((EFI_SIZE_MIB + SWAP_MIB + 4096))
+EFI_SIZE_MIB=1024
+SWAP_START_MIB=$((DISK_MIB - SWAP_MIB))
 
-if (( DISK_MIB < MIN_DISK_MIB )); then
-    error "Disk is too small.
-
-Required: ${MIN_DISK_MIB} MiB
-Available: ${DISK_MIB} MiB"
+if (( SWAP_START_MIB <= EFI_SIZE_MIB + 1024 )); then
+    error "Disk is too small."
 fi
-
-# ------------------------------------------------------------
-# Show disk
-# ------------------------------------------------------------
-
-lsblk -o NAME,SIZE,MODEL,SERIAL,TYPE,FSTYPE,MOUNTPOINTS "$REAL_DISK"
-
-echo
-echo "Partitioning plan:"
-echo
-echo "  EFI:        1 GiB"
-echo "  Btrfs:      remaining space"
-echo "  Swap:       $SWAP_SIZE (at END of disk)"
-echo
 
 # ------------------------------------------------------------
 # Safety check
@@ -120,27 +93,48 @@ echo
 ROOT_SOURCE="$(findmnt -no SOURCE /)"
 
 if [[ "$ROOT_SOURCE" == "$REAL_DISK"* ]]; then
-    error "Selected disk appears to contain the currently running root filesystem."
+    error "This appears to be the currently running system disk!"
 fi
 
-echo "ALL DATA ON THIS DISK WILL BE DESTROYED."
+# ------------------------------------------------------------
+# Show final plan
+# ------------------------------------------------------------
+
+echo
+echo "============================================================"
+echo "FINAL PARTITIONING PLAN"
+echo "============================================================"
+echo
+echo "Disk:"
+echo "  $REAL_DISK"
+echo
+echo "EFI:"
+echo "  1 GiB"
+echo
+echo "Btrfs:"
+echo "  remaining space"
+echo
+echo "Swap:"
+echo "  $SWAP_SIZE"
+echo "  END OF DISK"
+echo
+echo "Btrfs subvolumes:"
+echo "  @       -> /"
+echo "  @home   -> /home"
+echo "  @games  -> /games"
+echo "  @nix    -> /nix"
+echo
+echo "============================================================"
+echo
+echo "WARNING: ALL DATA ON THIS DISK WILL BE DESTROYED!"
 echo
 
-read -rp "Type exactly: ERASE $REAL_DISK : " CONFIRM
+read -rp "Type YES to continue: " CONFIRM
 
-if [[ "$CONFIRM" != "ERASE $REAL_DISK" ]]; then
+[[ "$CONFIRM" == "YES" ]] || {
     echo "Aborted."
-    exit 1
-fi
-
-# ------------------------------------------------------------
-# Unmount existing filesystems
-# ------------------------------------------------------------
-
-echo
-echo "Unmounting existing filesystems..."
-
-cleanup_mounts
+    exit 0
+}
 
 # ------------------------------------------------------------
 # Partition names
@@ -148,55 +142,46 @@ cleanup_mounts
 
 case "$REAL_DISK" in
     /dev/nvme*|/dev/mmcblk*)
-        P1="${REAL_DISK}p1"
-        P2="${REAL_DISK}p2"
-        P3="${REAL_DISK}p3"
+        EFI="${REAL_DISK}p1"
+        ROOT="${REAL_DISK}p2"
+        SWAP="${REAL_DISK}p3"
         ;;
     *)
-        P1="${REAL_DISK}1"
-        P2="${REAL_DISK}2"
-        P3="${REAL_DISK}3"
+        EFI="${REAL_DISK}1"
+        ROOT="${REAL_DISK}2"
+        SWAP="${REAL_DISK}3"
         ;;
 esac
 
 # ------------------------------------------------------------
-# Wipe old signatures
+# Unmount
 # ------------------------------------------------------------
 
-echo "Wiping old filesystem signatures..."
+echo
+echo "Unmounting existing filesystems..."
+
+swapoff -a 2>/dev/null || true
+umount -R /mnt 2>/dev/null || true
+
+# ------------------------------------------------------------
+# Wipe
+# ------------------------------------------------------------
+
+echo "Wiping old partition information..."
 
 wipefs -af "$REAL_DISK"
-
-# ------------------------------------------------------------
-# Calculate partition positions
-#
-# EFI:
-#   1 MiB → 1025 MiB
-#
-# Btrfs:
-#   1025 MiB → SWAP_START
-#
-# Swap:
-#   SWAP_START → END
-# ------------------------------------------------------------
-
-SWAP_START_MIB=$((DISK_MIB - SWAP_MIB))
-
-if (( SWAP_START_MIB <= EFI_SIZE_MIB + 1024 )); then
-    error "Not enough space for Btrfs."
-fi
 
 # ------------------------------------------------------------
 # Create GPT
 # ------------------------------------------------------------
 
-echo "Creating GPT partition table..."
+echo "Creating GPT..."
 
 parted -s "$REAL_DISK" \
     mklabel gpt \
-    mkpart ESP fat32 "${EFI_START_MIB}MiB" "${EFI_SIZE_MIB}MiB" \
+    mkpart ESP fat32 1MiB 1025MiB \
     set 1 esp on \
-    mkpart root btrfs "${EFI_SIZE_MIB}MiB" "${SWAP_START_MIB}MiB" \
+    mkpart root btrfs 1025MiB "${SWAP_START_MIB}MiB" \
     mkpart swap linux-swap "${SWAP_START_MIB}MiB" 100%
 
 partprobe "$REAL_DISK"
@@ -208,7 +193,7 @@ udevadm settle
 
 echo "Formatting EFI..."
 
-mkfs.fat -F 32 -n efi "$P1"
+mkfs.fat -F32 -n EFI "$EFI"
 
 # ------------------------------------------------------------
 # Format Btrfs
@@ -216,7 +201,7 @@ mkfs.fat -F 32 -n efi "$P1"
 
 echo "Formatting Btrfs..."
 
-mkfs.btrfs -f -L nixos "$P2"
+mkfs.btrfs -f -L NIXOS "$ROOT"
 
 # ------------------------------------------------------------
 # Format swap
@@ -224,7 +209,7 @@ mkfs.btrfs -f -L nixos "$P2"
 
 echo "Formatting swap..."
 
-mkswap -L swap "$P3"
+mkswap -L swap "$SWAP"
 
 # ------------------------------------------------------------
 # Create Btrfs subvolumes
@@ -232,7 +217,7 @@ mkswap -L swap "$P3"
 
 echo "Creating Btrfs subvolumes..."
 
-mount "$P2" /mnt
+mount "$ROOT" /mnt
 
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
@@ -242,52 +227,51 @@ btrfs subvolume create /mnt/@nix
 umount /mnt
 
 # ------------------------------------------------------------
-# Mount Btrfs
+# Mount root
 # ------------------------------------------------------------
 
-echo "Mounting Btrfs..."
+echo "Mounting filesystems..."
 
 mount \
     -o subvol=@,compress=zstd,noatime \
-    "$P2" /mnt
+    "$ROOT" /mnt
 
-mkdir -p \
-    /mnt/home \
-    /mnt/games \
-    /mnt/nix \
-    /mnt/boot
+mkdir -p /mnt/home
+mkdir -p /mnt/games
+mkdir -p /mnt/nix
+mkdir -p /mnt/boot
 
 mount \
     -o subvol=@home,compress=zstd,noatime \
-    "$P2" /mnt/home
+    "$ROOT" /mnt/home
 
 mount \
     -o subvol=@games,compress=zstd,noatime \
-    "$P2" /mnt/games
+    "$ROOT" /mnt/games
 
 mount \
     -o subvol=@nix,compress=zstd,noatime \
-    "$P2" /mnt/nix
+    "$ROOT" /mnt/nix
 
 # ------------------------------------------------------------
 # Mount EFI
 # ------------------------------------------------------------
 
-mount "$P1" /mnt/boot
+mount "$EFI" /mnt/boot
 
 # ------------------------------------------------------------
 # Enable swap
 # ------------------------------------------------------------
 
-swapon "$P3"
+swapon "$SWAP"
 
 # ------------------------------------------------------------
-# Result
+# Done
 # ------------------------------------------------------------
 
 echo
 echo "============================================================"
-echo "DONE"
+echo "PARTITIONING COMPLETE"
 echo "============================================================"
 echo
 
@@ -302,19 +286,7 @@ echo "Swap:"
 swapon --show
 
 echo
-echo "Mounts:"
-findmnt /mnt
-findmnt /mnt/home
-findmnt /mnt/games
-findmnt /mnt/nix
-findmnt /mnt/boot
-
-echo
-echo "UUIDs:"
-blkid "$P1" "$P2" "$P3"
-
-echo
-echo "The filesystem is ready for NixOS."
+echo "Everything is mounted under /mnt."
 echo
 echo "Next:"
 echo
