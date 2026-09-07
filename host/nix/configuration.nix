@@ -6,6 +6,8 @@ let
 in
 {
   imports = [
+    ./hardware-configuration.nix
+    ./common/partition.nix
     ./common/configuration.nix
   ];
 
