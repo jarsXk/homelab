@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.initrd.systemd.enable = true;
+  boot.initrd.systemd.tpm2.enable = true;
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
@@ -19,5 +25,5 @@
     htop
   ];
 
-  system.stateVersion = "unstable";
+  system.stateVersion = "26.11";
 }
