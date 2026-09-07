@@ -1,4 +1,3 @@
-```bash
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -293,4 +292,3 @@ echo
 echo "  nixos-generate-config --root /mnt"
 echo "  nixos-install"
 echo
-```
