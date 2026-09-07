@@ -1,4 +1,4 @@
-{ disk, swapSize /dev/sda, "16G" }:
+{ disk, swapSize ? "16G" }:
 
 {
   disko.devices = {
