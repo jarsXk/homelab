@@ -22,6 +22,7 @@
 
   users.users.lesha = {
     isNormalUser = true;
+    initialPassword = "password"
     extraGroups = [ "wheel" "networkmanager" ];
   };
 
