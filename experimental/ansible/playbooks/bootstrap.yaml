@@ -20,7 +20,6 @@
       ansible.builtin.command:
         cmd: >
           ssh-keyscan
-          -H
           -p {{ ssh_port }}
           -t ed25519
           {{ ssh_host }}
@@ -30,5 +29,6 @@
     - name: Добавление SSH ключа хоста в known_hosts
       ansible.builtin.known_hosts:
         path: "{{ known_hosts_file }}"
+        name: "{{ ssh_host }}"
         key: "{{ ssh_keyscan.stdout }}"
         state: present        
