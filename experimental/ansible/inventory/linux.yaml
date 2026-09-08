@@ -1,0 +1,43 @@
+all:
+  children:
+
+    linux:
+      children:
+
+        linux-server:
+          children:
+
+            linux-server-baremetal:
+              children:  
+
+                linux-server-baremetal-master:
+                  hosts:
+                    io:
+                    mimas:
+
+                linux-server-baremetal-apprentice:
+                  hosts:
+                    europa:
+
+                linux-server-baremetal-nas:
+                  hosts:
+                    terra:
+
+                linux-server-baremetal-vmhost:
+                  hosts:
+
+            linux-server-virtual:
+              hosts:
+                phaeton:
+
+        linux-workstation:
+          children:
+
+            linux-workstation-ultraLow:
+              hosts:
+
+            linux-workstation-low:
+              hosts:
+
+            linux-workstation-high:
+              hosts:
