@@ -3,17 +3,32 @@
   gather_facts: false
   connection: local
 
+  vars:
+    ssh_host: "{{ ansible_host | default(inventory_hostname) }}"
+    ssh_port: "{{ ansible_port | default(22) }}"
+    known_hosts_file: "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
+
   tasks:
-    - name: Получение SSH ключа хоста
+
+    - name: проверка наличия директории .ssh
+      ansible.builtin.file:
+        path: "{{ lookup('env', 'HOME') }}/.ssh"
+        state: directory
+        mode: "0700"
+
+    - name: Получение SSH ключа ED25519 хоста
       ansible.builtin.command:
-        cmd: "ssh-keyscan -H {{ ansible_host | default(inventory_hostname) }}"
+        cmd: >
+          ssh-keyscan
+          -H
+          -p {{ ssh_port }}
+          -t ed25519
+          {{ ssh_host }}
       register: ssh_keyscan
       changed_when: false
 
     - name: Добавление SSH ключа хоста в known_hosts
       ansible.builtin.known_hosts:
-        path: "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
-        name: "{{ ansible_host | default(inventory_hostname) }}"
-        key: "{{ item }}"
-        state: present
-      loop: "{{ ssh_keyscan.stdout_lines }}"        
+        path: "{{ known_hosts_file }}"
+        key: "{{ ssh_keyscan.stdout }}"
+        state: present        
