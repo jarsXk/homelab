@@ -4,28 +4,28 @@ all:
     location:
       children:
 
-        location-null:
+        location_null:
           hosts:
             terra:
             phaeton:
 
-        location-vasilkovo:
+        location_vasilkovo:
           hosts:
             io:
             europa:
 
-        location-chanovo:
+        location_chanovo:
           hosts:
             mimas:
 
-        location-yasenevod:
+        location_yasenevod:
           hosts:
 
-        location-yasenevof:
+        location_yasenevof:
           hosts:
 
-        location-shondenskaya4:
+        location_shondenskaya4:
           hosts:
 
-        location-shodnenskaya5:
+        location_shodnenskaya5:
           hosts:

@@ -4,5 +4,5 @@ all:
     windows:
       children:
 
-        windows-workstation:
+        windows_workstation:
           hosts:
