@@ -1,6 +1,5 @@
 - name: Базовая конфигурация linux хостов
   hosts: linux
-  become: true
 
   roles:
     - linux-locale

@@ -4,7 +4,16 @@
     state: present
   when: ansible_os_family == "Debian"
 
+- name: Проверка текущей локали
+  ansible.builtin.command:
+    cmd: localectl status --no-pager
+  register: locale_status
+  changed_when: false
+  when: ansible_os_family == "Debian"
+
 - name: Установка локали по умолчанию
   ansible.builtin.command:
     cmd: "update-locale LANG={{ locale }}"
-  when: ansible_os_family == "Debian"
+  when:
+    - ansible_os_family == "Debian"
+    - "'LANG=' + locale not in locale_status.stdout"  
