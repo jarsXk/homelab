@@ -1,6 +1,7 @@
-- name: Ping all hosts
+- name: Проверка доступности хостов
   hosts: all
+  gather_facts: false
 
   tasks:
-    - name: Ping hosts
+    - name: Ping хостов
       ansible.builtin.ping:
