@@ -1,0 +1,43 @@
+all:
+  children:
+
+    class:
+      children:
+
+        class.linux:
+          children:
+
+            class.linux.server:
+              children:
+
+                class.linux.server.baremetal:
+                  children:  
+
+                    class.linux.server.baremetal.master:
+                      hosts:
+                        io:
+                        mimas:
+
+                    class.linux.server.baremetal.apprentice:
+                      hosts:
+                        europa:
+
+                    class.linux.server.baremetal.nas:
+                      hosts:
+                        terra:
+
+                    class.linux.server.baremetal.vmhost:
+                      hosts:
+
+                class.linux.server.virtual:
+                  hosts:
+                    phaeton:
+
+            class.linux.workstation:
+              hosts:
+
+        class.windows:
+          children:
+
+            class.windows.workstation:
+              hosts:

@@ -1,0 +1,17 @@
+all:
+  hosts:
+
+    terra:
+      ansible_host: terra.yaf.lan
+
+    phaeton:
+      ansible_host: phaeton.yaf.lan
+
+    io:
+      ansible_host: io.vas.lan
+
+    europa:
+      ansible_host: terra.vas.lan
+
+    mimas:
+      ansible_host: mimas.yaf.lan

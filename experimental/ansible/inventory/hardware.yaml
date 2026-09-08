@@ -1,0 +1,14 @@
+all: 
+  children:
+
+    hardware:
+      children:
+
+        hardware.retro:
+          hosts:
+
+        hardware.low:
+          hosts:
+
+        hardware.high:
+          hosts:

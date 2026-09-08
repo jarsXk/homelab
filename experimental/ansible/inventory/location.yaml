@@ -1,0 +1,31 @@
+all:
+  children:
+
+    location:
+      children:
+
+        location.null:
+          hosts:
+            terra:
+            phaeton:
+
+        location.vasilkovo:
+          hosts:
+            io:
+            europa:
+
+        location.chanovo:
+          hosts:
+            mimas:
+
+        location.yasenevod:
+          hosts:
+
+        location.yasenevof:
+          hosts:
+
+        location.shondenskaya4:
+          hosts:
+
+        location.shodnenskaya5:
+          hosts:

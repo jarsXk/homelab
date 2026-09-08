@@ -1,5 +1,5 @@
 - name: Ping all hosts
-  hosts: hood
+  hosts: all
 
   tasks:
     - name: Ping hosts
