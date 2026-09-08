@@ -1,0 +1,10 @@
+- name: Настройка локали
+  community.general.locale_gen:
+    name: "{{ locale }}"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Установка локали по умолчанию
+  ansible.builtin.command:
+    cmd: "update-locale LANG={{ locale }}"
+  when: ansible_os_family == "Debian"
