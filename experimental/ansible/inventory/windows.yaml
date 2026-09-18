@@ -1,8 +1,0 @@
-all:
-  children:
-
-    windows:
-      children:
-
-        windows_workstation:
-          hosts:

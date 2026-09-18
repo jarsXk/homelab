@@ -1,3 +1,0 @@
-- name: Настройка часового пояса
-  community.general.timezone:
-    name: "{{ timezone }}"

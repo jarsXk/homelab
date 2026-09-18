@@ -1,8 +1,0 @@
-locale: ru_RU.UTF-8
-
-packages_linux:
-  - mc
-  - htop
-  - curl
-  - wget
-  - micro
