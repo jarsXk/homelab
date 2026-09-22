@@ -2,3 +2,4 @@
 2. Clink - https://chrisant996.github.io/clink/clink.html
 3. Starship - https://starship.rs/guide/
 4. Preset - [Paster powerline](https://starship.rs/presets/pastel-powerline)
+  1. Custom - starship.toml
