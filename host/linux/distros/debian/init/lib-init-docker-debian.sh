@@ -47,7 +47,7 @@ if [ $DOCKER != no ]; then
   if [ -f ${DOCKER_CONFIG_PATH}/daemon.json ]; then
     run_command "mv ${DOCKER_CONFIG_PATH}/daemon.json ${DOCKER_CONFIG_PATH}/daemon.json.bak" "Error installing docker" 
   fi
-  run_command "wget -O ${DOCKER_CONFIG_PATH}/daemon.json ${INIT_REPO}/host/linux/init/download/docker/daemon.json" "Error installing docker"
+  run_command "wget -O ${DOCKER_CONFIG_PATH}/daemon.json ${INIT_REPO}/host/linux/distros/common/init/download/docker/daemon.json" "Error installing docker"
 
   if [ $DOCKER = native ]; then
     run_command "$SERVICERESTART docker $SERVICERESTART_FOOTER" "Error installing docker"

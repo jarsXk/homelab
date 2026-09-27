@@ -14,10 +14,10 @@ echo -e "\033[32m>>> $(hostname | tr '[:lower:]' '[:upper:]') <<<\033[0m"
 echo -e "\033[32m$(uname -snvm)\033[0m"
 log_message INFO "Upgrade script for Debian/OMV"
 
-. <(wget -qO- ${INIT_REPO}/host/linux/upgrade/lib-upgrade-apt.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/upgrade/lib-upgrade-snap.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/upgrade/lib-upgrade-docker.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/upgrade/lib-upgrade-applyomv.sh)
-. <(wget -qO- ${INIT_REPO}/host/linux/upgrade/lib-upgrade-reboot.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/distros/debian/upgrade/lib-upgrade-apt.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/distros/debian/upgrade/lib-upgrade-snap.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/distros/debian/upgrade/lib-upgrade-docker.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/distros/debian/upgrade/lib-upgrade-applyomv.sh)
+. <(wget -qO- ${INIT_REPO}/host/linux/distros/debian/upgrade/lib-upgrade-reboot.sh)
 
 exit 0

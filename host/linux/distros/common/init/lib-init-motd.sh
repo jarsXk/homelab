@@ -14,12 +14,12 @@ elif [ "$LINUX_DISTRO" = "alpine" ]; then
 fi
 
 if [ $SERVER_ROLE = nas ]; then
-  run_command "wget -O /root/nas-ascii.txt ${INIT_REPO}/host/linux/init/download/motd/nas-ascii.txt" "Error setting motd"
-  run_command "wget -O ${MOTD_PATH} ${INIT_REPO}/host/linux/init/download/motd/70-custom-motd.nas.sh" "Error setting motd"
+  run_command "wget -O /root/nas-ascii.txt ${INIT_REPO}/host/linux/distros/common/init/download/motd/nas-ascii.txt" "Error setting motd"
+  run_command "wget -O ${MOTD_PATH} ${INIT_REPO}/host/linux/distros/common/init/download/motd/70-custom-motd.nas.sh" "Error setting motd"
 elif [ $DOCKER != no ]; then
-  run_command "wget -O /root/docker-ascii.txt ${INIT_REPO}/host/linux/init/download/motd/docker-ascii.txt" "Error setting motd"
-  run_command "wget -O ${MOTD_PATH} ${INIT_REPO}/host/linux/init/download/motd/70-custom-motd.docker.sh" "Error setting motd"
+  run_command "wget -O /root/docker-ascii.txt ${INIT_REPO}/host/linux/distros/common/init/download/motd/docker-ascii.txt" "Error setting motd"
+  run_command "wget -O ${MOTD_PATH} ${INIT_REPO}/host/linux/distros/common/init/download/motd/70-custom-motd.docker.sh" "Error setting motd"
 else
-  run_command "wget -O ${MOTD_PATH} ${INIT_REPO}/host/linux/init/download/motd/70-custom-motd.sh" "Error setting motd"
+  run_command "wget -O ${MOTD_PATH} ${INIT_REPO}/host/linux/distros/common/init/download/motd/70-custom-motd.sh" "Error setting motd"
 fi
 run_command "chmod ug+x ${MOTD_PATH}" "Error setting motd"
