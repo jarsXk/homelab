@@ -207,7 +207,7 @@ for %%G in (%RESULT%) do (
     set "SSHSUDO=echo !PASS! | sudo -S"
   )
 
-  ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! echo && wget -qO- https://raw.githubusercontent.com/jarsXk/homelab/main/host/linux/upgrade/upgrade-debian.sh | sudo bash"
+  ssh -t !LINUXUSER!@%%G.!DOMAIN! "!SSHSUDO! echo && wget -qO- https://raw.githubusercontent.com/jarsXk/homelab/main/host/linux/distros/debian/upgrade/upgrade-debian.sh | sudo bash"
 )
 
 set LINUXUSER=
