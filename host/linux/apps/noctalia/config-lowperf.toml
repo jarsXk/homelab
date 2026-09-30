@@ -1,0 +1,13 @@
+[shell]
+popup_shadows       = false            # draw drop shadows behind popups and dropdowns
+
+[shell.animation]
+enabled = false
+speed   = 2.0   # 1.0 = normal, 0.5 = 2× slower, 2.0 = 2× faster
+
+[shell.shadow]
+direction = "down"  # center, up, down, left, right, up_left, up_right, down_left, down_right
+alpha     = 1    # multiplied by each component's background opacity
+
+[shell.panel]
+shadow                   = false       # cast the global [shell.shadow] from panel surfaces

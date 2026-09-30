@@ -1,5 +1,65 @@
 [shell]
 corner_radius_scale = 0.25
+# -> popup_shadows       = true            # draw drop shadows behind popups and dropdowns
+
+[shell.animation]
+# -> enabled = true
+# -> speed   = 1.0   # 1.0 = normal, 0.5 = 2× slower, 2.0 = 2× faster
+
+[shell.shadow]
+# -> direction = "down"  # center, up, down, left, right, up_left, up_right, down_left, down_right
+# -> alpha     = 0.55    # multiplied by each component's background opacity
+
+[shell.keyboard_layout.custom_labels]
+"Russian"           = "RU"
+"English (US)"      = "EN"
+
+[shell.panel]
+transparency_mode        = "solid"     # solid | soft | glass; controls floating panel opacity and card translucency
+borders                  = true       # outline on floating panel surfaces
+# -> shadow                   = true       # cast the global [shell.shadow] from panel surfaces
+list_item_background     = false      # filled rounded background behind launcher and clipboard list items
+floating_layer           = "overlay"  # overlay | top; applies to floating interactive panels
+launcher_placement       = "floating" # attached | floating
+launcher_position        = "auto"     # auto | center | top_left | … (floating only)
+open_near_click_launcher = true       # attached/floating: follow the bar click instead of bar-center
+clipboard_placement      = "floating" # attached | floating
+clipboard_position       = "auto"     # auto | center | top_left | … (floating only)
+open_near_click_clipboard      = true       # attached/floating: follow the bar click instead of bar-center
+control_center_placement = "floating" # attached | floating
+control_center_position  = "auto"     # auto | center | top_left | … (floating only)
+open_near_click_control_center = true         # attached/floating: follow the bar click instead of bar-center
+# wallpaper_placement      = "floating" # attached | floating
+# wallpaper_position       = "auto"     # auto | center | top_left | … (floating only)
+# open_near_click_wallpaper      = false      # attached/floating: follow the bar click instead of bar-center
+session_placement        = "floating" # attached | floating
+session_position         = "top_center"   # auto | center | top_left | … (floating only)
+open_near_click_session  = false      # attached/floating: follow the bar click instead of bar-center
+# polkit_placement         = "floating" # attached | floating
+# polkit_position          = "auto"     # auto | center | top_left | … (floating only)
+# open_near_click_polkit   = true       # attached/floating: follow the bar click instead of bar-center
+floating_offset          = 8          # px gap between a floating panel and the bar edge
+
+[shell.launcher]
+categories      = false  # show launcher category filters; Tab toggles them while open
+# show_icons      = true   # show application icons in launcher results
+# show_app_origin_indicator = true # show package origin indicators on application results
+# compact         = false  # smaller icons and tighter rows; hides subtitles
+app_grid        = true  # icon grid with labels underneath when results are apps only
+# show_app_actions = false  # include searchable .desktop actions alongside applications
+sort_by_usage   = false   # boost frequently used apps and show Recently Used filter
+pinned          = []     # desktop entry IDs shown first when the launcher opens
+# fetch_exchange_rates = true  # refresh currency rates from third-party online sources
+# provider_prefix = "/"    # common prefix character for provider trigger words (e.g. "/" or ".")
+# auto_paste      = "auto" # off | auto | ctrl_v | ctrl_shift_v | shift_insert (after copy activations)
+
+[control_center]
+sidebar = "full"
+sidebar_section = "none"  # optional; defaults to the same as sidebar
+# width = 700                 # full-sidebar width in pixels (600–1200)
+# show_shortcut_labels = true # text under Home shortcut icons
+# show_session_button = true  # session-actions button in the Home header
+hidden_tabs = ["media", "calendar", "notifications", "weather"]  # hide tabs you never use
 
 [bar]
 # order              = ["main"]    # layer-shell creation order
@@ -14,7 +74,7 @@ corner_radius_scale = 0.25
 # layer              = "top"       # top | overlay; overlay appears above fullscreen apps
 
 # thickness          = 34          # bar cross-axis size in pixels (height for horizontal, width for vertical)
-# background_opacity = 1.0         # 0.0 (transparent) to 1.0 (opaque)
+background_opacity   = 1.0         # 0.0 (transparent) to 1.0 (opaque)
 # border             = "outline"   # color role or #RRGGBB for the bar outline
 # border_width       = 0.0         # inside outline width in pixels; 0 disables it
 # shadow             = true        # cast the global [shell.shadow]
@@ -34,7 +94,7 @@ widget_spacing     = 12          # gap between widgets within a section
 # hover_highlight    = true        # softly tint the widget under the mouse pointer with its foreground color
 # scale              = 1.0         # content scale multiplier for icons, spacing, and base text size
 # font_scale         = 1.0         # additional text-only scale multiplier
-# font_weight        = 500         # CSS weight 100�1000 (e.g. 400 regular, 700 bold); primary label weight for bar widgets
+# font_weight        = 500         # CSS weight 100–1000 (e.g. 400 regular, 700 bold); primary label weight for bar widgets
 # font_family        = ""          # typeface for this bar's widgets; empty inherits the global font
 
 # Default capsule style for all widgets on this bar (see Widget Capsule section)
@@ -47,7 +107,8 @@ capsule_radius     = 8.0         # omit for automatic pill radius
 
 start  = ["launcher", "active_window"]
 center = ["clock"]
-end    = ["notifications", "keyboard_layout", "clipboard", "volume", "brightness", "network", "bluetooth", "battery", "tray", "control-center", "session"]
+# center = ["weather", "clock"]
+end    = ["notifications", "keyboard_layout", "clipboard", "volume", "brightness", "network", "bluetooth", "battery", "tray", "control-center"]
 
 [widget]
 [widget.launcher]
@@ -63,6 +124,11 @@ display            = "text_only"
 show_empty_label   = true
 font_scale         = 0.9
 
+# [widget.weather]
+# max_length       = 180
+# show_condition   = false
+# show_temperature = false
+
 [widget.clock]
 format = "{:%d %B, %H:%M}"
 tooltip_format = "{:%A, %d %B %Y, %H:%M}"
@@ -74,7 +140,7 @@ hide_when_no_unread = true
 hide_when_single_layout = false
 show_glyph = false
 show_label = true
-display = "short"   # short | full
+display = "full"   # short | full
 
 [widget.clipboard]
 # glyph = "clipboard-list"
@@ -108,3 +174,58 @@ drawer = true
 drawer_columns = 4
 drawer_item_size = 16
 detached_panel = true
+
+[widget.control-center]
+glyph = "shutdown"
+
+[dock]
+enabled             = true      # set true to activate
+position            = "bottom"   # top | bottom | left | right
+active_monitor_only = false      # when true, only show apps/windows from the active monitor
+monitors            = []         # connector names to show on; empty = all outputs
+icon_size           = 40
+main_axis_padding   = 8          # inner padding along the icon row (main axis)
+cross_axis_padding  = 4           # inner padding perpendicular to the icon row
+item_spacing        = 8          # gap between items in pixels
+background_opacity  = 1
+# border              = "outline"  # color role or #RRGGBB for the dock outline
+# border_width        = 0.0        # inside outline width in pixels; 0 disables it
+# shadow              = true       # cast the global [shell.shadow]
+radius              = 8
+# radius_top_left     = 16         # optional per-corner overrides
+# radius_top_right    = 16
+# radius_bottom_left  = 16
+# radius_bottom_right = 16
+concave_edge_corners = false     # carve the screen-edge corners inward; requires margin_edge = 0
+# margin_ends         = 0          # inset from each end of the dock along its main axis
+margin_edge         = 8          # distance from the nearest screen edge (positive values float the dock)
+show_running        = true       # also show running apps not in the pinned list
+# auto_hide           = false      # slide out when pointer leaves; reveal from edge trigger strip
+# smart_auto_hide     = false      # show when the active workspace is empty; hide when it has windows
+reserve_space       = true       # reserve compositor exclusive zone / push windows away
+# layer               = "top"      # top | overlay (overlay keeps the dock above fullscreen apps)
+# active_scale        = 1.0        # icon scale for the focused app (clamped 0.1–1.75)
+# inactive_scale      = 0.85       # icon scale for non-focused apps (clamped 0.1–1.0)
+magnification       = false       # magnify icons near the pointer (macOS-style)
+# magnification_scale = 1.45       # max scale multiplier at the pointer center (1.0–2.0; 1.0 = off)
+active_opacity      = 1.0
+inactive_opacity    = 1.0
+show_instance_count = false       # badge with window count when an app has 2+ windows
+show_dots           = true       # running-window indicator dots below app icons
+# launcher_position   = "none"     # none | start | end - optional launcher button on the dock
+# launcher_icon       = "grid-dots" # Tabler glyph for the launcher button
+# launcher_custom_image          = ""    # image path; overrides launcher_icon when set
+# launcher_custom_image_colorize = false # tint the custom image with the icon color
+pinned = ["foot", "firefox"]
+
+[location]
+#auto_locate = false            # resolve coordinates from your IP address when true
+address     = "Moscow, Russia" # geocoded when auto_locate = false and non-empty
+# latitude  = 55.7520          # manual coordinates, used when auto_locate and address are off
+# longitude = 37.6178
+
+[weather]
+enabled         = false
+#refresh_minutes = 30
+#unit            = "metric"      # metric | imperial
+#effects         = true          # visual weather effects
