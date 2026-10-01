@@ -163,8 +163,8 @@ vpn_status = "both"
 
 [widget.bluetooth]
 show_label = false
-hide_when_adapter_off = false
-hide_when_no_connected_device = false
+hide_when_adapter_off = true
+hide_when_no_connected_device = true
 
 [widget.tray]
 # hidden = ["nm-applet", "blueman", "org.kde.StatusNotifierItem-1-1"]
