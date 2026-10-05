@@ -43,7 +43,7 @@ floating_offset          = 8          # px gap between a floating panel and the 
 [shell.launcher]
 categories      = false  # show launcher category filters; Tab toggles them while open
 # show_icons      = true   # show application icons in launcher results
-# show_app_origin_indicator = true # show package origin indicators on application results
+show_app_origin_indicator = false # show package origin indicators on application results
 # compact         = false  # smaller icons and tighter rows; hides subtitles
 app_grid        = true  # icon grid with labels underneath when results are apps only
 # show_app_actions = false  # include searchable .desktop actions alongside applications
@@ -53,6 +53,7 @@ pinned          = []     # desktop entry IDs shown first when the launcher opens
 # provider_prefix = "/"    # common prefix character for provider trigger words (e.g. "/" or ".")
 # auto_paste      = "auto" # off | auto | ctrl_v | ctrl_shift_v | shift_insert (after copy activations)
 
+
 [control_center]
 sidebar = "full"
 sidebar_section = "none"  # optional; defaults to the same as sidebar
@@ -60,6 +61,7 @@ sidebar_section = "none"  # optional; defaults to the same as sidebar
 # show_shortcut_labels = true # text under Home shortcut icons
 # show_session_button = true  # session-actions button in the Home header
 hidden_tabs = ["media", "calendar", "notifications", "weather"]  # hide tabs you never use
+
 
 [bar]
 # order              = ["main"]    # layer-shell creation order
@@ -109,6 +111,7 @@ start  = ["launcher", "active_window"]
 center = ["clock"]
 # center = ["weather", "clock"]
 end    = ["notifications", "keyboard_layout", "clipboard", "volume", "brightness", "network", "bluetooth", "battery", "tray", "control-center"]
+
 
 [widget]
 [widget.launcher]
@@ -178,6 +181,7 @@ detached_panel = true
 [widget.control-center]
 glyph = "shutdown"
 
+
 [dock]
 enabled             = true      # set true to activate
 position            = "bottom"   # top | bottom | left | right
@@ -218,11 +222,13 @@ show_dots           = true       # running-window indicator dots below app icons
 # launcher_custom_image_colorize = false # tint the custom image with the icon color
 pinned = ["foot", "firefox"]
 
+
 [location]
 #auto_locate = false            # resolve coordinates from your IP address when true
 address     = "Moscow, Russia" # geocoded when auto_locate = false and non-empty
 # latitude  = 55.7520          # manual coordinates, used when auto_locate and address are off
 # longitude = 37.6178
+
 
 [weather]
 enabled         = false
