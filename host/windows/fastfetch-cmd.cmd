@@ -1,5 +1,3 @@
 @echo off
-fastfetch -c paleofetch.jsonc
-cd %USERPROFILE%\Home
-cmd
+cmd /k "cls && fastfetch -c paleofetch.jsonc"
 @echo on

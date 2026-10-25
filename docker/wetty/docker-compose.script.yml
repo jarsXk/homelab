@@ -16,6 +16,7 @@ services:
     environment:
       - COMMAND=/usr/local/bin/autorun/ssh-autorun.sh
       - BASE=/
+      - ALLOWEDORIGINS=${ALLOWEDORIGINS}
     ports:
       - 30520:3000
     volumes:

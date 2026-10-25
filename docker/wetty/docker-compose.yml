@@ -14,6 +14,7 @@ services:
       - SSHHOST=${SSHHOST}
       - SSHPORT=22
       - BASE=/
+      - ALLOWEDORIGINS=${ALLOWEDORIGINS}
     ports:
       - 30520:3000
     networks:
