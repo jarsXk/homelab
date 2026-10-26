@@ -33,4 +33,3 @@ services:
         max-file: "10"
     restart: always
     
-    
