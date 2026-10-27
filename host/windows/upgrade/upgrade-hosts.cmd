@@ -34,27 +34,40 @@ set /p RESULT=<dialogresult.bak
 set RESULT=%RESULT:"=%
 del dialogresult.bak
 
+set LINUXPASS=
+set PROXMOXPASS=
+set PROXIMAPASS=
+
 if not "x%RESULT%" == "x" (
 REM Запрос паролей
   set /P "LINUXUSER=Linux user (lesha): "
   if "x%LINUXUSER%" == "x" (
     set LINUXUSER=lesha
   )
-  if not "x%RESULT%" == "xProxima" (
-    set /P "LINUXPASS=Linux password (): "
+  set NEEDLINUXPASS=
+  set NEEDPROXMOXPASS=
+  set NEEDPROXIMAPASS=
+  for %%G in (!RESULT!) do (
+    if /I "%%G"=="Luna" (
+      set NEEDPROXMOXPASS=yes
+    ) else if /I "%%G"=="Selena" (
+      set NEEDPROXMOXPASS=yes
+    ) else if /I "%%G"=="Hina" (
+      set NEEDPROXMOXPASS=yes
+    ) else if /I "%%G"=="Proxima" (
+      set NEEDPROXIMAPASS=yes
+    ) else (
+      set NEEDLINUXPASS=yes
+    )
   )
-  set TMPSTR=!RESULT!
-  if not "x!TMPSTR:Luna=!" == "x!TMPSTR!" (
-    set /P "PROXMOXPASS=Proxmox password (): "
+  if "x!NEEDLINUXPASS!" == "xyes" (
+    call :ReadPassword "Linux password ()" LINUXPASS
   )
-  if "x!PROXMOXPASS!" == "x" (
-    if not "x!TMPSTR:Selena=!" == "x!TMPSTR!" (
-      set /P "PROXMOXPASS=Proxmox password (): "
-    )  
+  if "x!NEEDPROXMOXPASS!" == "xyes" (
+    call :ReadPassword "Proxmox password ()" PROXMOXPASS
   )
-  set TMPSTR=!RESULT!
-  if not "x!TMPSTR:Proxima=!" == "x!TMPSTR!" (
-    set /P "PROXIMAPASS=Proxima password (): "
+  if "x!NEEDPROXIMAPASS!" == "xyes" (
+    call :ReadPassword "Proxima password ()" PROXIMAPASS
   )
 )
 cls
@@ -102,12 +115,6 @@ for %%G in (%RESULT%) do (
     set DOMAIN=lan
     set PASS=%LINUXPASS%
   )
-
-  if %%G == Selena (
-    set UNI_UPG=yes
-    set DOMAIN=lan
-    set PASS=%LINUXPASS%
-  )  
 
   if %%G == MoonAdmin (
     set UNI_UPG=yes
@@ -212,9 +219,23 @@ for %%G in (%RESULT%) do (
 
 set LINUXUSER=
 set LINUXPASS=
+set PROXMOXPASS=
 set PROXIMAPASS=
 set UNI_UPG=
 set DOMAIN=
 set SSHSUDO=
 
+@echo(
+@echo Upgrade finished, press any key
+@pause >nul
+
 @echo on
+@goto :eof
+
+:ReadPassword
+setlocal disabledelayedexpansion
+set "PASSWORD_PROMPT=%~1"
+for /f "delims=" %%P in ('powershell.exe -NoProfile -Command "$secure = Read-Host -AsSecureString -Prompt $env:PASSWORD_PROMPT; $ptr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure); try { [Runtime.InteropServices.Marshal]::PtrToStringBSTR($ptr) } finally { [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ptr) }"') do (
+  endlocal & set "%~2=%%P"
+)
+goto :eof
