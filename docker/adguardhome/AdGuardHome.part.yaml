@@ -48,6 +48,7 @@ dns:
     - 172.20.0.1
     - 172.21.0.1
     - 172.22.0.1
+    - 172.23.0.1
 filters:
   - enabled: true
     url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
@@ -110,49 +111,49 @@ filtering:
   rewrites:
     # null (16)
     - domain: terra.lan
-      answer: terra.yaf.lan
+      answer: terra.yan.lan
       enabled: true
     - domain: mani.lan
-      answer: mani.yaf.lan
+      answer: mani.yan.lan
       enabled: true
     - domain: luna.lan
-      answer: luna.yaf.lan
+      answer: luna.yan.lan
       enabled: true
     - domain: selena.lan
-      answer: selena.yaf.lan
+      answer: selena.yan.lan
       enabled: true
     - domain: hina.lan
-      answer: hina.yaf.lan
+      answer: hina.yan.lan
       enabled: true
     - domain: phaeton.lan
-      answer: phaeton.yaf.lan
+      answer: phaeton.yan.lan
       enabled: true
     - domain: moonadmin.lan
-      answer: moonadmin.yaf.lan
+      answer: moonadmin.yan.lan
       enabled: true
     - domain: moonload.lan
-      answer: moonload.yaf.lan
+      answer: moonload.yan.lan
       enabled: true
     - domain: moonmedia.lan
-      answer: moonmedia.yaf.lan
+      answer: moonmedia.yan.lan
       enabled: true
     - domain: moondocs.lan
-      answer: moondocs.yaf.lan
+      answer: moondocs.yan.lan
       enabled: true
     - domain: moonai.lan
-      answer: moonai.yaf.lan
+      answer: moonai.yan.lan
       enabled: true
     - domain: moonprint.lan
-      answer: moonprint.yaf.lan
+      answer: moonprint.yan.lan
       enabled: true
     - domain: moondns.lan
-      answer: moondns.yaf.lan
+      answer: moondns.yan.lan
       enabled: true
     - domain: moonproxy.lan
-      answer: moonproxy.yaf.lan
+      answer: moonproxy.yan.lan
       enabled: true
     - domain: inky.lan
-      answer: inky.yaf.lan
+      answer: inky.yan.lan
       enabled: true
     # vasilkovo (17)
     - domain: point.vas.wan
@@ -248,9 +249,6 @@ filtering:
     - domain: mts.yaf.wan
       answer: 192.168.1.1
       enabled: true
-    - domain: yota.yaf.wan
-      answer: 192.168.0.1
-      enabled: true
     - domain: router.yaf.lan
       answer: titania.yaf.lan
       enabled: true
@@ -271,81 +269,6 @@ filtering:
       enabled: true
     - domain: '*.app.yaf.lan'
       answer: ariel.yaf.lan
-      enabled: true
-    - domain: terra.yaf.lan
-      answer: 172.20.2.12
-      enabled: true
-    - domain: '*.terra.yaf.lan'
-      answer: terra.yaf.lan
-      enabled: true
-    - domain: mani.yaf.lan
-      answer: 172.20.2.20
-      enabled: true
-    - domain: luna.yaf.lan
-      answer: 172.20.2.21
-      enabled: true
-    - domain: '*.luna.yaf.lan'
-      answer: moonproxy.yaf.lan
-      enabled: true
-    - domain: selena.yaf.lan
-      answer: 172.20.2.22
-      enabled: true
-    - domain: '*.selena.yaf.lan'
-      answer: moonproxy.yaf.lan
-      enabled: true
-    - domain: hina.yaf.lan
-      answer: 172.20.2.23
-      enabled: true
-    - domain: '*.hina.yaf.lan'
-      answer: moonproxy.yaf.lan
-      enabled: true
-    - domain: '*.moon.yaf.lan'
-      answer: moonproxy.yaf.lan
-      enabled: true
-    - domain: moonadmin.yaf.lan
-      answer: 172.20.2.210
-      enabled: true
-    - domain: moonload.yaf.lan
-      answer: 172.20.2.211
-      enabled: true
-    - domain: moonmedia.yaf.lan
-      answer: 172.20.2.212
-      enabled: true
-    - domain: moondocs.yaf.lan
-      answer: 172.20.2.213
-      enabled: true
-    - domain: moonai.yaf.lan
-      answer: 172.20.2.214
-      enabled: true
-    - domain: moonprint.yaf.lan
-      answer: 172.20.2.218
-      enabled: true      
-    - domain: moondns.yaf.lan
-      answer: 172.20.2.250
-      enabled: true
-    - domain: moonproxy.yaf.lan
-      answer: 172.20.2.252
-      enabled: true
-    - domain: phaeton.yaf.lan
-      answer: 172.20.2.201
-      enabled: true
-    - domain: '*.appnul.yaf.lan'
-      answer: moonproxy.yaf.lan
-      enabled: true
-    - domain: jupiter.yaf.lan
-      answer: 172.20.4.10
-      enabled: true
-    - domain: mars.yaf.lan
-      answer: 172.20.4.111
-      enabled: true
-    - domain: saturn.yaf.lan
-      answer: 172.20.4.112
-      enabled: true
-    - domain: uranus.yaf.lan
-      answer: 172.20.4.13
-      enabled: true
-    - domain: eris.yaf.lan
-      answer: 172.20.4.14
       enabled: true
     - domain: leda.yaf.lan
       answer: 172.20.4.115
@@ -403,9 +326,97 @@ filtering:
     - domain: '*.makemake.sh5.lan'
       answer: makemake.sh5.lan
       enabled: true
+    # yasenevon (23)
+    - domain: mts.yan.wan
+      answer: 192.168.1.254
+      enabled: true
+    - domain: yota.yan.wan
+      answer: 192.168.0.1
+      enabled: true
+    - domain: router.yan.lan
+      answer: triton.yan.lan
+      enabled: true
+    - domain: triton.yan.lan
+      answer: 172.23.0.1
+      enabled: true
+    - domain: terra.yan.lan
+      answer: 172.23.2.10
+      enabled: true
+    - domain: mani.yan.lan
+      answer: 172.23.2.20
+      enabled: true
+    - domain: luna.yan.lan
+      answer: 172.23.2.21
+      enabled: true
+    - domain: '*.luna.yan.lan'
+      answer: moonproxy.yan.lan
+      enabled: true
+    - domain: selena.yan.lan
+      answer: 172.23.2.22
+      enabled: true
+    - domain: '*.selena.yan.lan'
+      answer: moonproxy.yan.lan
+      enabled: true
+    - domain: hina.yan.lan
+      answer: 172.23.2.23
+      enabled: true
+    - domain: '*.hina.yan.lan'
+      answer: moonproxy.yan.lan
+      enabled: true
+    - domain: '*.moon.yan.lan'
+      answer: moonproxy.yan.lan
+      enabled: true
+    - domain: moonadmin.yan.lan
+      answer: 172.23.2.210
+      enabled: true
+    - domain: moonload.yan.lan
+      answer: 172.23.2.211
+      enabled: true
+    - domain: moonmedia.yan.lan
+      answer: 172.23.2.212
+      enabled: true
+    - domain: moondocs.yan.lan
+      answer: 172.23.2.213
+      enabled: true
+    - domain: moonai.yan.lan
+      answer: 172.23.2.214
+      enabled: true
+    - domain: moonprint.yan.lan
+      answer: 172.23.2.218
+      enabled: true      
+    - domain: moondns.yan.lan
+      answer: 172.23.2.250
+      enabled: true
+    - domain: moonproxy.yan.lan
+      answer: 172.23.2.254
+      enabled: true
+    - domain: phaeton.yan.lan
+      answer: 172.23.2.201
+      enabled: true
+    - domain: '*.app.yan.lan'
+      answer: moonproxy.yan.lan
+      enabled: true
+    - domain: jupiter.yan.lan
+      answer: 172.23.4.10
+      enabled: true
+    - domain: mars.yan.lan
+      answer: 172.23.4.111
+      enabled: true
+    - domain: saturn.yan.lan
+      answer: 172.23.4.112
+      enabled: true
+    - domain: uranus.yan.lan
+      answer: 172.23.4.13
+      enabled: true
+    - domain: eris.yan.lan
+      answer: 172.23.4.14
+      enabled: true
+    - domain: inky.yan.lan
+      answer: 172.23.6.50
+      enabled: true
     # web
     - domain: proxima.web.wan
-      answer: 208.92.227.11
+      answer: 144.31.55.142
       enabled: true
     - domain: proxima.wan
       answer: proxima.web.wan

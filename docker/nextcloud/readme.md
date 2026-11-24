@@ -1,3 +1,9 @@
+## keenetic
+```
+ip http proxy nextcloud preserve-origin
+system configuration save
+```
+
 ## config.php
 ```
   'memcache.distributed' => '\\OC\\Memcache\\Redis',

@@ -13,7 +13,7 @@ I=0
 for LABEL in "${APP_LABEL[@]}"; do
   # DNS
   if [ "$LABEL" = "D" ]; then
-    if [ $(dig mani.lan @moondns.lan | grep 172.20.2.20 | wc -c) -gt 0 ]; then
+    if [ $(dig mani.lan @moondns.lan | grep 172.23.2.20 | wc -c) -gt 0 ]; then
       APP_STATUS[$I]=Y
     else
       APP_STATUS[$I]=N
